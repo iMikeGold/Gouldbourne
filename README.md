@@ -20,10 +20,6 @@ For three decades, I have built systems and refined audio environments. Today, I
 
 Interested in a consultation, technical advice, or exploring how behavioral insight can improve your projects?
 
-* **[Read My Story](https://gouldbourne.co.uk/about/)**
-* **[View Credentials & CV](https://gouldbourne.co.uk/credentials/)**
-* **[Book a Session](https://gouldbourne.co.uk/connect/)**
-
 ---
 
 *© 2026 Micheal Gouldbourne | Built on Experience, Perception, and Precision.*
