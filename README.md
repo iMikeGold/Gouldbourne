@@ -1,3 +1,4 @@
+
 ---
 
 ## GOULDBOURNE
@@ -19,6 +20,10 @@ For three decades, I have built systems and refined audio environments. Today, I
 ## Get in Touch
 
 Interested in a consultation, technical advice, or exploring how behavioral insight can improve your projects?
+
+* **[Read My Story](https://gouldbourne.co.uk/about/)**
+* **[View Credentials](https://gouldbourne.co.uk/credentials/)**
+* **[Book a Session](https://gouldbourne.co.uk/connect/)**
 
 ---
 
