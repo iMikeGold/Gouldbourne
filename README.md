@@ -2,7 +2,7 @@
 
 ## GOULDBOURNE
 
-**Engineering • Biology • Perception**
+**Engineering - Biology - Perception**
 
 Welcome to the digital home of Micheal Gouldbourne. This project represents the intersection of 30 years of technical craftsmanship—spanning systems engineering, sound tuning, and operations—with modern neuroscientific research into human perception.
 
