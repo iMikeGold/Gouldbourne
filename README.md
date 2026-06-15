@@ -1,46 +1,29 @@
-# 11straps = 11ty + Bootstrap5
+---
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/64b42b0c-aeba-4583-b023-202fcdf571bb/deploy-status)](https://app.netlify.com/sites/11straps-demo/deploys)
+# GOULDBOURNE
 
-**Live Demo**: <a href="https://11straps.com" target="_blank">11straps.com</a>
+**Engineering • Biology • Perception**
 
-## What is 11straps?
-11straps is a simple boilerplate. It combines the static site generator <a href="https://www.11ty.dev/" target="_blank">11ty</a> with the CSS framework <a href="https://getbootstrap.com/" target="_blank">Bootstrap 5</a> and is stitched together with some npm and Gulp magic dust. It minifies and purges the CSS file (so it removes any unused CSS) and comes with a static server and browser sync support for your local development.
+Welcome to the digital home of Micheal Gouldbourne. This project represents the intersection of 30 years of technical craftsmanship—spanning systems engineering, sound tuning, and operations—with modern neuroscientific research into human perception.
 
-## Requirements
-You need Node (at least v8+) on your computer. To check if you have node and what version run this command in your terminal:
-```
-node --version
-```
+## About
 
-## Want to try it out now?
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/holger1411/11straps)
+For three decades, I have built systems and refined audio environments. Today, I combine that technical background with an academic focus on how the human brain experiences the world and the technologies we create.
 
-## Installation
-Download and extract the [latest release](https://github.com/holger1411/11straps/releases) or checkout the main branch of this repo.
-Fire up your terminal, go to the new folder and run:
-```
-npm install
-```
-Now you are good to go.
+## Focus Areas
 
-## Build it for dev
-To build your static website for local development run:
-```
-npm run build-dev
-```
-This will build the static website into the `/dev` folder without all the minifiying and purging stuff (<- much faster and a more human friendly code output, but a much bigger package)
+* **Systems & Operations:** Decades of experience in technical management and infrastructure.
+* **Sound Engineering:** Precision audio tuning and acoustic design.
+* **Neuroscience & Perception:** Bridging the gap between engineering and human experience.
 
-## Run in dev mode
-To run the build-dev task automatically on file changes run:
-```
-npm run watch
-```
-That will run a local server from `/dev` folder and connects browser sync to it. On changes within the `/src` folder it will run the `npm run build-dev` command automatically and will refresh your browser.
+## Get in Touch
 
-## Build it for prod
-If you are done with your dev work and happy with it its time to deploy your static website into the wild wild west (www). To build your static website for a prod deployment run:
-```
-npm run build
-```
-That will output the full site, with purged and minified CSS and minified html. The output will be stored in the `/public` folder.
+Interested in a consultation, technical advice, or exploring how behavioral insight can improve your projects?
+
+* **[Read My Story](https://gouldbourne.co.uk/about/)**
+* **[View Credentials & CV](https://gouldbourne.co.uk/credentials/)**
+* **[Book a Session](https://gouldbourne.co.uk/connect/)**
+
+---
+
+*© 2026 Micheal Gouldbourne | Built on Experience, Perception, and Precision.*
