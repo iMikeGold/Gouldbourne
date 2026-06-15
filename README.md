@@ -13,8 +13,8 @@ For three decades, I have built systems and refined audio environments. Today, I
 
 ## Focus Areas
 
-* **Systems & Operations:** Decades of experience in technical management and infrastructure.
 * **Sound Engineering:** Precision audio tuning and acoustic design.
+* **Systems & Operations:** Decades of experience in technical management and infrastructure.
 * **Neuroscience & Perception:** Bridging the gap between engineering and human experience.
 
 ## Get in Touch
