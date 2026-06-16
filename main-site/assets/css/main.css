@@ -1,8 +1,7 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.93 — ORIGINAL SCRUB LOGIC + NEW STYLES
+GOULDBOURNE.CO.UK | VERSION 1.94 — ORIGINAL SCRUB LOGIC + FIXED CAROUSEL
 Colour Palette & Design System
 ============================================== */
-
 :root {
   /* Base Backgrounds — soft dark, not pure black */
   --bg-main:       #121417;   /* Primary background */
@@ -150,7 +149,6 @@ nav ul {
     position: absolute;
     top: 100%;
     left: 0;
-    /* FIXED WIDTH: matches longest text = "Credentials" */
     width: 123px;
     background: var(--bg-surface);
     border: 1px solid var(--border-gold);
@@ -251,118 +249,63 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 1.93: ORIGINAL SCRUB LOGIC
+CAROUSEL STYLES — FIXED: NO CONFLICTS, PERFECT LOOP, NO STUTTER
 ============================================== */
 .logo-banner {
-  /* FULL WIDTH EDGE‑TO‑EDGE */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-
-  /* ✅ ELEGANT RIBBON — soft white, clear but subtle, perfect contrast */
-  background: rgba(255, 255, 255, 0.11);
-
-  /* ✅ BRIGHTER GOLD EDGES — premium, defined ribbon borders */
-  border-top: 1px solid var(--gold-main);
-  border-bottom: 1px solid var(--gold-main);
-
-  /* ✅ SLIM, ELEGANT HEIGHT — like a fine wrapped ribbon */
-  padding: 0.9rem 0;
-
   overflow: hidden;
+  width: 100%;
   position: relative;
+  padding: 1rem 0;
   cursor: grab;
-
-  /* STOP TEXT HIGHLIGHTING WHEN DRAGGING */
   user-select: none;
   -webkit-user-select: none;
+  margin: 2rem 0 0;
+  background: transparent;
+  border: none;
 }
-.logo-banner:active { cursor: grabbing; }
-
-/* Fade edges — now works on full width, logos fade out into shadow */
-.logo-banner::before,
-.logo-banner::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 80px;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
+.logo-banner.dragging {
+  cursor: grabbing;
 }
-.logo-banner::before { left: 0; background: linear-gradient(90deg, var(--bg-main), transparent); }
-.logo-banner::after  { right: 0; background: linear-gradient(-90deg, var(--bg-main), transparent); }
 
 .logo-scroll {
   display: flex;
-  gap: 2.5rem;
-  width: max-content;
-  will-change: transform;
-
-  /* ✅ FORCE ANIMATION TO RUN FROM PAGE LOAD — NO DELAY */
-  animation-play-state: running !important;
-}
-
-/* ✅ FIXED KEYFRAMES — matches loop=3, NO JUMP */
-@keyframes scrollLoop {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
-}
-.logo-scroll.auto {
-  animation: scrollLoop 80s linear infinite;
-}
-
-/* ✅ PAUSE ONLY WHEN HOVERING OR DRAGGING — INSTANT RESUME */
-.logo-banner:hover .logo-scroll.auto,
-.logo-banner.dragging .logo-scroll.auto {
-  animation-play-state: paused !important;
-}
-
-.logo-badge {
-  min-width: 110px;
-  text-align: center;
-  padding: 0.7rem 0.6rem;
-  border-radius: 4px;
-  background: linear-gradient(145deg, var(--bg-elevated), var(--bg-surface));
-  border: 1px solid var(--border-light);
-  color: var(--text-muted);
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-.logo-badge:hover {
-  border-color: var(--gold-main);
-  color: var(--gold-bright);
-  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.15);
-}
-
-/* Logo image styling — fits perfectly inside badge */
-.logo-badge img {
-  max-width: 100%;
-  max-height: 40px;
+  gap: 2rem;
+  align-items: center;
+  /* CORRECT START POSITION — matches loop=2 */
+  transform: translateX(-50%);
+  transition: none !important;
+  white-space: nowrap;
   width: auto;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
+  will-change: transform;
 }
-.logo-badge:hover img {
-  opacity: 1;
+
+.logo-scroll.auto {
+  animation: scrollLoop 30s linear infinite;
+}
+
+/* PAUSE ANIMATION ONLY BY DISABLING — NO PLAY-STATE CONFLICTS */
+.logo-banner.dragging .logo-scroll,
+.logo-banner:hover .logo-scroll {
+  animation: none;
+}
+
+/* FIXED KEYFRAMES — EXACT MATCH FOR 2 COPIES, NO JUMP/STUTTER */
+@keyframes scrollLoop {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(-100%); }
 }
 
 /* ==============================================
-NEW CAROUSEL STYLES — NO BOXES, LOGOS + TEXT
+CLIENT ITEM / LOGO STYLES
 ============================================== */
 .client-item {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
   height: 36px;
 }
 .client-item a {
-  display: block;
-  text-decoration: none !important;
+  text-decoration: none;
   color: var(--text-muted);
   font-size: 1.1rem;
   font-weight: 500;
@@ -396,11 +339,9 @@ Responsive — UPDATED
   }
 
   h1 { font-size: 2rem; }
-  .logo-badge { min-width: 90px; padding: 0.6rem 0.4rem; }
 }
 
 @media (min-width: 769px) {
-  /* On desktop, menu is horizontal — no dropdown */
   .menu-toggle { display: none; }
   nav ul { position: static; width: auto; background: transparent; border: none; box-shadow: none; }
 }
