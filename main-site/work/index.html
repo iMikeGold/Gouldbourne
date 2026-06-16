@@ -15,15 +15,56 @@
       align-items: center;
       gap: 0.3rem;
     }
-    .back-link::before { content: "←"; font-size: 0.9rem; }
-    .back-link:hover, .back-link:active { color: #008A5C !important; }
-    .logo-banner { background: transparent !important; border: none !important; padding: 2rem 0 !important; margin: 2rem 0 !important; overflow: hidden !important; }
-    .logo-scroll { display: flex !important; gap: 4rem !important; align-items: center !important; width: max-content !important; transform: translateX(-33.3333%) !important; animation: scrollLoop 40s linear infinite !important; }
-    @keyframes scrollLoop { 0% { transform: translateX(-33.3333%); } 100% { transform: translateX(-66.6666%); } }
-    .client-item { flex: 0 0 auto !important; display: flex !important; align-items: center !important; height: 36px !important; }
-    .client-item a { text-decoration: none !important; color: var(--text-muted, #b0b0b8) !important; transition: color 0.2s ease !important; font-size: 1.1rem !important; font-weight: 500 !important; }
-    .client-item a:hover { color: var(--gold-bright, #d4af37) !important; }
-    .client-logo { height: 32px !important; width: auto !important; max-width: 180px !important; object-fit: contain !important; display: block !important; }
+    .back-link::before {
+      content: "←";
+      font-size: 0.9rem;
+    }
+    .back-link:hover,
+    .back-link:active {
+      color: #008A5C !important;
+    }
+    .logo-banner {
+      background: transparent !important;
+      border: none !important;
+      padding: 2rem 0 !important;
+      margin: 2rem 0 !important;
+      overflow: hidden !important;
+    }
+    .logo-scroll {
+      display: flex !important;
+      gap: 4rem !important;
+      align-items: center !important;
+      width: max-content !important;
+      transform: translateX(-33.3333%) !important;
+      animation: scrollLoop 40s linear infinite !important;
+    }
+    @keyframes scrollLoop {
+      0% { transform: translateX(-33.3333%); }
+      100% { transform: translateX(-66.6666%); }
+    }
+    .client-item {
+      flex: 0 0 auto !important;
+      display: flex !important;
+      align-items: center !important;
+      height: 36px !important;
+    }
+    .client-item a {
+      text-decoration: none !important;
+      color: var(--text-muted, #b0b0b8) !important;
+      transition: color 0.2s ease !important;
+      font-size: 1.1rem !important;
+      font-weight: 500 !important;
+    }
+    .client-item a:hover {
+      color: var(--gold-bright, #d4af37) !important;
+    }
+    .client-logo {
+      height: 32px !important;
+      width: auto !important;
+      max-width: 180px !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
   </style>
 </head>
 <body>
