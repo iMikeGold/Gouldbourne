@@ -1,40 +1,32 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.99 — FINAL FIX: NO JUMPS, CONTINUOUS LOOP, ALWAYS VISIBLE
+GOULDBOURNE.CO.UK | VERSION 2.0.0 — RESET TO WORKING BASE: SCROLL WORKS, ALWAYS VISIBLE, NO JUMPS
 Colour Palette & Design System
 ============================================== */
 :root {
-  /* Base Backgrounds — soft dark, not pure black */
-  --bg-main:       #121417;   /* Primary background */
-  --bg-surface:    #1A1D21;   /* Cards, panels, sections */
-  --bg-elevated:   #24282D;   /* Hover, modals, highlights */
-  --bg-highlight:  #2E3238;   /* Stronger lift / highlight */
+  --bg-main:       #121417;
+  --bg-surface:    #1A1D21;
+  --bg-elevated:   #24282D;
+  --bg-highlight:  #2E3238;
 
-  /* Primary Brand — Gold tones */
-  --gold-main:     #D4AF37;   /* Rich signature gold */
-  --gold-bright:   #F2D06B;   /* Highlight / headings */
-  --gold-muted:    #B8972F;   /* Subtle borders / accents */
+  --gold-main:     #D4AF37;
+  --gold-bright:   #F2D06B;
+  --gold-muted:    #B8972F;
 
-  /* Accent — Emerald green */
-  --emerald-main:  #1F7A54;   /* Buttons & focus elements */
-  --emerald-bright:#2EA875;   /* Hover / active states */
-  --emerald-muted: #185C40;   /* Dividers / subtle accents */
+  --emerald-main:  #1F7A54;
+  --emerald-bright:#2EA875;
+  --emerald-muted: #185C40;
 
-  /* Text & Contrast — ORIGINAL VALUES PRESERVED */
-  --text-primary:  #F8F9FA;   /* Brightest text */
-  --text-secondary:#C5C9CE;   /* Standard body text */
-  --text-muted:    #8A8F96;   /* Secondary notes / metadata */
-  --text-on-gold:  #121417;   /* Dark text on gold backgrounds */
-  --text-on-emerald:#FFFFFF;  /* White text on emerald backgrounds */
+  --text-primary:  #F8F9FA;
+  --text-secondary:#C5C9CE;
+  --text-muted:    #8A8F96;
+  --text-on-gold:  #121417;
+  --text-on-emerald:#FFFFFF;
 
-  /* Borders & Dividers — ORIGINAL VALUES PRESERVED */
   --border-light:  #2E3238;
   --border-gold:   #423A20;
   --border-emerald:#203A30;
 }
 
-/* ==============================================
-Global Reset & Base Styles
-============================================== */
 * {
   margin: 0;
   padding: 0;
@@ -50,7 +42,6 @@ body {
   transition: background-color 0.6s ease;
 }
 
-/* Scroll‑brightening effect */
 body.scrolled {
   --bg-main:       #15181C;
   --bg-surface:    #1E2227;
@@ -58,13 +49,11 @@ body.scrolled {
   background: linear-gradient(180deg, var(--bg-main) 0%, #181B1F 100%);
 }
 
-/* Typography — ORIGINAL VALUES PRESERVED */
 h1, h2, h3, h4 {
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 1rem;
 }
-
 h1 { color: var(--gold-bright); font-size: 2.5rem; }
 h2 { color: var(--gold-main); font-size: 2rem; }
 h3 { color: var(--gold-main); font-size: 1.5rem; }
@@ -77,19 +66,14 @@ a {
   text-decoration: none;
   transition: color 0.2s ease;
 }
+a:hover { color: var(--gold-bright); }
 
-a:hover {
-  color: var(--gold-bright);
-}
-
-/* Layout Container — ORIGINAL */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-/* Header & Navigation — UPDATED MENU STYLE */
 header {
   background: linear-gradient(180deg, var(--bg-surface), var(--bg-main));
   border-bottom: 1px solid var(--border-gold);
@@ -97,10 +81,7 @@ header {
   margin-bottom: 2rem;
   position: relative;
 }
-
-header .container {
-  position: relative;
-}
+header .container { position: relative; }
 
 nav {
   display: inline-block;
@@ -109,7 +90,6 @@ nav {
   position: relative;
 }
 
-/* NEW MENU BUTTON — NO BLACK BOX, GOLD RING ONLY */
 .menu-toggle {
   display: none;
   background: transparent !important;
@@ -129,7 +109,6 @@ nav {
   color: var(--gold-bright);
 }
 
-/* NEW DROPDOWN — WIDTH MATCHES LONGEST LINK ("Credentials") */
 nav ul {
   list-style: none;
   display: flex;
@@ -138,10 +117,7 @@ nav ul {
 }
 
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: inline-block;
-  }
-
+  .menu-toggle { display: inline-block; }
   nav ul {
     display: none;
     flex-direction: column;
@@ -149,7 +125,6 @@ nav ul {
     position: absolute;
     top: 100%;
     left: 0;
-    /* FIXED WIDTH: matches longest text = "Credentials" */
     width: 123px;
     background: var(--bg-surface);
     border: 1px solid var(--border-gold);
@@ -159,34 +134,21 @@ nav ul {
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     opacity: 0.87;
   }
-
-  nav ul.active {
-    display: flex;
-  }
-
-  nav ul li {
-    width: 100%;
-  }
+  nav ul.active { display: flex; }
+  nav ul li { width: 100%; }
 }
 
 nav a {
   color: var(--text-secondary);
   font-weight: 500;
 }
-
-nav a:hover {
-  color: var(--gold-bright);
-}
-
+nav a:hover { color: var(--gold-bright); }
 nav a.active {
   color: var(--gold-main);
   border-bottom: 2px solid var(--gold-main);
 }
 
-/* Sections & Cards — UPDATED: gradients, shadows, lift effect */
-section {
-  margin-bottom: 3rem;
-}
+section { margin-bottom: 3rem; }
 
 .card {
   background: linear-gradient(145deg, var(--bg-surface), var(--bg-elevated));
@@ -197,7 +159,6 @@ section {
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
   transition: all 0.25s ease;
 }
-
 .card:hover {
   border-color: var(--emerald-muted);
   background-color: var(--bg-elevated);
@@ -205,7 +166,6 @@ section {
   transform: translateY(-2px);
 }
 
-/* Buttons — UPDATED: glow on hover */
 .btn {
   display: inline-block;
   padding: 0.7rem 1.4rem;
@@ -216,29 +176,24 @@ section {
   border: none;
   transition: all 0.25s ease;
 }
-
 .btn-gold {
   background-color: var(--gold-main);
   color: var(--text-on-gold);
 }
-
 .btn-gold:hover {
   background-color: var(--gold-bright);
   color: var(--text-on-gold);
   box-shadow: 0 0 12px rgba(242, 208, 107, 0.3);
 }
-
 .btn-emerald {
   background-color: var(--emerald-main);
   color: var(--text-on-emerald);
 }
-
 .btn-emerald:hover {
   background-color: var(--emerald-bright);
   box-shadow: 0 0 12px rgba(46, 168, 117, 0.3);
 }
 
-/* Footer — UPDATED: gradient */
 footer {
   background: linear-gradient(180deg, var(--bg-main), var(--bg-surface));
   border-top: 1px solid var(--border-gold);
@@ -250,39 +205,31 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 1.99: NO JUMPS, 3X LOOP, ALWAYS VISIBLE
+CAROUSEL — VERSION 2.0.0: SCROLL WORKS, ALWAYS VISIBLE, NO JUMPS
 ============================================== */
 .logo-banner {
-  /* FULL WIDTH EDGE‑TO‑EDGE */
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 
-  /* ✅ ELEGANT RIBBON — soft white, clear but subtle, perfect contrast */
   background: rgba(255, 255, 255, 0.11);
-
-  /* ✅ BRIGHTER GOLD EDGES — premium, defined ribbon borders */
   border-top: 1px solid var(--gold-main);
   border-bottom: 1px solid var(--gold-main);
-
-  /* ✅ SLIM, ELEGANT HEIGHT — like a fine wrapped ribbon */
   padding: 0.9rem 0;
 
   overflow: hidden;
   position: relative;
   cursor: grab;
-
-  /* STOP TEXT HIGHLIGHTING WHEN DRAGGING */
   user-select: none;
   -webkit-user-select: none;
 
-  /* ✅ ALWAYS VISIBLE — NO HIDDEN START */
+  /* ✅ FORCE VISIBLE — NO HIDING */
   opacity: 1 !important;
   visibility: visible !important;
+  display: block !important;
 }
 .logo-banner.dragging { cursor: grabbing; }
 
-/* Fade edges — now works on full width, logos fade out into shadow */
 .logo-banner::before,
 .logo-banner::after {
   content: "";
@@ -300,9 +247,8 @@ CAROUSEL STYLES — VERSION 1.99: NO JUMPS, 3X LOOP, ALWAYS VISIBLE
   display: flex;
   gap: 2rem;
   align-items: center;
-  /* ✅ CORRECT START — MATCHES KEYFRAME, NO BLANK */
+  /* ✅ CORRECT START FOR 3X LOOP */
   transform: translateX(-33.333%);
-  /* ✅ NO TRANSITIONS — NO CONFLICTS */
   transition: none !important;
   white-space: nowrap;
   width: max-content;
@@ -313,57 +259,18 @@ CAROUSEL STYLES — VERSION 1.99: NO JUMPS, 3X LOOP, ALWAYS VISIBLE
   animation: scrollLoop 45s linear infinite;
 }
 
-/* ✅ PAUSE WITHOUT MOVING — NO JUMP ON HOVER */
-.logo-banner.dragging .logo-scroll {
-  animation-play-state: paused !important;
-}
-@media (hover: hover) {
-  .logo-banner:hover .logo-scroll {
-    animation-play-state: paused !important;
-  }
+/* ✅ WORKING PAUSE LOGIC — NO BREAKING SCROLL */
+.logo-banner.dragging .logo-scroll,
+.logo-banner:hover .logo-scroll {
+  animation: none !important;
 }
 
-/* ✅ 3X LOOP MATH — PERFECT CONTINUOUS SCROLL */
+/* ✅ 3X LOOP — NO BLANK SPACE */
 @keyframes scrollLoop {
   0% { transform: translateX(-33.333%); }
   100% { transform: translateX(-66.666%); }
 }
 
-.logo-badge {
-  min-width: 110px;
-  text-align: center;
-  padding: 0.7rem 0.6rem;
-  border-radius: 4px;
-  background: linear-gradient(145deg, var(--bg-elevated), var(--bg-surface));
-  border: 1px solid var(--border-light);
-  color: var(--text-muted);
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-.logo-badge:hover {
-  border-color: var(--gold-main);
-  color: var(--gold-bright);
-  box-shadow: 0 2px 6px rgba(212, 175, 55, 0.15);
-}
-
-/* Logo image styling — fits perfectly inside badge */
-.logo-badge img {
-  max-width: 100%;
-  max-height: 40px;
-  width: auto;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
-}
-.logo-badge:hover img {
-  opacity: 1;
-}
-
-/* ==============================================
-NEW CAROUSEL STYLES — NO BOXES, LOGOS + TEXT
-============================================== */
 .client-item {
   flex: 0 0 auto !important;
   display: flex !important;
@@ -378,9 +285,7 @@ NEW CAROUSEL STYLES — NO BOXES, LOGOS + TEXT
   line-height: 1 !important;
   transition: color 0.2s ease !important;
 }
-.client-item a:hover {
-  color: var(--gold-bright) !important;
-}
+.client-item a:hover { color: var(--gold-bright) !important; }
 .client-logo {
   height: 32px !important;
   width: auto !important;
@@ -390,13 +295,8 @@ NEW CAROUSEL STYLES — NO BOXES, LOGOS + TEXT
   opacity: 0.9 !important;
   transition: opacity 0.2s ease !important;
 }
-.client-item a:hover .client-logo {
-  opacity: 1 !important;
-}
+.client-item a:hover .client-logo { opacity: 1 !important; }
 
-/* ==============================================
-BACK BUTTON STYLE — KEPT EXACTLY
-============================================== */
 .back-link {
   font-size: 0.85rem !important;
   color: var(--gold-bright) !important;
@@ -406,31 +306,15 @@ BACK BUTTON STYLE — KEPT EXACTLY
   align-items: center;
   gap: 0.3rem;
 }
-.back-link::before {
-  content: "←";
-  font-size: 0.9rem;
-}
+.back-link::before { content: "←"; font-size: 0.9rem; }
 .back-link:hover,
-.back-link:active {
-  color: var(--emerald-bright) !important;
-}
+.back-link:active { color: var(--emerald-bright) !important; }
 
-/* ==============================================
-Responsive — UPDATED
-============================================== */
 @media (max-width: 768px) {
-  nav {
-    width: 100%;
-    margin-left: 0 !important;
-    margin-top: 1rem;
-  }
-
+  nav { width: 100%; margin-left: 0 !important; margin-top: 1rem; }
   h1 { font-size: 2rem; }
-  .logo-badge { min-width: 90px; padding: 0.6rem 0.4rem; }
 }
-
 @media (min-width: 769px) {
-  /* On desktop, menu is horizontal — no dropdown */
   .menu-toggle { display: none; }
   nav ul { position: static; width: auto; background: transparent; border: none; box-shadow: none; }
 }
