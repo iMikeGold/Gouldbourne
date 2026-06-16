@@ -10,95 +10,28 @@
 
 <header>
   <div class="container">
-    <h2 style="margin:0; display:inline-block; color:var(--gold-bright);">GO(U)LDBO(U)RNE</h2>
-    <nav style="display:inline-block; margin-left:2rem; width: calc(100% - 150px);">
-      <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
-      <ul id="mainMenu">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../about/index.html">About</a></li>
-        <li><a href="../credentials/index.html">Credentials</a></li>
-        <li><a href="../blog/index.html">Blog</a></li>
-        <li><a href="index.html" class="active">Work</a></li>
-        <li><a href="../connect/index.html">Connect</a></li>
-        <li><a href="javascript:history.back()" class="back-link">Back</a></li>
-      </ul>
-    </nav>
+    <h2 style="color:var(--gold-bright); display:inline-block;">GO(U)LDBO(U)RNE</h2>
   </div>
 </header>
 
 <main class="container">
-  <section>
-    <h1>Projects & Clients</h1>
-    <p>Systems built, events delivered, and partners worked with for almost 30 years.</p>
-  </section>
-
-  <section>
-    <h2>Key Areas</h2>
-    <a href="projects/broadcast-systems.html" style="text-decoration: none; color: inherit;">
-      <div class="card">
-        <h4>Broadcast & Live Sound</h4>
-        <p>System design, RF coordination, live events.</p>
-      </div>
-    </a>
-    <a href="projects/studio-live-events.html" style="text-decoration: none; color: inherit;">
-      <div class="card">
-        <h4>Studio & Live Events</h4>
-        <p>Recording, mixing, mastering and music productions</p>
-      </div>
-    </a>
-    <a href="projects/media-production.html" style="text-decoration: none; color: inherit;">
-      <div class="card">
-        <h4>Film & Media Production</h4>
-        <p>Camera operation, lighting, editing and videography productions</p>
-      </div>
-    </a>
-    <a href="projects/music-production.html" style="text-decoration: none; color: inherit;">
-      <div class="card">
-        <h4>Art & Music Production</h4>
-        <p>Music productions and creative expressions</p>
-      </div>
-    </a>
-    <a href="projects/server-infrastructure.html" style="text-decoration: none; color: inherit;">
-      <div class="card">
-        <h4>Operations & Infrastructure</h4>
-        <p>Warehouse logistics, server architecture, ISO compliance, supply chain management.</p>
-      </div>
-    </a>
-  </section>
-
-  <section>
-    <h2>Selected Clients</h2>
-    <div class="card">
-      <p>Local councils, major brands, sports organisations and telecoms partners delivered for over 30 years.</p>
-      <a href="clients.html" class="btn btn-gold">Full List</a>
-    </div>
-  </section>
+  <h1>Selected Clients</h1>
 </main>
 
 <div class="logo-banner">
-  <div class="logo-scroll auto" id="clientScroll"></div>
+  <div class="logo-scroll" id="clientScroll"></div>
 </div>
 
-<footer>
-  <div class="container">
-    <p>© 2026 Micheal | Gouldbourne
-      <a href="../legal/privacy.html">Privacy Policy</a> |
-      <a href="../legal/terms.html">Terms of Use</a>
-    </p>
-  </div>
+<footer style="text-align:center; padding:2rem 0; color:var(--text-muted);">
+  © 2026 Gouldbourne
 </footer>
 
 <script>
-function toggleMenu() {
-  const btn = document.querySelector('.menu-toggle');
-  const menu = document.getElementById('mainMenu');
-  btn.classList.toggle('active');
-  menu.classList.toggle('active');
-}
-
-window.addEventListener('scroll', () => {
-  document.body.classList.toggle('scrolled', window.scrollY > 200);
-});
+let autoSpeed = 0.08; // lower = slower
+let scrollPos = 0;
+let isDragging = false;
+let startX, startPos;
+let animationFrame;
 
 async function loadClients() {
   try {
@@ -108,98 +41,101 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // ✅ 3 COPIES = NO BLANK SPACE, FULL CONTINUOUS LOOP
-    for (let loop = 0; loop < 3; loop++) {
-      clients.forEach(client => {
-        const content = client.logo
-          ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
-          : `${client.name}`;
-        html += `<div class="client-item"><a href="${client.url}" target="_blank" rel="noopener noreferrer">${content}</a></div>`;
+    // 3 copies = seamless infinite loop, no blank space
+    for (let i = 0; i < 3; i++) {
+      clients.forEach(c => {
+        html += `<div class="client-item">
+          <a href="${c.url}" target="_blank">
+            <img src="../assets/images/clients/${c.logo}" alt="${c.name}" class="client-logo">
+          </a>
+        </div>`;
       });
     }
 
     container.innerHTML = html;
     initCarousel();
   } catch (err) {
-    console.error('Error loading clients:', err);
+    console.error('Load error:', err);
   }
 }
 
-// VERSION 2.0 — SCROLL WORKS, NO JUMPS, ALWAYS VISIBLE
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
-  if (!banner || !scroll) return;
+  const contentWidth = scroll.scrollWidth / 3;
 
-  let isDown = false, startX, currentX;
-
-  // --- MOUSE ---
+  // --- MOUSE EVENTS ---
   banner.addEventListener('mousedown', e => {
-    isDown = true;
+    isDragging = true;
     banner.classList.add('dragging');
-    startX = e.pageX - banner.offsetLeft;
-    // CAPTURE EXACT POSITION — NO JUMP
-    const transform = getComputedStyle(scroll).transform;
-    const matrix = new DOMMatrixReadOnly(transform);
-    currentX = matrix.m41;
+    startX = e.clientX;
+    startPos = scrollPos;
+    cancelAnimationFrame(animationFrame);
     e.preventDefault();
-  });
-
-  banner.addEventListener('mouseup', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
-    // RESTART FROM SAME SPOT — NO SNAP
-    scroll.style.animation = 'none';
-    void scroll.offsetWidth;
-    scroll.style.animation = 'scrollLoop 45s linear infinite';
-  });
-
-  banner.addEventListener('mouseleave', () => {
-    if (!isDown) return;
-    isDown = false;
-    banner.classList.remove('dragging');
-    // SAME SAFE RESTART
-    scroll.style.animation = 'none';
-    void scroll.offsetWidth;
-    scroll.style.animation = 'scrollLoop 45s linear infinite';
   });
 
   banner.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - banner.offsetLeft;
-    const move = (x - startX) * 1.5;
-    // SMOOTH DRAG — NO BREAKS
-    scroll.style.transform = `translateX(${currentX + move}px)`;
+    if (!isDragging) return;
+    const delta = (e.clientX - startX) * 1.2;
+    scrollPos = startPos + delta;
+    wrapPosition();
+    updateTransform();
   });
 
-  // --- TOUCH ---
+  banner.addEventListener('mouseup', endDrag);
+  banner.addEventListener('mouseleave', endDrag);
+
+  // --- TOUCH EVENTS ---
   banner.addEventListener('touchstart', e => {
-    isDown = true;
+    isDragging = true;
     banner.classList.add('dragging');
-    startX = e.touches[0].pageX - banner.offsetLeft;
-    // CAPTURE POSITION ON EVERY TOUCH — NO JUMP ON RELEASE
-    const transform = getComputedStyle(scroll).transform;
-    const matrix = new DOMMatrixReadOnly(transform);
-    currentX = matrix.m41;
+    startX = e.touches[0].clientX;
+    startPos = scrollPos;
+    cancelAnimationFrame(animationFrame);
   }, { passive: true });
-
-  banner.addEventListener('touchend', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
-    // RESTART SMOOTHLY — NO SNAP
-    scroll.style.animation = 'none';
-    void scroll.offsetWidth;
-    scroll.style.animation = 'scrollLoop 45s linear infinite';
-  });
 
   banner.addEventListener('touchmove', e => {
-    if (!isDown) return;
-    const x = e.touches[0].pageX - banner.offsetLeft;
-    const move = (x - startX) * 1.5;
-    // SCRUB WORKS PERFECTLY
-    scroll.style.transform = `translateX(${currentX + move}px)`;
+    if (!isDragging) return;
+    const delta = (e.touches[0].clientX - startX) * 1.2;
+    scrollPos = startPos + delta;
+    wrapPosition();
+    updateTransform();
   }, { passive: true });
+
+  banner.addEventListener('touchend', endDrag);
+
+  // --- Helpers ---
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    banner.classList.remove('dragging');
+    startAutoScroll();
+  }
+
+  function wrapPosition() {
+    // Keeps position in bounds, no blank space
+    if (scrollPos > 0) scrollPos -= contentWidth;
+    if (scrollPos < -contentWidth) scrollPos += contentWidth;
+  }
+
+  function updateTransform() {
+    scroll.style.transform = `translateX(${scrollPos}px)`;
+  }
+
+  function startAutoScroll() {
+    function animate() {
+      if (!isDragging) {
+        scrollPos -= autoSpeed;
+        wrapPosition();
+        updateTransform();
+      }
+      animationFrame = requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
+  // Start running instantly, visible immediately
+  startAutoScroll();
 }
 
 loadClients();
