@@ -152,7 +152,7 @@
     },
      {
       "name": "VW",
-      "logo": "vw.png",
+      "logo": "vw-logo.png",
       "url": "https://youtu.be/M1yI4TFooJk?si=4AN_rzv4m2lWZ9Oh"
     },
      {
@@ -164,6 +164,11 @@
       "name": "Chemical Brothers",
       "logo": "chemical-brothers.png",
       "url": "https://youtu.be/cHtoBqmRYfA?si=MCw6p5jaqkSLtDqW"
+    },
+     {
+      "name": "The Bill",
+      "logo": "the-bill.png",
+      "url": "#"
     },
      {
       "name": "Jamiorquai",
