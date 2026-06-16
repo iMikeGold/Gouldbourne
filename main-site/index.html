@@ -152,47 +152,38 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  let isDown = false, startX, scrollLeft;
-
-  // ✅ FIX: Start animation RUNNING on page load
+  // ✅ START MOVING IMMEDIATELY
   scroll.style.animationPlayState = 'running';
 
-  // --- MOUSE EVENTS ---
+  let isDown = false, startX, scrollLeft;
+
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
-    // ✅ Pause animation when dragging starts
     scroll.style.animationPlayState = 'paused';
     e.preventDefault();
   });
-
   banner.addEventListener('mouseup', () => {
     isDown = false;
     banner.classList.remove('dragging');
-    // ✅ RESUME animation when you let go
     scroll.style.animationPlayState = 'running';
   });
-
   banner.addEventListener('mouseleave', () => {
     if (isDown) {
       isDown = false;
       banner.classList.remove('dragging');
-      // ✅ RESUME if you drag outside the banner
       scroll.style.animationPlayState = 'running';
     }
   });
-
   banner.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
-    // ✅ Scrub speed matches your working pages (1.5x)
     scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
   });
 
-  // --- TOUCH EVENTS ---
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
@@ -200,13 +191,11 @@ function initCarousel() {
     scrollLeft = scroll.offsetLeft;
     scroll.style.animationPlayState = 'paused';
   }, { passive: true });
-
   banner.addEventListener('touchend', () => {
     isDown = false;
     banner.classList.remove('dragging');
     scroll.style.animationPlayState = 'running';
   });
-
   banner.addEventListener('touchmove', e => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
