@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.7
+GOULDBOURNE.CO.UK | VERSION 1.8 — FIXED CAROUSEL + BAND
 Colour Palette & Design System
 ============================================== */
 
@@ -251,13 +251,16 @@ footer {
 }
 
 /* ==============================================
-ORIGINAL CAROUSEL STYLES (KEPT FOR BACKWARD COMPATIBILITY)
+CAROUSEL STYLES — FIXED: AUTO‑START, NO JUMP, SEMI‑WHITE BAND
 ============================================== */
 .logo-banner {
   /* FULL WIDTH EDGE‑TO‑EDGE */
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+
+  /* ✅ SEMI‑TRANSPARENT WHITE BAND — exactly what you asked */
+  background: rgba(255, 255, 255, 0.08);
 
   border-top: 1px solid var(--border-gold);
   border-bottom: 1px solid var(--border-gold);
@@ -291,19 +294,24 @@ ORIGINAL CAROUSEL STYLES (KEPT FOR BACKWARD COMPATIBILITY)
   gap: 2.5rem;
   width: max-content;
   will-change: transform;
+
+  /* ✅ ENSURE ANIMATION STARTS RUNNING IMMEDIATELY */
+  animation-play-state: running !important;
 }
 
-/* Slow auto‑scroll */
+/* ✅ FIXED KEYFRAMES — matches loop=3, NO JUMP on hover */
 @keyframes scrollLoop {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-33.333%); }
 }
 .logo-scroll.auto {
   animation: scrollLoop 80s linear infinite;
 }
+
+/* ✅ ONLY PAUSE on hover/drag — never paused by default */
 .logo-banner:hover .logo-scroll.auto,
 .logo-banner.dragging .logo-scroll.auto {
-  animation-play-state: paused;
+  animation-play-state: paused !important;
 }
 
 .logo-badge {
