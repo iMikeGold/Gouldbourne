@@ -5,99 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work | Gouldbourne</title>
   <link rel="stylesheet" href="../assets/css/main.css">
-  <style>
-    /* --------------------------
-    BACK BUTTON STYLE (YOURS)
-    -------------------------- */
-    .back-link {
-      font-size: 0.85rem !important;
-      color: var(--gold-bright) !important;
-      text-decoration: none !important;
-      transition: color 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .back-link::before {
-      content: "←";
-      font-size: 0.9rem;
-    }
-    .back-link:hover,
-    .back-link:active {
-      color: var(--emerald-bright) !important;
-    }
-
-    /* --------------------------
-    CLIENT ITEM / LOGO STYLES (YOURS)
-    -------------------------- */
-    .client-item {
-      flex: 0 0 auto !important;
-      display: flex !important;
-      align-items: center !important;
-      height: 36px !important;
-    }
-    .client-item a {
-      text-decoration: none !important;
-      color: var(--text-muted) !important;
-      transition: color 0.2s ease !important;
-      font-size: 1.1rem !important;
-      font-weight: 500 !important;
-      line-height: 1 !important;
-    }
-    .client-item a:hover {
-      color: var(--gold-bright) !important;
-    }
-    .client-logo {
-      height: 32px !important;
-      width: auto !important;
-      max-width: 180px !important;
-      object-fit: contain !important;
-      display: block !important;
-      opacity: 0.9 !important;
-      transition: opacity 0.2s ease !important;
-    }
-    .client-item a:hover .client-logo {
-      opacity: 1 !important;
-    }
-
-    /* --------------------------
-    CAROUSEL CSS — FIXED GLITCHES, SCRUB UNCHANGED
-    -------------------------- */
-    .logo-banner {
-      overflow: hidden;
-      width: 100%;
-      position: relative;
-      padding: 1rem 0;
-      cursor: grab !important;
-      user-select: none !important;
-      margin: 2rem 0 0;
-    }
-    .logo-banner.dragging {
-      cursor: grabbing !important;
-    }
-    .logo-scroll {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      /* START AT -25% + 4 COPIES = NO BLANK SPACE EVER */
-      transform: translateX(-25%);
-      transition: none !important;
-      white-space: nowrap;
-    }
-    .logo-scroll.auto {
-      animation: scrollLoop 30s linear infinite;
-      /* USE PLAY-STATE — NO JUMP WHEN PAUSING */
-      animation-play-state: running;
-    }
-    /* PAUSE ONLY WHEN DRAGGING — NOT ON HOVER (FIXES JUMP) */
-    .logo-banner.dragging .logo-scroll.auto {
-      animation-play-state: paused !important;
-    }
-    @keyframes scrollLoop {
-      0% { transform: translateX(-25%); }
-      100% { transform: translateX(-50%); } /* PERFECT LOOP WITH 4 COPIES */
-    }
-  </style>
 </head>
 <body>
 
@@ -201,8 +108,8 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // LOOP 4 TIMES — NO BLANK SPACE POSSIBLE, CAN SCRUB FOREVER
-    for (let loop = 0; loop < 4; loop++) {
+    // LOOP 2 TIMES + START POSITION FIX = NO BLANK SPACE
+    for (let loop = 0; loop < 2; loop++) {
       clients.forEach(client => {
         const content = client.logo
           ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
@@ -218,7 +125,7 @@ async function loadClients() {
   }
 }
 
-// YOUR EXACT WORKING SCRUB CODE — 100% UNCHANGED
+// EXACT WORKING DRAG/SCRUB CODE — RESTORED FROM BEST VERSION
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
@@ -226,7 +133,7 @@ function initCarousel() {
 
   let isDown = false, startX, scrollLeft;
 
-  // MOUSE EVENTS — PERFECT SCRUB, NO CHANGES
+  // MOUSE EVENTS — PERFECT SCRUB
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
@@ -234,20 +141,8 @@ function initCarousel() {
     scrollLeft = scroll.offsetLeft;
     e.preventDefault();
   });
-  banner.addEventListener('mouseup', () => { 
-    isDown = false; 
-    banner.classList.remove('dragging');
-    // ✅ START SCROLLING AGAIN IMMEDIATELY
-    scroll.style.animationPlayState = 'running';
-  });
-  banner.addEventListener('mouseleave', () => { 
-    if (isDown) {
-      isDown = false; 
-      banner.classList.remove('dragging');
-      // START SCROLLING AGAIN IMMEDIATELY
-      scroll.style.animationPlayState = 'running';
-    }
-  });
+  banner.addEventListener('mouseup', () => { isDown = false; banner.classList.remove('dragging'); });
+  banner.addEventListener('mouseleave', () => { isDown = false; banner.classList.remove('dragging'); });
   banner.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
@@ -255,21 +150,14 @@ function initCarousel() {
     scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
   });
 
-  // TOUCH EVENTS — SAME BEHAVIOUR + FIXED RESTART
+  // TOUCH EVENTS — SAME BEHAVIOUR
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
-    // PAUSE WHILE DRAGGING
-    scroll.style.animationPlayState = 'paused';
   }, { passive: true });
-  banner.addEventListener('touchend', () => { 
-    isDown = false; 
-    banner.classList.remove('dragging');
-    // START SCROLLING AGAIN IMMEDIATELY WHEN FINGER LIFTS
-    scroll.style.animationPlayState = 'running';
-  });
+  banner.addEventListener('touchend', () => { isDown = false; banner.classList.remove('dragging'); });
   banner.addEventListener('touchmove', e => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
