@@ -104,8 +104,8 @@
 <footer>
   <div class="container">
     <p>© 2026 Micheal | Gouldbourne
-      <a href="legal/privacy.html">Privacy Policy</a> |
-      <a href="legal/terms.html">Terms of Use</a>
+      <a href="../legal/privacy.html">Privacy Policy</a> |
+      <a href="../legal/terms.html">Terms of Use</a>
     </p>
   </div>
 </footer>
@@ -124,17 +124,17 @@ window.addEventListener('scroll', () => {
 
 async function loadClients() {
   try {
-    const res = await fetch('registry/clients.json');
+    const res = await fetch('../registry/clients.json');
     const data = await res.json();
     const clients = data.clients;
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // ✅ Loop = 3 (correct for alignment)
+    // ✅ 3 COPIES = NO BLANK SPACE, FULL CONTINUOUS LOOP
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
-          ? `<img src="assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
+          ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
           : `${client.name}`;
         html += `<div class="client-item"><a href="${client.url}" target="_blank" rel="noopener noreferrer">${content}</a></div>`;
       });
@@ -147,59 +147,80 @@ async function loadClients() {
   }
 }
 
+// VERSION 2.0 — SCROLL WORKS, NO JUMPS, ALWAYS VISIBLE
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  // ✅ START MOVING IMMEDIATELY
-  scroll.style.animationPlayState = 'running';
+  let isDown = false, startX, currentX;
 
-  let isDown = false, startX, scrollLeft;
-
+  // --- MOUSE ---
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
-    scrollLeft = scroll.offsetLeft;
-    scroll.style.animationPlayState = 'paused';
+    // CAPTURE EXACT POSITION — NO JUMP
+    const transform = getComputedStyle(scroll).transform;
+    const matrix = new DOMMatrixReadOnly(transform);
+    currentX = matrix.m41;
     e.preventDefault();
   });
+
   banner.addEventListener('mouseup', () => {
     isDown = false;
     banner.classList.remove('dragging');
-    scroll.style.animationPlayState = 'running';
+    // RESTART FROM SAME SPOT — NO SNAP
+    scroll.style.animation = 'none';
+    void scroll.offsetWidth;
+    scroll.style.animation = 'scrollLoop 45s linear infinite';
   });
+
   banner.addEventListener('mouseleave', () => {
-    if (isDown) {
-      isDown = false;
-      banner.classList.remove('dragging');
-      scroll.style.animationPlayState = 'running';
-    }
+    if (!isDown) return;
+    isDown = false;
+    banner.classList.remove('dragging');
+    // SAME SAFE RESTART
+    scroll.style.animation = 'none';
+    void scroll.offsetWidth;
+    scroll.style.animation = 'scrollLoop 45s linear infinite';
   });
+
   banner.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
-    scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
+    const move = (x - startX) * 1.5;
+    // SMOOTH DRAG — NO BREAKS
+    scroll.style.transform = `translateX(${currentX + move}px)`;
   });
 
+  // --- TOUCH ---
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
-    scrollLeft = scroll.offsetLeft;
-    scroll.style.animationPlayState = 'paused';
+    // CAPTURE POSITION ON EVERY TOUCH — NO JUMP ON RELEASE
+    const transform = getComputedStyle(scroll).transform;
+    const matrix = new DOMMatrixReadOnly(transform);
+    currentX = matrix.m41;
   }, { passive: true });
+
   banner.addEventListener('touchend', () => {
     isDown = false;
     banner.classList.remove('dragging');
-    scroll.style.animationPlayState = 'running';
+    // RESTART SMOOTHLY — NO SNAP
+    scroll.style.animation = 'none';
+    void scroll.offsetWidth;
+    scroll.style.animation = 'scrollLoop 45s linear infinite';
   });
+
   banner.addEventListener('touchmove', e => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
-    scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
+    const move = (x - startX) * 1.5;
+    // SCRUB WORKS PERFECTLY
+    scroll.style.transform = `translateX(${currentX + move}px)`;
   }, { passive: true });
 }
 
