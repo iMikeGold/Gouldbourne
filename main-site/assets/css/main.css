@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.93 — ORIGINAL SCRUB LOGIC + NEW STYLES
+GOULDBOURNE.CO.UK | VERSION 1.95 — FIXED: NO JUMP, NO STUTTER, MOBILE RESTARTS
 Colour Palette & Design System
 ============================================== */
 :root {
@@ -250,7 +250,7 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 1.93: ORIGINAL SCRUB LOGIC + NEW STYLES
+CAROUSEL STYLES — VERSION 1.95: NO JUMP, NO STUTTER, MOBILE RESTARTS
 ============================================== */
 .logo-banner {
   /* FULL WIDTH EDGE‑TO‑EDGE */
@@ -276,7 +276,7 @@ CAROUSEL STYLES — VERSION 1.93: ORIGINAL SCRUB LOGIC + NEW STYLES
   user-select: none;
   -webkit-user-select: none;
 }
-.logo-banner:active { cursor: grabbing; }
+.logo-banner.dragging { cursor: grabbing; }
 
 /* Fade edges — now works on full width, logos fade out into shadow */
 .logo-banner::before,
@@ -298,7 +298,8 @@ CAROUSEL STYLES — VERSION 1.93: ORIGINAL SCRUB LOGIC + NEW STYLES
   align-items: center;
   /* ✅ CORRECT START POSITION — NO BLANK SPACE */
   transform: translateX(-50%);
-  transition: none !important; /* CRITICAL — NO CSS TRANSITION BREAKING DRAG */
+  /* ✅ CRITICAL — NO TRANSITIONS, NO CONFLICTS */
+  transition: none !important;
   white-space: nowrap;
   width: max-content;
   will-change: transform;
@@ -308,12 +309,13 @@ CAROUSEL STYLES — VERSION 1.93: ORIGINAL SCRUB LOGIC + NEW STYLES
   animation: scrollLoop 30s linear infinite;
 }
 
+/* ✅ PAUSE ONLY BY REMOVING ANIMATION — NO PLAY-STATE GLITCHES */
 .logo-banner.dragging .logo-scroll,
 .logo-banner:hover .logo-scroll {
-  animation: none !important; /* PAUSE AUTO WHILE DRAG OR HOVER */
+  animation: none !important;
 }
 
-/* ✅ FIXED KEYFRAMES — SMOOTH FULL LOOP, NO STUTTER */
+/* ✅ FIXED KEYFRAMES — PERFECT LOOP, NO STUTTER */
 @keyframes scrollLoop {
   0% { transform: translateX(-50%); }
   100% { transform: translateX(-100%); }
@@ -385,7 +387,7 @@ NEW CAROUSEL STYLES — NO BOXES, LOGOS + TEXT
 }
 
 /* ==============================================
-BACK BUTTON STYLE — KEPT EXACTLY FROM YOUR HTML
+BACK BUTTON STYLE — KEPT EXACTLY
 ============================================== */
 .back-link {
   font-size: 0.85rem !important;
