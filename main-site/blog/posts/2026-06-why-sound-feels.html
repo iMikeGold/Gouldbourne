@@ -56,5 +56,71 @@
   </div>
 </footer>
 
+  <script>
+// --- Mobile Menu Toggle ---
+function toggleMenu() {
+  const btn = document.querySelector('.menu-toggle');
+  const menu = document.getElementById('mainMenu');
+  btn.classList.toggle('active');
+  menu.classList.toggle('active');
+}
+
+// --- Scroll‑brightening effect ---
+window.addEventListener('scroll', () => {
+  document.body.classList.toggle('scrolled', window.scrollY > 200);
+});
+
+// --- FIXED CLIENT CAROUSEL: Auto + Drag/Swipe ---
+const banner = document.querySelector('.logo-banner');
+const scroll = document.querySelector('.logo-scroll');
+if (banner && scroll) {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  // Mouse events
+  banner.addEventListener('mousedown', (e) => {
+    isDown = true;
+    banner.classList.add('dragging');
+    startX = e.pageX - banner.offsetLeft;
+    scrollLeft = scroll.offsetLeft;
+    e.preventDefault(); // stop text selection
+  });
+  banner.addEventListener('mouseup', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+  });
+  banner.addEventListener('mouseleave', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+  });
+  banner.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - banner.offsetLeft;
+    const walk = (x - startX) * 1.5; // sensitivity
+    scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
+  });
+
+  // Touch events (mobile swipe)
+  banner.addEventListener('touchstart', (e) => {
+    isDown = true;
+    banner.classList.add('dragging');
+    startX = e.touches[0].pageX - banner.offsetLeft;
+    scrollLeft = scroll.offsetLeft;
+  }, { passive: true });
+  banner.addEventListener('touchend', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+  });
+  banner.addEventListener('touchmove', (e) => {
+    if (!isDown) return;
+    const x = e.touches[0].pageX - banner.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
+  }, { passive: true });
+}
+</script>
+  
 </body>
 </html>
