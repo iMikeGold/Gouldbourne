@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Server Infrastructure | Gouldbourne</title>
+  <title>Server & Infrastructure | Gouldbourne</title>
   <link rel="stylesheet" href="../../assets/css/main.css">
 </head>
 <body>
@@ -14,12 +14,12 @@
     <nav style="display:inline-block; margin-left:2rem; width: calc(100% - 150px);">
       <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
       <ul id="mainMenu">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../about/index.html">About</a></li>
-        <li><a href="../credentials/index.html">Credentials</a></li>
-        <li><a href="../blog/index.html">Blog</a></li>
-        <li><a href="index.html" class="active">Work</a></li>
-        <li><a href="../connect/index.html">Connect</a></li>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about/index.html">About</a></li>
+        <li><a href="../../credentials/index.html">Credentials</a></li>
+        <li><a href="../../blog/index.html">Blog</a></li>
+        <li><a href="../index.html" class="active">Work</a></li>
+        <li><a href="../../connect/index.html">Connect</a></li>
       </ul>
     </nav>
   </div>
@@ -27,12 +27,32 @@
 
 <main class="container">
   <section>
-    <h1>Enterprise Server Infrastructure</h1>
-    <p>Designing, deploying, and maintaining private server architecture supporting 20 brands and over 50 websites.</p>
+    <h1>Server Architecture & Digital Infrastructure</h1>
+    <p style="color:var(--text-muted);">Enterprise systems, hosting & development</p>
+
+    <div class="card">
+      <h3>About This Work</h3>
+      <p>Oversee an enterprise‑level private server infrastructure supporting 40+ websites and services. Design, build and maintain secure, scalable and compliant environments.</p>
+      <p>Also develop web and mobile applications — including population data tools and algorithm‑driven platforms — bringing engineering logic to software and user experience.</p>
+    </div>
+
+    <div class="card">
+      <h3>Systems & Projects</h3>
+      <ul style="list-style-position:inside;">
+        <li>Private server cluster management & security</li>
+        <li>Domain & hosting infrastructure</li>
+        <li>Web app development & database design</li>
+        <li>UI/UX implementation aligned with cognitive principles</li>
+      </ul>
+      <p>Related notes:</p>
+      <ul style="list-style-position:inside;">
+        <li><a href="../../blog/posts/2026-04-neuroscience-perception.html">Design That Matches How People Think</a></li>
+      </ul>
+    </div>
   </section>
 </main>
 
-  <!-- Client Logo Banner -->
+<!-- Client Logo Banner — FULL WIDTH, AUTO + DRAG/SWIPE -->
 <div class="logo-banner">
   <div class="logo-scroll auto">
     <div class="logo-badge">EMI</div>
@@ -69,12 +89,12 @@
   </div>
 </div>
 
-  <!-- Legal Links -->
+<!-- Legal Links -->
 <div class="container" style="padding: 1rem 0; text-align: center; font-size: 0.85rem; border-top: 1px solid var(--border-light);">
-  <a href="../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
-  <a href="../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
+  <a href="../../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
+  <a href="../../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
 </div>
-  
+
 <footer>
   <div class="container">
     <p>© 2026 Micheal | Gouldbourne</p>
@@ -95,7 +115,7 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- ✅ FIXED CLIENT CAROUSEL: Auto + Drag/Swipe ---
+// --- FIXED CLIENT CAROUSEL: Auto + Drag/Swipe ---
 const banner = document.querySelector('.logo-banner');
 const scroll = document.querySelector('.logo-scroll');
 if (banner && scroll) {
@@ -146,6 +166,6 @@ if (banner && scroll) {
   }, { passive: true });
 }
 </script>
-  
+
 </body>
 </html>
