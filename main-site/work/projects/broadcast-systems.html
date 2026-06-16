@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Broadcast Systems | Gouldbourne</title>
   <link rel="stylesheet" href="../../assets/css/main.css">
+  <style>
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+      border: 1px solid var(--border-gold);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -14,12 +34,12 @@
     <nav style="display:inline-block; margin-left:2rem; width: calc(100% - 150px);">
       <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
       <ul id="mainMenu">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../about/index.html">About</a></li>
-        <li><a href="../credentials/index.html">Credentials</a></li>
-        <li><a href="../blog/index.html">Blog</a></li>
-        <li><a href="index.html" class="active">Work</a></li>
-        <li><a href="../connect/index.html">Connect</a></li>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about/index.html">About</a></li>
+        <li><a href="../../credentials/index.html">Credentials</a></li>
+        <li><a href="../../blog/index.html">Blog</a></li>
+        <li><a href="../index.html" class="active">Work</a></li>
+        <li><a href="../../connect/index.html">Connect</a></li>
       </ul>
     </nav>
   </div>
@@ -27,21 +47,43 @@
 
 <main class="container">
   <section>
-    <h1>Broadcast System Design</h1>
-    <p>Custom‑built systems for OB, live sports, TV, and global transmission.</p>
+    <h1>Broadcast Systems Design & Integration</h1>
+    <p style="color:var(--text-muted);">Technical overview | Live events, OB trucks, global coverage</p>
+
+    <div class="card">
+      <h3>About This Work</h3>
+      <p>Over 20 years designing, building and maintaining broadcast audio systems for outside broadcasts, live sport and major events. Work covers RF coordination, frequency planning, Dante networking, MADI routing, and full system testing.</p>
+      <p>Goal: Zero‑failure operation under pressure, delivering consistent high‑quality audio for millions of viewers. Credits include UEFA Euros, NFL London, Open Golf, Olympics and more.</p>
+    </div>
 
     <div class="card">
       <h4>Capabilities</h4>
-      <ul style="list-style-position:inside; padding-left:1rem;">
+      <ul style="list-style-position:inside; padding-left:1rem; margin-bottom:1.5rem;">
         <li>RF planning & coordination — Shure, Sennheiser, Wisycom</li>
         <li>Dante / AES67 networking, MADI, signal routing</li>
         <li>Full system integration & compliance testing</li>
+      </ul>
+
+      <h3>Projects & Footage</h3>
+      <p>Examples of productions I’ve supported — replace links with your own:</p>
+      
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+      </div>
+
+      <p>Related notes:</p>
+      <ul style="list-style-position:inside;">
+        <li><a href="../../blog/posts/2026-03-sound-technology.html">RF & Frequency Management</a></li>
+        <li><a href="../../blog/posts/2026-06-why-sound-feels.html">System Design & Perceived Quality</a></li>
       </ul>
     </div>
   </section>
 </main>
 
-  <!-- Client Logo Banner -->
+<!-- Client Logo Banner — FULL WIDTH, AUTO + DRAG/SWIPE -->
 <div class="logo-banner">
   <div class="logo-scroll auto">
     <div class="logo-badge">EMI</div>
@@ -78,19 +120,19 @@
   </div>
 </div>
 
-  <!-- Legal Links -->
+<!-- Legal Links -->
 <div class="container" style="padding: 1rem 0; text-align: center; font-size: 0.85rem; border-top: 1px solid var(--border-light);">
-  <a href="../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
-  <a href="../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
+  <a href="../../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
+  <a href="../../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
 </div>
-  
+
 <footer>
   <div class="container">
     <p>© 2026 Micheal | Gouldbourne</p>
   </div>
 </footer>
 
-  <script>
+<script>
 // --- Mobile Menu Toggle ---
 function toggleMenu() {
   const btn = document.querySelector('.menu-toggle');
@@ -155,6 +197,6 @@ if (banner && scroll) {
   }, { passive: true });
 }
 </script>
-  
+
 </body>
 </html>
