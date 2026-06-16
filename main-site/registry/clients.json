@@ -28,7 +28,7 @@
     {
       "name": "Houston Texans",
       "logo": "houston-texans.png",
-      "url": "https://www.youtube.com/results?search_query=Houston+Texans"
+      "url": "https://youtu.be/H0jTge4APYs?si=KdkGSPb7f8tU_yC5"
     },
     {
       "name": "Kingston Council",
@@ -63,7 +63,7 @@
     {
       "name": "Philadelphia Eagles",
       "logo": "philadelphia-eagles.png",
-      "url": "https://www.youtube.com/results?search_query=Philadelphia+Eagles"
+      "url": "https://youtu.be/RFw8Ypxp2zQ?si=P7GreL4oAVnK9cnK"
     },
     {
       "name": "Relentless Energy",
@@ -97,13 +97,13 @@
     },
     {
       "name": "Three Mobile",
-      "logo": "three-mobile.png",
+      "logo": "3-mobile.png",
       "url": "#"
     },
     {
       "name": "UEFA Euros",
       "logo": "uefa-euro.png",
-      "url": "#"
+      "url": "https://youtu.be/PZN_ybRyY9A?si=QqPxnhJFur0ZHh0P"
     },
     {
       "name": "Wandsworth Council",
@@ -118,16 +118,17 @@
      {
       "name": "Thales",
       "logo": "thales.png",
-      "url": "#"
+      "url": "https://youtu.be/OanbAm_4KvM?si=kQ3pRDbrTbXmUFoZ"
     },
      {
       "name": "Bristow",
-      "logo": "bristow.png",
+      "logo": "bristow-logo.png",
+      "url": "https://youtu.be/OanbAm_4KvM?si=kQ3pRDbrTbXmUFoZ"
     },
      {
       "name": "Jeremy Lazarus",
       "logo": "jeremy-lazarus.png",
-      "url": "#"
+      "url": "https://www.youtube.com/@JeremyLazarus"
     },
      {
       "name": "Audacy",
@@ -147,7 +148,7 @@
      {
       "name": "2XU",
       "logo": "2xu.png",
-      "url": "#"
+      "url": "https://youtu.be/36WtEUKCctU?si=qPhzd8IHvtKNLykj"
     },
      {
       "name": "VW",
@@ -156,7 +157,7 @@
     },
      {
       "name": "Monster",
-      "logo": "monster.png",
+      "logo": "monster-energy.png",
       "url": "#"
     },
      {
@@ -164,5 +165,10 @@
       "logo": "chemical-brothers.png",
       "url": "https://youtu.be/cHtoBqmRYfA?si=MCw6p5jaqkSLtDqW"
     },
+     {
+      "name": "Jamiorquai",
+      "logo": "jamiorquai.png",
+      "url": "https://youtu.be/4JkIs37a2JE?si=tXEwLgj239BaiZyO"
+    }
   ]
 }
