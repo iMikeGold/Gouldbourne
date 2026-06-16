@@ -66,7 +66,7 @@
         <li><a href="about/index.html">About</a></li>
         <li><a href="credentials/index.html">Credentials</a></li>
         <li><a href="blog/index.html">Blog</a></li>
-        <li><a href="index.html" class="active">Work</a></li>
+        <li><a href="index.html">Work</a></li>
         <li><a href="connect/index.html">Connect</a></li>
       </ul>
     </nav>
@@ -99,6 +99,10 @@
     </div>
   </section>
 </main>
+
+<div class="logo-banner">
+  <div class="logo-scroll auto" id="clientScroll"></div>
+</div>
 
 <footer>
   <div class="container">
@@ -157,21 +161,10 @@ function initCarousel() {
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
-    scroll.style.animationPlayState = 'paused';
     e.preventDefault();
   });
-  banner.addEventListener('mouseup', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
-    scroll.style.animationPlayState = 'running';
-  });
-  banner.addEventListener('mouseleave', () => {
-    if (isDown) {
-      isDown = false;
-      banner.classList.remove('dragging');
-      scroll.style.animationPlayState = 'running';
-    }
-  });
+  banner.addEventListener('mouseup', () => { isDown = false; banner.classList.remove('dragging'); });
+  banner.addEventListener('mouseleave', () => { isDown = false; banner.classList.remove('dragging'); });
   banner.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
@@ -184,13 +177,8 @@ function initCarousel() {
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
-    scroll.style.animationPlayState = 'paused';
   }, { passive: true });
-  banner.addEventListener('touchend', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
-    scroll.style.animationPlayState = 'running';
-  });
+  banner.addEventListener('touchend', () => { isDown = false; banner.classList.remove('dragging'); });
   banner.addEventListener('touchmove', e => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
