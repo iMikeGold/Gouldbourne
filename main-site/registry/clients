@@ -1,40 +1,119 @@
 {
   "clients": [
     {
-      "id": "emi",
-      "name": "EMI",
-      "logo": "emi.png",
-      "url": "https://www.youtube.com/results?search_query=EMI+records"
+      "name": "Lewisham Council",
+      "logo": "lewisham-council.png",
+      "url": "https://www.youtube.com/results?search_query=Lewisham+Council"
     },
     {
-      "id": "defected",
+      "name": "Bromley Council",
+      "logo": "bromley-council.png",
+      "url": "https://www.youtube.com/results?search_query=Bromley+Council"
+    },
+    {
+      "name": "Croydon Council",
+      "logo": "croydon-council.png",
+      "url": "https://www.youtube.com/results?search_query=Croydon+Council"
+    },
+    {
       "name": "Defected",
       "logo": "defected.png",
       "url": "https://www.youtube.com/results?search_query=Defected+Records"
     },
     {
-      "id": "sony",
-      "name": "Sony",
-      "logo": "sony.png",
-      "url": "https://www.youtube.com/results?search_query=Sony+Music"
+      "name": "Halifax",
+      "logo": "halifax.png",
+      "url": "https://www.youtube.com/results?search_query=Halifax+UK"
     },
     {
-      "id": "croydoncouncil",
-      "name": "Croydon Council",
-      "logo": "croydoncouncil.png",
-      "url": "https://www.youtube.com/results?search_query=Croydon+Council"
+      "name": "Houston Texans",
+      "logo": "houston-texans.png",
+      "url": "https://www.youtube.com/results?search_query=Houston+Texans"
     },
     {
-      "id": "adhoc1",
-      "name": "Random Client",
-      "logo": "",
-      "url": "https://www.youtube.com"
+      "name": "Kingston Council",
+      "logo": "kingston-council.png",
+      "url": "https://www.youtube.com/results?search_query=Kingston+upon+Thames+Council"
     },
     {
-      "id": "adhoc2",
-      "name": "Another One",
-      "logo": "",
-      "url": "https://www.youtube.com"
+      "name": "Lambeth Council",
+      "logo": "lambeth-council.png",
+      "url": "https://www.youtube.com/results?search_query=Lambeth+Council"
+    },
+    {
+      "name": "Mars",
+      "logo": "mars.png",
+      "url": "https://www.youtube.com/results?search_query=Mars+brand"
+    },
+    {
+      "name": "Merton Council",
+      "logo": "merton-council.png",
+      "url": "https://www.youtube.com/results?search_query=Merton+Council"
+    },
+    {
+      "name": "NFL",
+      "logo": "nfl.png",
+      "url": "https://www.youtube.com/results?search_query=NFL"
+    },
+    {
+      "name": "Orange Mobile",
+      "logo": "orange-mobile.svg",
+      "url": "https://www.youtube.com/results?search_query=Orange+Mobile"
+    },
+    {
+      "name": "Philadelphia Eagles",
+      "logo": "philadelphia-eagles.png",
+      "url": "https://www.youtube.com/results?search_query=Philadelphia+Eagles"
+    },
+    {
+      "name": "Relentless Energy",
+      "logo": "relentless-energy.jpeg",
+      "url": "https://www.youtube.com/results?search_query=Relentless+Energy+Drink"
+    },
+    {
+      "name": "Richmond Council",
+      "logo": "richmond-council.png",
+      "url": "https://www.youtube.com/results?search_query=Richmond+upon+Thames+Council"
+    },
+    {
+      "name": "Sony Ericsson",
+      "logo": "sony-ericsson.png",
+      "url": "https://www.youtube.com/results?search_query=Sony+Ericsson"
+    },
+    {
+      "name": "Sony PlayStation",
+      "logo": "sony-playstation.png",
+      "url": "https://www.youtube.com/results?search_query=PlayStation"
+    },
+    {
+      "name": "Southwark Council",
+      "logo": "southwark-council.png",
+      "url": "https://www.youtube.com/results?search_query=Southwark+Council"
+    },
+    {
+      "name": "Sutton Council",
+      "logo": "suttion-council.png",
+      "url": "https://www.youtube.com/results?search_query=Sutton+Council"
+    },
+    {
+      "name": "Three Mobile",
+      "logo": "three-mobile.png",
+      "url": "https://www.youtube.com/results?search_query=Three+Mobile+UK"
+    },
+    {
+      "name": "UEFA Euro",
+      "logo": "uefa-euro.png",
+      "url": "https://www.youtube.com/results?search_query=UEFA+Euro"
+    },
+    {
+      "name": "Wandsworth Council",
+      "logo": "wandsworth-council.png",
+      "url": "https://www.youtube.com/results?search_query=Wandsworth+Council"
+    },
+    {
+      "name": "Westminster Council",
+      "logo": "westminster-council.png",
+      "url": "https://www.youtube.com/results?search_query=Westminster+Council"
     }
   ]
 }
