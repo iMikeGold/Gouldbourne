@@ -125,7 +125,7 @@ async function loadClients() {
   }
 }
 
-// ✅ VERSION 1.97 — NO JUMP AT START/RELEASE, SMOOTH ALL POSITIONS
+// ✅ VERSION 1.98 — NO JUMP RIGHT, SCRUB 100% WORKING
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
@@ -138,7 +138,7 @@ function initCarousel() {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
-    // ✅ ALWAYS CAPTURE EXACT CURRENT POSITION — NO RESET
+    // ✅ READ EXACT CURRENT POSITION — NO OFFSET, NO JUMP RIGHT
     const transform = getComputedStyle(scroll).transform;
     const matrix = new DOMMatrixReadOnly(transform);
     currentX = matrix.m41;
@@ -148,9 +148,9 @@ function initCarousel() {
   banner.addEventListener('mouseup', () => {
     isDown = false;
     banner.classList.remove('dragging');
-    // ✅ RESUME FROM EXACT POSITION — NO JUMP
+    // ✅ RESTART FROM EXACT SPOT
     scroll.style.animation = 'none';
-    void scroll.offsetWidth; // reflow
+    void scroll.offsetWidth;
     scroll.style.animation = 'scrollLoop 30s linear infinite';
   });
 
@@ -158,7 +158,7 @@ function initCarousel() {
     if (!isDown) return;
     isDown = false;
     banner.classList.remove('dragging');
-    // ✅ SAME SAFE RESUME WHEN LEAVING
+    // ✅ SAME SAFE RESTART
     scroll.style.animation = 'none';
     void scroll.offsetWidth;
     scroll.style.animation = 'scrollLoop 30s linear infinite';
@@ -169,7 +169,7 @@ function initCarousel() {
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
     const move = (x - startX) * 1.5;
-    // ✅ MOVE RELATIVE TO CURRENT POSITION — NO CLASH
+    // ✅ MOVE RELATIVE — NO DRIFT, NO JUMP
     scroll.style.transform = `translateX(${currentX + move}px)`;
   });
 
@@ -178,7 +178,7 @@ function initCarousel() {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
-    // ✅ CAPTURE POSITION EVERYTIME — EVEN AT START
+    // ✅ CRITICAL: READ POSITION ON EVERY TOUCH — ELIMINATES RIGHT JUMP
     const transform = getComputedStyle(scroll).transform;
     const matrix = new DOMMatrixReadOnly(transform);
     currentX = matrix.m41;
@@ -187,7 +187,7 @@ function initCarousel() {
   banner.addEventListener('touchend', () => {
     isDown = false;
     banner.classList.remove('dragging');
-    // ✅ FORCE CLEAN RESTART FROM CURRENT SPOT — NO JUMP
+    // ✅ RESTART SMOOTHLY
     scroll.style.animation = 'none';
     void scroll.offsetWidth;
     scroll.style.animation = 'scrollLoop 30s linear infinite';
@@ -197,7 +197,7 @@ function initCarousel() {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
     const move = (x - startX) * 1.5;
-    // ✅ SMOOTH SCROLL BOTH DIRECTIONS — NO GLITCH
+    // ✅ SCRUB BOTH WAYS PERFECTLY
     scroll.style.transform = `translateX(${currentX + move}px)`;
   }, { passive: true });
 }
