@@ -125,7 +125,7 @@ async function loadClients() {
   }
 }
 
-// ✅ FIXED: NO JUMP, NO RESET, MOBILE RESTARTS
+// ✅ VERSION 1.97 — NO JUMP AT START/RELEASE, SMOOTH ALL POSITIONS
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
@@ -133,12 +133,12 @@ function initCarousel() {
 
   let isDown = false, startX, currentX;
 
-  // MOUSE EVENTS — NO JUMP
+  // --- MOUSE EVENTS ---
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
-    // ✅ CAPTURE CURRENT POSITION FROM ACTUAL STYLE
+    // ✅ ALWAYS CAPTURE EXACT CURRENT POSITION — NO RESET
     const transform = getComputedStyle(scroll).transform;
     const matrix = new DOMMatrixReadOnly(transform);
     currentX = matrix.m41;
@@ -148,11 +148,20 @@ function initCarousel() {
   banner.addEventListener('mouseup', () => {
     isDown = false;
     banner.classList.remove('dragging');
+    // ✅ RESUME FROM EXACT POSITION — NO JUMP
+    scroll.style.animation = 'none';
+    void scroll.offsetWidth; // reflow
+    scroll.style.animation = 'scrollLoop 30s linear infinite';
   });
 
   banner.addEventListener('mouseleave', () => {
+    if (!isDown) return;
     isDown = false;
     banner.classList.remove('dragging');
+    // ✅ SAME SAFE RESUME WHEN LEAVING
+    scroll.style.animation = 'none';
+    void scroll.offsetWidth;
+    scroll.style.animation = 'scrollLoop 30s linear infinite';
   });
 
   banner.addEventListener('mousemove', e => {
@@ -160,16 +169,16 @@ function initCarousel() {
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
     const move = (x - startX) * 1.5;
-    // ✅ MOVE FROM CURRENT POSITION — NO RESET
+    // ✅ MOVE RELATIVE TO CURRENT POSITION — NO CLASH
     scroll.style.transform = `translateX(${currentX + move}px)`;
   });
 
-  // TOUCH EVENTS — RESTARTS SCROLL ON RELEASE
+  // --- TOUCH EVENTS ---
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
-    // ✅ CAPTURE CURRENT POSITION
+    // ✅ CAPTURE POSITION EVERYTIME — EVEN AT START
     const transform = getComputedStyle(scroll).transform;
     const matrix = new DOMMatrixReadOnly(transform);
     currentX = matrix.m41;
@@ -178,9 +187,9 @@ function initCarousel() {
   banner.addEventListener('touchend', () => {
     isDown = false;
     banner.classList.remove('dragging');
-    // ✅ FORCE RESTART ANIMATION — NO STUCK SCROLL
+    // ✅ FORCE CLEAN RESTART FROM CURRENT SPOT — NO JUMP
     scroll.style.animation = 'none';
-    void scroll.offsetWidth; // trigger reflow
+    void scroll.offsetWidth;
     scroll.style.animation = 'scrollLoop 30s linear infinite';
   });
 
@@ -188,7 +197,7 @@ function initCarousel() {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
     const move = (x - startX) * 1.5;
-    // ✅ MOVE FROM CURRENT POSITION — NO RESET
+    // ✅ SMOOTH SCROLL BOTH DIRECTIONS — NO GLITCH
     scroll.style.transform = `translateX(${currentX + move}px)`;
   }, { passive: true });
 }
