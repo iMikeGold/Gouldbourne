@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.95 — FIXED: NO JUMP, NO STUTTER, MOBILE RESTARTS
+GOULDBOURNE.CO.UK | VERSION 1.97 — FINAL TUNING: NO JUMP ON START/RELEASE, SMOOTH ALL POSITIONS
 Colour Palette & Design System
 ============================================== */
 :root {
@@ -250,7 +250,7 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 1.95: NO JUMP, NO STUTTER, MOBILE RESTARTS
+CAROUSEL STYLES — VERSION 1.97: NO JUMP AT START/RELEASE, SMOOTH ALL POSITIONS
 ============================================== */
 .logo-banner {
   /* FULL WIDTH EDGE‑TO‑EDGE */
@@ -303,16 +303,19 @@ CAROUSEL STYLES — VERSION 1.95: NO JUMP, NO STUTTER, MOBILE RESTARTS
   white-space: nowrap;
   width: max-content;
   will-change: transform;
+  /* ✅ PREVENT ANIMATION/JS CLASH */
+  animation-play-state: paused;
 }
 
 .logo-scroll.auto {
   animation: scrollLoop 30s linear infinite;
+  animation-play-state: running;
 }
 
-/* ✅ PAUSE ONLY BY REMOVING ANIMATION — NO PLAY-STATE GLITCHES */
+/* ✅ PAUSE SAFELY — NO POSITION RESET */
 .logo-banner.dragging .logo-scroll,
 .logo-banner:hover .logo-scroll {
-  animation: none !important;
+  animation-play-state: paused !important;
 }
 
 /* ✅ FIXED KEYFRAMES — PERFECT LOOP, NO STUTTER */
