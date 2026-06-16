@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.91 — FIXED SCRUB + AUTO‑START + RIBBON
+GOULDBOURNE.CO.UK | VERSION 1.92 — PERFECT SCRUB + INSTANT RESUME
 Colour Palette & Design System
 ============================================== */
 
@@ -251,7 +251,7 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 1.91: PERFECT SCRUB + AUTO‑START + RIBBON
+CAROUSEL STYLES — VERSION 1.92: INSTANT RESUME + PERFECT SCRUB
 ============================================== */
 .logo-banner {
   /* FULL WIDTH EDGE‑TO‑EDGE */
@@ -303,7 +303,7 @@ CAROUSEL STYLES — VERSION 1.91: PERFECT SCRUB + AUTO‑START + RIBBON
   animation-play-state: running !important;
 }
 
-/* ✅ FIXED KEYFRAMES — matches loop=3, NO JUMP on hover or drag */
+/* ✅ FIXED KEYFRAMES — matches loop=3, NO JUMP */
 @keyframes scrollLoop {
   0% { transform: translateX(0); }
   100% { transform: translateX(-33.333%); }
@@ -312,7 +312,7 @@ CAROUSEL STYLES — VERSION 1.91: PERFECT SCRUB + AUTO‑START + RIBBON
   animation: scrollLoop 80s linear infinite;
 }
 
-/* ✅ ONLY PAUSE on hover/drag — never paused by default */
+/* ✅ PAUSE ONLY WHEN HOVERING OR DRAGGING — INSTANT RESUME */
 .logo-banner:hover .logo-scroll.auto,
 .logo-banner.dragging .logo-scroll.auto {
   animation-play-state: paused !important;
@@ -351,7 +351,7 @@ CAROUSEL STYLES — VERSION 1.91: PERFECT SCRUB + AUTO‑START + RIBBON
 }
 
 /* ==============================================
-NEW CAROUSEL STYLES — NO BOXES, LOGOS + TEXT (ADDED ONLY HERE)
+NEW CAROUSEL STYLES — NO BOXES, LOGOS + TEXT
 ============================================== */
 .client-item {
   flex: 0 0 auto;
