@@ -3,8 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studio Design & Build | Gouldbourne</title>
+  <title>Studio & Live Events | Gouldbourne</title>
   <link rel="stylesheet" href="../../assets/css/main.css">
+  <style>
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+      border: 1px solid var(--border-gold);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -14,12 +34,12 @@
     <nav style="display:inline-block; margin-left:2rem; width: calc(100% - 150px);">
       <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
       <ul id="mainMenu">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../about/index.html">About</a></li>
-        <li><a href="../credentials/index.html">Credentials</a></li>
-        <li><a href="../blog/index.html">Blog</a></li>
-        <li><a href="index.html" class="active">Work</a></li>
-        <li><a href="../connect/index.html">Connect</a></li>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about/index.html">About</a></li>
+        <li><a href="../../credentials/index.html">Credentials</a></li>
+        <li><a href="../../blog/index.html">Blog</a></li>
+        <li><a href="../index.html" class="active">Work</a></li>
+        <li><a href="../../connect/index.html">Connect</a></li>
       </ul>
     </nav>
   </div>
@@ -27,12 +47,35 @@
 
 <main class="container">
   <section>
-    <h1>Studio Design & Build</h1>
-    <p>Acoustic analysis, treatment, signal flow, and full studio integration.</p>
+    <h1>Studio Operations & Live Events</h1>
+    <p style="color:var(--text-muted);">Space design, acoustics, mixing & production</p>
+
+    <div class="card">
+      <h3>About This Work</h3>
+      <p>From studio build and acoustic treatment to front‑of‑house mixing and live system design. Managed full studio operations at Scream Studios & Relentless, overseeing client sessions, equipment maintenance and team training.</p>
+      <p>Worked festivals, concerts and corporate events — adapting solutions to venue acoustics, audience size and technical limitations.</p>
+    </div>
+
+    <div class="card">
+      <h3>Events & Recordings</h3>
+      <p>Live footage and studio sessions:</p>
+      
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+      </div>
+
+      <p>Related notes:</p>
+      <ul style="list-style-position:inside;">
+        <li><a href="../../blog/posts/2026-03-sound-technology.html">Acoustics & Room Tuning</a></li>
+      </ul>
+    </div>
   </section>
 </main>
 
-  <!-- Client Logo Banner -->
+<!-- Client Logo Banner — FULL WIDTH, AUTO + DRAG/SWIPE -->
 <div class="logo-banner">
   <div class="logo-scroll auto">
     <div class="logo-badge">EMI</div>
@@ -69,19 +112,19 @@
   </div>
 </div>
 
-  <!-- Legal Links -->
+<!-- Legal Links -->
 <div class="container" style="padding: 1rem 0; text-align: center; font-size: 0.85rem; border-top: 1px solid var(--border-light);">
-  <a href="../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
-  <a href="../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
+  <a href="../../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
+  <a href="../../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
 </div>
-  
+
 <footer>
   <div class="container">
     <p>© 2026 Micheal | Gouldbourne</p>
   </div>
 </footer>
 
- <script>
+<script>
 // --- Mobile Menu Toggle ---
 function toggleMenu() {
   const btn = document.querySelector('.menu-toggle');
@@ -146,6 +189,6 @@ if (banner && scroll) {
   }, { passive: true });
 }
 </script>
-  
+
 </body>
 </html>
