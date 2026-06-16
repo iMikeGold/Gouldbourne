@@ -118,7 +118,7 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // ✅ FIXED: loop = 3 (matches CSS keyframes, no jump)
+    // ✅ Loop = 3 — matches CSS keyframes, perfect loop
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
@@ -140,7 +140,7 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  // ✅ FIXED: START MOVING IMMEDIATELY — NO WAITING FOR HOVER
+  // ✅ THIS IS THE LINE YOU NEEDED — STARTS MOVING IMMEDIATELY
   scroll.style.animationPlayState = 'running';
 
   let isDown = false, startX, scrollLeft;
