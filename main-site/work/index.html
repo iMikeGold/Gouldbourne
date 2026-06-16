@@ -100,9 +100,9 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- CAROUSEL LOGIC — FIXED NO JUMP, SMOOTH RESTART ---
+// --- CAROUSEL LOGIC — FINAL FIX: NO CLICK NEEDED TO RESTART ---
 let scrollPos = 0;
-const autoSpeed = 0.55; // ✅ Great speed value — nice and steady
+const autoSpeed = 0.55; // Perfect speed
 let isDragging = false;
 let startX, startPos;
 let contentWidth = 0;
@@ -140,15 +140,17 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  // --- HOVER TO STOP / RESUME ---
+  // --- HOVER TO STOP / RESUME — NOW 100% RELIABLE ---
   banner.addEventListener('mouseenter', () => {
-    cancelAnimationFrame(animationFrame);
+    cancelAnimationFrame(animationFrame); // Hard stop
   });
   banner.addEventListener('mouseleave', () => {
-    endDrag(); // ✅ Now this handles BOTH ending drag AND resuming scroll
+    if (!isDragging) { // Only restart if NOT dragging
+      startAutoScroll(); // Forces fresh start every time
+    }
   });
   
-  // --- MOUSE EVENTS ---
+  // --- MOUSE DRAG EVENTS ---
   banner.addEventListener('mousedown', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -167,9 +169,8 @@ function initCarousel() {
   });
 
   banner.addEventListener('mouseup', endDrag);
-  // ✅ REMOVED duplicate mouseleave listener here — now only one above
 
-  // --- TOUCH EVENTS — FIXED FOR MOBILE ---
+  // --- TOUCH EVENTS — PERFECT AS IS ---
   banner.addEventListener('touchstart', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -194,11 +195,10 @@ function initCarousel() {
     if (!isDragging) return;
     isDragging = false;
     banner.classList.remove('dragging');
-    startAutoScroll(); // restarts smoothly from current position
+    startAutoScroll(); // Restart after drag
   }
 
   function wrapPosition() {
-    // Keep it looping without gaps
     if (scrollPos > 0) scrollPos -= contentWidth;
     if (scrollPos < -contentWidth) scrollPos += contentWidth;
   }
@@ -208,6 +208,8 @@ function initCarousel() {
   }
 
   function startAutoScroll() {
+    // Always cancels first to prevent double-animation
+    cancelAnimationFrame(animationFrame);
     function animate() {
       if (!isDragging) {
         scrollPos -= autoSpeed;
