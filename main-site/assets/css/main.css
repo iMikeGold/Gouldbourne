@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.98 — FIXED: NO JUMP RIGHT, SCRUB RESTORED, 100% SMOOTH
+GOULDBOURNE.CO.UK | VERSION 1.99 — FINAL FIX: NO JUMPS, CONTINUOUS LOOP, ALWAYS VISIBLE
 Colour Palette & Design System
 ============================================== */
 :root {
@@ -145,7 +145,7 @@ nav ul {
   nav ul {
     display: none;
     flex-direction: column;
-  gap: 0.75rem;
+    gap: 0.75rem;
     position: absolute;
     top: 100%;
     left: 0;
@@ -250,7 +250,7 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 1.98: NO JUMP RIGHT, SCRUB FULLY RESTORED
+CAROUSEL STYLES — VERSION 1.99: NO JUMPS, 3X LOOP, ALWAYS VISIBLE
 ============================================== */
 .logo-banner {
   /* FULL WIDTH EDGE‑TO‑EDGE */
@@ -275,6 +275,10 @@ CAROUSEL STYLES — VERSION 1.98: NO JUMP RIGHT, SCRUB FULLY RESTORED
   /* STOP TEXT HIGHLIGHTING WHEN DRAGGING */
   user-select: none;
   -webkit-user-select: none;
+
+  /* ✅ ALWAYS VISIBLE — NO HIDDEN START */
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .logo-banner.dragging { cursor: grabbing; }
 
@@ -296,9 +300,9 @@ CAROUSEL STYLES — VERSION 1.98: NO JUMP RIGHT, SCRUB FULLY RESTORED
   display: flex;
   gap: 2rem;
   align-items: center;
-  /* ✅ CORRECT START POSITION — NO BLANK SPACE */
-  transform: translateX(-50%);
-  /* ✅ CRITICAL — NO TRANSITIONS, NO CONFLICTS */
+  /* ✅ CORRECT START — MATCHES KEYFRAME, NO BLANK */
+  transform: translateX(-33.333%);
+  /* ✅ NO TRANSITIONS — NO CONFLICTS */
   transition: none !important;
   white-space: nowrap;
   width: max-content;
@@ -306,19 +310,23 @@ CAROUSEL STYLES — VERSION 1.98: NO JUMP RIGHT, SCRUB FULLY RESTORED
 }
 
 .logo-scroll.auto {
-  animation: scrollLoop 30s linear infinite;
+  animation: scrollLoop 45s linear infinite;
 }
 
-/* ✅ PAUSE BY REMOVING ANIMATION — 100% RELIABLE, NO GLITCH */
-.logo-banner.dragging .logo-scroll,
-.logo-banner:hover .logo-scroll {
-  animation: none !important;
+/* ✅ PAUSE WITHOUT MOVING — NO JUMP ON HOVER */
+.logo-banner.dragging .logo-scroll {
+  animation-play-state: paused !important;
+}
+@media (hover: hover) {
+  .logo-banner:hover .logo-scroll {
+    animation-play-state: paused !important;
+  }
 }
 
-/* ✅ FIXED KEYFRAMES — PERFECT LOOP, NO STUTTER */
+/* ✅ 3X LOOP MATH — PERFECT CONTINUOUS SCROLL */
 @keyframes scrollLoop {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(-100%); }
+  0% { transform: translateX(-33.333%); }
+  100% { transform: translateX(-66.666%); }
 }
 
 .logo-badge {
