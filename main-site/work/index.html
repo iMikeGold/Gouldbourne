@@ -7,13 +7,16 @@
   <link rel="stylesheet" href="../assets/css/main.css">
   <style>
     /* --------------------------
-    BACKGROUND: GRADIENT / LIGHTER CHARCOAL
+    BACKGROUND: DARK → LIGHTER CHARCOAL (TOP → BOTTOM)
     -------------------------- */
     html {
       height: 100%;
       margin: 0;
-      background: linear-gradient(180deg, #121214 0%, #222226 100%);
+      /* Darker at top, fades lighter all the way down — exactly as you wanted */
+      background: linear-gradient(180deg, #0f0f11 0%, #2b2b32 100%);
       background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
     body {
       min-height: 100%;
@@ -57,7 +60,7 @@
     }
 
     /* --------------------------
-    CLIENT CAROUSEL — CLEAN & SPACED
+    CLIENT CAROUSEL — PERFECT START, NO BLANK SPACE, NO JUMP
     -------------------------- */
     .logo-banner {
       overflow: hidden;
@@ -77,12 +80,14 @@
       gap: 2.5rem;
       align-items: center;
       width: max-content;
+      /* START EXACTLY CENTERED — NO BLANK SPACE EITHER WAY */
       transform: translateX(-50%);
       transition: none !important;
       white-space: nowrap;
     }
     .logo-scroll.auto {
-      animation: scrollLoop 30s linear infinite;
+      /* SMOOTH LOOP — NO JUMP BACK */
+      animation: scrollLoop 40s linear infinite;
     }
     .logo-banner.dragging .logo-scroll { animation: none; }
     .logo-badge {
@@ -195,9 +200,10 @@
   </section>
 </main>
 
-<!-- ✅ CLIENT CAROUSEL -->
+<!-- CLIENT CAROUSEL — START CENTERED, NO BLANK SPACE, NO JUMP -->
 <div class="logo-banner">
   <div class="logo-scroll auto">
+    <!-- FIRST FULL SET -->
     <div class="logo-badge">EMI</div>
     <div class="logo-badge">Defected</div>
     <div class="logo-badge">Sony</div>
@@ -213,7 +219,7 @@
     <div class="logo-badge">X‑Factor</div>
     <div class="logo-badge">Olympics</div>
     <div class="logo-badge">Open Golf</div>
-    <!-- Repeat list -->
+    <!-- DUPLICATE SET — FOR SEAMLESS LOOP -->
     <div class="logo-badge">EMI</div>
     <div class="logo-badge">Defected</div>
     <div class="logo-badge">Sony</div>
@@ -256,7 +262,7 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- FIXED CLIENT CAROUSEL: Auto + Drag/Swipe ---
+// --- FIXED CLIENT CAROUSEL: Auto + Drag/Swipe — NO BLANK SPACE, NO JUMP ---
 const banner = document.querySelector('.logo-banner');
 const scroll = document.querySelector('.logo-scroll');
 if (banner && scroll) {
