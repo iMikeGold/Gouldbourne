@@ -6,14 +6,62 @@
   <title>Work | Gouldbourne</title>
   <link rel="stylesheet" href="../assets/css/main.css">
   <style>
-    /* ADDED / UPDATED CAROUSEL CSS — THIS IS WHAT FIXES SWIPE/DRAG */
+    /* --------------------------
+    VERSION 2.0 GLOBAL FIXES
+    -------------------------- */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1; /* pushes everything down to bottom */
+    }
+
+    /* --------------------------
+    BACK BUTTON STYLE
+    -------------------------- */
+    .back-link {
+      font-size: 0.85rem !important; /* smaller than menu items */
+      color: var(--gold-bright) !important;
+      text-decoration: none !important;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .back-link::before {
+      content: "←"; /* back arrow */
+      font-size: 0.9rem;
+    }
+    .back-link:hover {
+      color: #008A5C !important; /* emerald green */
+    }
+
+    /* Wide screen: push Back to far right */
+    @media (min-width: 768px) {
+      #mainMenu {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 1.5rem;
+      }
+    }
+
+    /* --------------------------
+    CLIENT CAROUSEL — FIXED START POSITION (NO BLANK SPACE)
+    -------------------------- */
     .logo-banner {
       overflow: hidden;
       width: 100%;
       position: relative;
       padding: 1rem 0;
-      cursor: grab; /* shows it's draggable */
-      user-select: none; /* stop text selection — already had, but reinforced */
+      cursor: grab;
+      user-select: none;
+      margin: 2rem 0 0;
     }
     .logo-banner.dragging {
       cursor: grabbing;
@@ -22,15 +70,15 @@
       display: flex;
       gap: 2rem;
       align-items: center;
-      transform: translateX(0);
-      transition: none; /* ❗ important — JS handles movement, CSS transition breaks drag */
+      transform: translateX(-50%); /* ✅ START IN MIDDLE — NO BLANK SPACE */
+      transition: none !important;
       white-space: nowrap;
     }
     .logo-scroll.auto {
       animation: scrollLoop 30s linear infinite;
     }
     .logo-banner.dragging .logo-scroll {
-      animation: none; /* pause auto-scroll ONLY while dragging/swiping */
+      animation: none;
     }
     .logo-badge {
       flex: 0 0 auto;
@@ -40,8 +88,49 @@
       padding: 0.5rem 1rem;
     }
     @keyframes scrollLoop {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); } /* moves exactly half (since we duplicated items) */
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(-100%); } /* ✅ MOVE FULL LENGTH */
+    }
+
+    /* --------------------------
+    LEGAL LINKS
+    -------------------------- */
+    .legal-links {
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 1rem 0 2rem;
+      border-top: 1px solid var(--border-light);
+      margin-top: 0;
+    }
+    .legal-links a {
+      color: #008A5C !important; /* emerald green exactly like screenshot */
+      text-decoration: none;
+      margin: 0 0.75rem;
+    }
+    .legal-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* --------------------------
+    VIDEO CONTAINER (FOR PROJECT PAGES)
+    -------------------------- */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9, no forced widescreen */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      margin: 1.5rem 0;
+      border-radius: 4px;
+      border: 1px solid var(--border-gold);
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
   </style>
 </head>
@@ -59,6 +148,8 @@
         <li><a href="../blog/index.html">Blog</a></li>
         <li><a href="index.html" class="active">Work</a></li>
         <li><a href="../connect/index.html">Connect</a></li>
+        <!-- BACK BUTTON -->
+        <li><a href="javascript:history.back()" class="back-link">Back</a></li>
       </ul>
     </nav>
   </div>
@@ -72,28 +163,28 @@
 
   <section>
     <h2>Key Areas</h2>
-  <a href="projects/braodcast-systems.html" style="text-decoration: none; color: inherit;">
+    <a href="projects/braodcast-systems.html" style="text-decoration: none; color: inherit;">
       <div class="card">
         <h4>Broadcast & Live Sound</h4>
         <p>System design, RF coordination, live events.</p>
       </div>
     </a>
 
-   <a href="projects/studio-live-events.html" style="text-decoration: none; color: inherit;">
+    <a href="projects/studio-live-events.html" style="text-decoration: none; color: inherit;">
       <div class="card">
         <h4>Studio & Live Events</h4>
         <p>Recording, mixing, mastering and music productions</p>
       </div>
     </a>
     
-        <a href="projects/media-production.html" style="text-decoration: none; color: inherit;">
+    <a href="projects/media-production.html" style="text-decoration: none; color: inherit;">
       <div class="card">
         <h4>Film & Media Production</h4>
         <p>Camera operation, lighting, editing and videography productions</p>
       </div>
     </a>
     
-     <a href="projects/music-production.html" style="text-decoration: none; color: inherit;">
+    <a href="projects/music-production.html" style="text-decoration: none; color: inherit;">
       <div class="card">
         <h4>Art & Music Production</h4>
         <p>Music productions and creative expressions</p>
@@ -117,7 +208,7 @@
   </section>
 </main>
 
-<!-- CAROUSEL HTML — unchanged, just works now because of CSS above -->
+<!-- CLIENT CAROUSEL — FULL WIDTH, NO BLANK SPACE EITHER WAY -->
 <div class="logo-banner">
   <div class="logo-scroll auto">
     <div class="logo-badge">EMI</div>
@@ -154,10 +245,10 @@
   </div>
 </div>
 
-<!-- Legal Links -->
-<div class="container" style="padding: 1rem 0; text-align: center; font-size: 0.85rem; border-top: 1px solid var(--border-light);">
-  <a href="../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
-  <a href="../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
+<!-- LEGAL LINKS - GREEN, BOTTOM ALIGNED -->
+<div class="legal-links">
+  <a href="../legal/privacy.html">Privacy Policy</a>
+  <a href="../legal/terms.html">Terms of Use</a>
 </div>
   
 <footer>
