@@ -70,7 +70,7 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // ✅ 3 COPIES = NO BLANK SPACE, FULL CONTINUOUS LOOP
+    // 3 COPIES = NO BLANK SPACE, FULL CONTINUOUS LOOP
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
