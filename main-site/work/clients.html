@@ -118,7 +118,8 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    for (let loop = 0; loop < 2; loop++) {
+    // ✅ FIXED: loop = 3 (matches CSS keyframes, no jump)
+    for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
           ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
@@ -138,6 +139,9 @@ function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
+
+  // ✅ FIXED: START MOVING IMMEDIATELY — NO WAITING FOR HOVER
+  scroll.style.animationPlayState = 'running';
 
   let isDown = false, startX, scrollLeft;
 
