@@ -76,7 +76,7 @@
 </main>
 
 <div class="logo-banner">
-  <div class="logo-scroll auto" id="clientScroll"></div>
+  <div class="logo-scroll" id="clientScroll"></div>
 </div>
 
 <footer>
@@ -100,6 +100,14 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
+// --- CAROUSEL LOGIC — FIXED NO JUMP, SMOOTH RESTART ---
+let scrollPos = 0;
+const autoSpeed = 0.08; // adjust speed: lower = slower
+let isDragging = false;
+let startX, startPos;
+let contentWidth = 0;
+let animationFrame;
+
 async function loadClients() {
   try {
     const res = await fetch('../registry/clients.json');
@@ -108,7 +116,7 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // 3 copies = no blank space, infinite loop
+    // 3 copies = seamless infinite loop
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
@@ -119,6 +127,8 @@ async function loadClients() {
     }
 
     container.innerHTML = html;
+    contentWidth = container.scrollWidth / 3;
+    scrollPos = -contentWidth / 2; // start centered
     initCarousel();
   } catch (err) {
     console.error('Error loading clients:', err);
@@ -130,68 +140,79 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  let isDown = false, startX, currentX;
-
-  // Mouse events
+  // --- MOUSE EVENTS ---
   banner.addEventListener('mousedown', e => {
-    isDown = true;
+    isDragging = true;
     banner.classList.add('dragging');
-    startX = e.pageX - banner.offsetLeft;
-    const transform = getComputedStyle(scroll).transform;
-    const matrix = new DOMMatrixReadOnly(transform);
-    currentX = matrix.m41;
+    startX = e.clientX;
+    startPos = scrollPos;
+    cancelAnimationFrame(animationFrame);
     e.preventDefault();
-  });
-
-  banner.addEventListener('mouseup', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
-    scroll.style.animation = 'none';
-    void scroll.offsetWidth;
-    scroll.style.animation = 'scrollLoop 45s linear infinite';
-  });
-
-  banner.addEventListener('mouseleave', () => {
-    if (!isDown) return;
-    isDown = false;
-    banner.classList.remove('dragging');
-    scroll.style.animation = 'none';
-    void scroll.offsetWidth;
-    scroll.style.animation = 'scrollLoop 45s linear infinite';
   });
 
   banner.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - banner.offsetLeft;
-    const move = (x - startX) * 1.5;
-    scroll.style.transform = `translateX(${currentX + move}px)`;
+    if (!isDragging) return;
+    const delta = (e.clientX - startX) * 1.3;
+    scrollPos = startPos + delta;
+    wrapPosition();
+    updateTransform();
   });
 
-  // Touch events
+  banner.addEventListener('mouseup', endDrag);
+  banner.addEventListener('mouseleave', endDrag);
+
+  // --- TOUCH EVENTS — FIXED FOR MOBILE ---
   banner.addEventListener('touchstart', e => {
-    isDown = true;
+    isDragging = true;
     banner.classList.add('dragging');
-    startX = e.touches[0].pageX - banner.offsetLeft;
-    const transform = getComputedStyle(scroll).transform;
-    const matrix = new DOMMatrixReadOnly(transform);
-    currentX = matrix.m41;
+    startX = e.touches[0].clientX;
+    startPos = scrollPos;
+    cancelAnimationFrame(animationFrame);
   }, { passive: true });
-
-  banner.addEventListener('touchend', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
-    scroll.style.animation = 'none';
-    void scroll.offsetWidth;
-    scroll.style.animation = 'scrollLoop 45s linear infinite';
-  });
 
   banner.addEventListener('touchmove', e => {
-    if (!isDown) return;
-    const x = e.touches[0].pageX - banner.offsetLeft;
-    const move = (x - startX) * 1.5;
-    scroll.style.transform = `translateX(${currentX + move}px)`;
+    if (!isDragging) return;
+    const delta = (e.touches[0].clientX - startX) * 1.3;
+    scrollPos = startPos + delta;
+    wrapPosition();
+    updateTransform();
   }, { passive: true });
+
+  banner.addEventListener('touchend', endDrag);
+  banner.addEventListener('touchcancel', endDrag);
+
+  // --- HELPERS ---
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    banner.classList.remove('dragging');
+    startAutoScroll(); // restarts smoothly from current position
+  }
+
+  function wrapPosition() {
+    // Keep it looping without gaps
+    if (scrollPos > 0) scrollPos -= contentWidth;
+    if (scrollPos < -contentWidth) scrollPos += contentWidth;
+  }
+
+  function updateTransform() {
+    scroll.style.transform = `translateX(${scrollPos}px)`;
+  }
+
+  function startAutoScroll() {
+    function animate() {
+      if (!isDragging) {
+        scrollPos -= autoSpeed;
+        wrapPosition();
+        updateTransform();
+      }
+      animationFrame = requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
+  // Start immediately on load
+  startAutoScroll();
 }
 
 loadClients();
