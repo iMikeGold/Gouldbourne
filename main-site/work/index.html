@@ -6,6 +6,9 @@
   <title>Work | Gouldbourne</title>
   <link rel="stylesheet" href="../assets/css/main.css">
   <style>
+    /* --------------------------
+    BACK BUTTON STYLE (YOURS)
+    -------------------------- */
     .back-link {
       font-size: 0.85rem !important;
       color: var(--gold-bright) !important;
@@ -23,6 +26,10 @@
     .back-link:active {
       color: var(--emerald-bright) !important;
     }
+
+    /* --------------------------
+    CLIENT ITEM / LOGO STYLES (YOURS)
+    -------------------------- */
     .client-item {
       flex: 0 0 auto !important;
       display: flex !important;
@@ -51,6 +58,41 @@
     }
     .client-item a:hover .client-logo {
       opacity: 1 !important;
+    }
+
+    /* --------------------------
+    CAROUSEL CSS — EXACT WORKING VERSION RESTORED
+    -------------------------- */
+    .logo-banner {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      padding: 1rem 0;
+      cursor: grab !important; /* SHOWS DRAGGABLE */
+      user-select: none !important; /* STOP TEXT SELECTION */
+      margin: 2rem 0 0;
+    }
+    .logo-banner.dragging {
+      cursor: grabbing !important;
+    }
+    .logo-scroll {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      transform: translateX(-50%); /* START IN MIDDLE — NO BLANK SPACE */
+      transition: none !important; /* CRITICAL — NO CSS TRANSITION BREAKING DRAG */
+      white-space: nowrap;
+    }
+    .logo-scroll.auto {
+      animation: scrollLoop 30s linear infinite;
+    }
+    .logo-banner.dragging .logo-scroll,
+    .logo-banner:hover .logo-scroll {
+      animation: none !important; /* PAUSE AUTO WHILE DRAG OR HOVER */
+    }
+    @keyframes scrollLoop {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(-100%); } /* SMOOTH FULL LOOP */
     }
   </style>
 </head>
@@ -156,6 +198,7 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
+    // LOOP 2 TIMES + START POSITION FIX = NO BLANK SPACE
     for (let loop = 0; loop < 2; loop++) {
       clients.forEach(client => {
         const content = client.logo
@@ -172,6 +215,7 @@ async function loadClients() {
   }
 }
 
+// EXACT WORKING DRAG/SCRUB CODE — RESTORED FROM BEST VERSION
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
@@ -179,6 +223,7 @@ function initCarousel() {
 
   let isDown = false, startX, scrollLeft;
 
+  // MOUSE EVENTS — PERFECT SCRUB
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
@@ -195,6 +240,7 @@ function initCarousel() {
     scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
   });
 
+  // TOUCH EVENTS — SAME BEHAVIOUR
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
