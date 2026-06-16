@@ -102,7 +102,7 @@ window.addEventListener('scroll', () => {
 
 // --- CAROUSEL LOGIC — FIXED NO JUMP, SMOOTH RESTART ---
 let scrollPos = 0;
-const autoSpeed = 0.08; // adjust speed: lower = slower
+const autoSpeed = 0.55; // ✅ Great speed value — nice and steady
 let isDragging = false;
 let startX, startPos;
 let contentWidth = 0;
@@ -140,6 +140,14 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
+  // --- HOVER TO STOP / RESUME ---
+  banner.addEventListener('mouseenter', () => {
+    cancelAnimationFrame(animationFrame);
+  });
+  banner.addEventListener('mouseleave', () => {
+    endDrag(); // ✅ Now this handles BOTH ending drag AND resuming scroll
+  });
+  
   // --- MOUSE EVENTS ---
   banner.addEventListener('mousedown', e => {
     isDragging = true;
@@ -159,7 +167,7 @@ function initCarousel() {
   });
 
   banner.addEventListener('mouseup', endDrag);
-  banner.addEventListener('mouseleave', endDrag);
+  // ✅ REMOVED duplicate mouseleave listener here — now only one above
 
   // --- TOUCH EVENTS — FIXED FOR MOBILE ---
   banner.addEventListener('touchstart', e => {
