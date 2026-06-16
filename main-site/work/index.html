@@ -7,12 +7,11 @@
   <link rel="stylesheet" href="../assets/css/main.css">
   <style>
     /* --------------------------
-    BACKGROUND: DARK → LIGHTER CHARCOAL (TOP → BOTTOM)
+    BACKGROUND: DARK TOP → LIGHTER BOTTOM
     -------------------------- */
     html {
       height: 100%;
       margin: 0;
-      /* Darker at top, fades lighter all the way down — exactly as you wanted */
       background: linear-gradient(180deg, #0f0f11 0%, #2b2b32 100%);
       background-attachment: fixed;
       background-repeat: no-repeat;
@@ -60,46 +59,62 @@
     }
 
     /* --------------------------
-    CLIENT CAROUSEL — PERFECT START, NO BLANK SPACE, NO JUMP
+    CLIENT CAROUSEL — 100% TRANSPARENT, NO BOXES
     -------------------------- */
     .logo-banner {
       overflow: hidden;
       width: 100%;
       position: relative;
-      padding: 1.5rem 0;
-      margin: 2rem 0 2rem;
+      padding: 2rem 0;
+      margin: 2rem 0;
       cursor: grab;
       user-select: none;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      background: transparent;
+      background: transparent !important;
+      border: none !important;
     }
     .logo-banner.dragging { cursor: grabbing; }
     .logo-scroll {
       display: flex;
-      gap: 2.5rem;
+      gap: 4rem;
       align-items: center;
       width: max-content;
-      /* START EXACTLY CENTERED — NO BLANK SPACE EITHER WAY */
-      transform: translateX(-50%);
+      transform: translateX(-33.3333%);
       transition: none !important;
       white-space: nowrap;
     }
     .logo-scroll.auto {
-      /* SMOOTH LOOP — NO JUMP BACK */
       animation: scrollLoop 40s linear infinite;
     }
     .logo-banner.dragging .logo-scroll { animation: none; }
-    .logo-badge {
+
+    /* --- ITEM STYLE --- */
+    .client-item {
       flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .client-item a {
+      display: block;
+      text-decoration: none !important; /* NO UNDERLINE EVER */
+      color: var(--text-muted, #b0b0b8);
+      transition: color 0.2s ease;
       font-size: 1.1rem;
       font-weight: 500;
-      color: var(--text-muted, #a0a0a8);
-      padding: 0.5rem 1rem;
+    }
+    .client-item a:hover {
+      color: var(--gold-bright, #d4af37); /* gold on hover */
+    }
+    /* --- LOGO IMAGE --- */
+    .client-logo {
+      height: 32px; /* adjust as needed */
+      width: auto;
+      display: block;
+      object-fit: contain;
     }
     @keyframes scrollLoop {
-      0% { transform: translateX(-50%); }
-      100% { transform: translateX(-100%); }
+      0% { transform: translateX(-33.3333%); }
+      100% { transform: translateX(-66.6666%); }
     }
 
     /* --------------------------
@@ -123,7 +138,7 @@
     }
 
     /* --------------------------
-    CARD & HEADING STYLES
+    CARD STYLES
     -------------------------- */
     .card h4 {
       color: #008A5C;
@@ -200,41 +215,10 @@
   </section>
 </main>
 
-<!-- CLIENT CAROUSEL — START CENTERED, NO BLANK SPACE, NO JUMP -->
+<!-- CLIENT CAROUSEL — 100% FLOATING OVER BACKGROUND -->
 <div class="logo-banner">
-  <div class="logo-scroll auto">
-    <!-- FIRST FULL SET -->
-    <div class="logo-badge">EMI</div>
-    <div class="logo-badge">Defected</div>
-    <div class="logo-badge">Sony</div>
-    <div class="logo-badge">BBC</div>
-    <div class="logo-badge">ITV</div>
-    <div class="logo-badge">UEFA</div>
-    <div class="logo-badge">NFL</div>
-    <div class="logo-badge">PlayStation</div>
-    <div class="logo-badge">Halifax</div>
-    <div class="logo-badge">Mars</div>
-    <div class="logo-badge">Three</div>
-    <div class="logo-badge">Orange</div>
-    <div class="logo-badge">X‑Factor</div>
-    <div class="logo-badge">Olympics</div>
-    <div class="logo-badge">Open Golf</div>
-    <!-- DUPLICATE SET — FOR SEAMLESS LOOP -->
-    <div class="logo-badge">EMI</div>
-    <div class="logo-badge">Defected</div>
-    <div class="logo-badge">Sony</div>
-    <div class="logo-badge">BBC</div>
-    <div class="logo-badge">ITV</div>
-    <div class="logo-badge">UEFA</div>
-    <div class="logo-badge">NFL</div>
-    <div class="logo-badge">PlayStation</div>
-    <div class="logo-badge">Halifax</div>
-    <div class="logo-badge">Mars</div>
-    <div class="logo-badge">Three</div>
-    <div class="logo-badge">Orange</div>
-    <div class="logo-badge">X‑Factor</div>
-    <div class="logo-badge">Olympics</div>
-    <div class="logo-badge">Open Golf</div>
+  <div class="logo-scroll auto" id="clientScroll">
+    <!-- JS fills this from JSON -->
   </div>
 </div>
 
@@ -262,10 +246,46 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- FIXED CLIENT CAROUSEL: Auto + Drag/Swipe — NO BLANK SPACE, NO JUMP ---
-const banner = document.querySelector('.logo-banner');
-const scroll = document.querySelector('.logo-scroll');
-if (banner && scroll) {
+// --- LOAD CLIENTS FROM JSON & BUILD CAROUSEL ---
+async function loadClients() {
+  try {
+    const res = await fetch('../registry/clients.json');
+    const data = await res.json();
+    const clients = data.clients;
+    const container = document.getElementById('clientScroll');
+    let html = '';
+
+    // Repeat 3x for perfect infinite scroll
+    for (let loop = 0; loop < 3; loop++) {
+      clients.forEach(client => {
+        // IF logo exists → show image, ELSE → show text
+        const content = client.logo
+          ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
+          : `${client.name}`;
+
+        html += `
+          <div class="client-item">
+            <a href="${client.url}" target="_blank" rel="noopener noreferrer">
+              ${content}
+            </a>
+          </div>
+        `;
+      });
+    }
+
+    container.innerHTML = html;
+    initCarousel();
+  } catch (err) {
+    console.error('Error loading clients:', err);
+  }
+}
+
+// --- CAROUSEL DRAG/SWIPE LOGIC ---
+function initCarousel() {
+  const banner = document.querySelector('.logo-banner');
+  const scroll = document.querySelector('.logo-scroll');
+  if (!banner || !scroll) return;
+
   let isDown = false;
   let startX;
   let scrollLeft;
@@ -310,6 +330,9 @@ if (banner && scroll) {
     scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
   }, { passive: true });
 }
+
+// Start everything
+loadClients();
 </script>
   
 </body>
