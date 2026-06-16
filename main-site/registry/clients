@@ -1,0 +1,40 @@
+{
+  "clients": [
+    {
+      "id": "emi",
+      "name": "EMI",
+      "logo": "emi.png",
+      "url": "https://www.youtube.com/results?search_query=EMI+records"
+    },
+    {
+      "id": "defected",
+      "name": "Defected",
+      "logo": "defected.png",
+      "url": "https://www.youtube.com/results?search_query=Defected+Records"
+    },
+    {
+      "id": "sony",
+      "name": "Sony",
+      "logo": "sony.png",
+      "url": "https://www.youtube.com/results?search_query=Sony+Music"
+    },
+    {
+      "id": "croydoncouncil",
+      "name": "Croydon Council",
+      "logo": "croydoncouncil.png",
+      "url": "https://www.youtube.com/results?search_query=Croydon+Council"
+    },
+    {
+      "id": "adhoc1",
+      "name": "Random Client",
+      "logo": "",
+      "url": "https://www.youtube.com"
+    },
+    {
+      "id": "adhoc2",
+      "name": "Another One",
+      "logo": "",
+      "url": "https://www.youtube.com"
+    }
+  ]
+}
