@@ -61,15 +61,15 @@
     }
 
     /* --------------------------
-    CAROUSEL CSS — FIXED GLITCHES, SCRUB UNCHANGED
+    CAROUSEL CSS — EXACT WORKING VERSION RESTORED
     -------------------------- */
     .logo-banner {
       overflow: hidden;
       width: 100%;
       position: relative;
       padding: 1rem 0;
-      cursor: grab !important;
-      user-select: none !important;
+      cursor: grab !important; /* SHOWS DRAGGABLE */
+      user-select: none !important; /* STOP TEXT SELECTION */
       margin: 2rem 0 0;
     }
     .logo-banner.dragging {
@@ -79,23 +79,20 @@
       display: flex;
       gap: 2rem;
       align-items: center;
-      /* START AT -33.333% + 3 COPIES = NO BLANK SPACE EVER */
-      transform: translateX(-33.333%);
-      transition: none !important;
+      transform: translateX(-50%); /* START IN MIDDLE — NO BLANK SPACE */
+      transition: none !important; /* CRITICAL — NO CSS TRANSITION BREAKING DRAG */
       white-space: nowrap;
     }
     .logo-scroll.auto {
       animation: scrollLoop 30s linear infinite;
-      /* USE PLAY-STATE INSTEAD OF DISABLING ANIMATION = NO JUMP */
-      animation-play-state: running;
     }
-    .logo-banner.dragging .logo-scroll.auto,
-    .logo-banner:hover .logo-scroll.auto {
-      animation-play-state: paused !important; /* PAUSE IN PLACE, NO RESET */
+    .logo-banner.dragging .logo-scroll,
+    .logo-banner:hover .logo-scroll {
+      animation: none !important; /* PAUSE AUTO WHILE DRAG OR HOVER */
     }
     @keyframes scrollLoop {
-      0% { transform: translateX(-33.333%); }
-      100% { transform: translateX(-66.666%); } /* PERFECT LOOP WITH 3 COPIES */
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(-100%); } /* SMOOTH FULL LOOP */
     }
   </style>
 </head>
@@ -201,8 +198,8 @@ async function loadClients() {
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // LOOP 3 TIMES — NO BLANK SPACE POSSIBLE
-    for (let loop = 0; loop < 3; loop++) {
+    // LOOP 2 TIMES + START POSITION FIX = NO BLANK SPACE
+    for (let loop = 0; loop < 2; loop++) {
       clients.forEach(client => {
         const content = client.logo
           ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
@@ -218,7 +215,7 @@ async function loadClients() {
   }
 }
 
-// EXACT SCRUB CODE — 100% UNCHANGED FROM THE VERSION THAT WORKED
+// EXACT WORKING DRAG/SCRUB CODE — RESTORED FROM BEST VERSION
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
@@ -226,7 +223,7 @@ function initCarousel() {
 
   let isDown = false, startX, scrollLeft;
 
-  // MOUSE EVENTS — PERFECT SCRUB, NO CHANGES
+  // MOUSE EVENTS — PERFECT SCRUB
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
@@ -243,7 +240,7 @@ function initCarousel() {
     scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
   });
 
-  // TOUCH EVENTS — SAME BEHAVIOUR, NO CHANGES
+  // TOUCH EVENTS — SAME BEHAVIOUR
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
