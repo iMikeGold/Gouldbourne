@@ -101,10 +101,12 @@
   </div>
 </footer>
 
- <script>
+<script>
 // --- Mobile Menu Toggle ---
 function toggleMenu() {
+  const btn = document.querySelector('.menu-toggle');
   const menu = document.getElementById('mainMenu');
+  btn.classList.toggle('active');
   menu.classList.toggle('active');
 }
 
@@ -113,7 +115,7 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- Client Carousel: Auto + Drag/Swipe ---
+// --- ✅ FIXED CLIENT CAROUSEL: Auto + Drag/Swipe ---
 const banner = document.querySelector('.logo-banner');
 const scroll = document.querySelector('.logo-scroll');
 if (banner && scroll) {
@@ -121,11 +123,13 @@ if (banner && scroll) {
   let startX;
   let scrollLeft;
 
+  // Mouse events
   banner.addEventListener('mousedown', (e) => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
+    e.preventDefault(); // stop text selection
   });
   banner.addEventListener('mouseup', () => {
     isDown = false;
@@ -139,16 +143,17 @@ if (banner && scroll) {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
-    const walk = (x - startX) * 1.2;
+    const walk = (x - startX) * 1.5; // sensitivity
     scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
   });
-  // Mobile touch support
+
+  // Touch events (mobile swipe)
   banner.addEventListener('touchstart', (e) => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
-  });
+  }, { passive: true });
   banner.addEventListener('touchend', () => {
     isDown = false;
     banner.classList.remove('dragging');
@@ -156,9 +161,9 @@ if (banner && scroll) {
   banner.addEventListener('touchmove', (e) => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
-    const walk = (x - startX) * 1.2;
+    const walk = (x - startX) * 1.5;
     scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
-  });
+  }, { passive: true });
 }
 </script>
   
