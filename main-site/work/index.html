@@ -5,6 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work | Gouldbourne</title>
   <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* ADDED / UPDATED CAROUSEL CSS — THIS IS WHAT FIXES SWIPE/DRAG */
+    .logo-banner {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      padding: 1rem 0;
+      cursor: grab; /* shows it's draggable */
+      user-select: none; /* stop text selection — already had, but reinforced */
+    }
+    .logo-banner.dragging {
+      cursor: grabbing;
+    }
+    .logo-scroll {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      transform: translateX(0);
+      transition: none; /* ❗ important — JS handles movement, CSS transition breaks drag */
+      white-space: nowrap;
+    }
+    .logo-scroll.auto {
+      animation: scrollLoop 30s linear infinite;
+    }
+    .logo-banner.dragging .logo-scroll {
+      animation: none; /* pause auto-scroll ONLY while dragging/swiping */
+    }
+    .logo-badge {
+      flex: 0 0 auto;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+    }
+    @keyframes scrollLoop {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); } /* moves exactly half (since we duplicated items) */
+    }
+  </style>
 </head>
 <body>
 
@@ -33,7 +72,6 @@
 
   <section>
     <h2>Key Areas</h2>
-    <!-- ADDED LINKS to your project files -->
     <a href="projects/studio-live-events.html" style="text-decoration: none; color: inherit;">
       <div class="card">
         <h4>Studio & Production</h4>
@@ -65,7 +103,7 @@
   </section>
 </main>
 
-<!-- Client Logo Banner — FULL WIDTH, matches all other pages -->
+<!-- ✅ CAROUSEL HTML — unchanged, just works now because of CSS above -->
 <div class="logo-banner">
   <div class="logo-scroll auto">
     <div class="logo-badge">EMI</div>
@@ -142,7 +180,7 @@ if (banner && scroll) {
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
-    e.preventDefault(); // stop text selection
+    e.preventDefault();
   });
   banner.addEventListener('mouseup', () => {
     isDown = false;
@@ -156,7 +194,7 @@ if (banner && scroll) {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
-    const walk = (x - startX) * 1.5; // sensitivity
+    const walk = (x - startX) * 1.5;
     scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
   });
 
