@@ -5,151 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work | Gouldbourne</title>
   <link rel="stylesheet" href="../assets/css/main.css">
-  <style>
-    /* --------------------------
-    BACKGROUND: DARK TOP → LIGHTER BOTTOM
-    -------------------------- */
-    html {
-      height: 100%;
-      margin: 0;
-      background: linear-gradient(180deg, #0f0f11 0%, #2b2b32 100%);
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-    }
-    body {
-      min-height: 100%;
-      margin: 0;
-      background: transparent;
-      color: var(--text-light, #f0f0f0);
-      display: flex;
-      flex-direction: column;
-    }
-    main {
-      flex: 1;
-      background: transparent;
-    }
-
-    /* --------------------------
-    BACK BUTTON
-    -------------------------- */
-    .back-link {
-      font-size: 0.85rem !important;
-      color: var(--gold-bright, #d4af37) !important;
-      text-decoration: none !important;
-      transition: color 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .back-link::before {
-      content: "←";
-      font-size: 0.9rem;
-    }
-    .back-link:hover {
-      color: #008A5C !important;
-    }
-    @media (min-width: 768px) {
-      #mainMenu {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 1.5rem;
-      }
-    }
-
-    /* --------------------------
-    CLIENT CAROUSEL — 100% TRANSPARENT, NO BOXES
-    -------------------------- */
-    .logo-banner {
-      overflow: hidden;
-      width: 100%;
-      position: relative;
-      padding: 2rem 0;
-      margin: 2rem 0;
-      cursor: grab;
-      user-select: none;
-      background: transparent !important;
-      border: none !important;
-    }
-    .logo-banner.dragging { cursor: grabbing; }
-    .logo-scroll {
-      display: flex;
-      gap: 4rem;
-      align-items: center;
-      width: max-content;
-      transform: translateX(-33.3333%);
-      transition: none !important;
-      white-space: nowrap;
-    }
-    .logo-scroll.auto {
-      animation: scrollLoop 40s linear infinite;
-    }
-    .logo-banner.dragging .logo-scroll { animation: none; }
-
-    /* --- ITEM BASE STYLE --- */
-    .client-item {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 36px; /* Matches logo height so text lines up */
-    }
-    .client-item a {
-      display: block;
-      text-decoration: none !important; /* NO UNDERLINE EVER */
-      color: var(--text-muted, #b0b0b8);
-      transition: color 0.2s ease;
-      font-size: 1.1rem;
-      font-weight: 500;
-      line-height: 1;
-    }
-    .client-item a:hover {
-      color: var(--gold-bright, #d4af37); /* Gold hover */
-    }
-
-    /* --- LOGO STYLE — WORKS FOR PNG, SVG, JPEG, ANY SIZE --- */
-    .client-logo {
-      height: 32px; /* Fixed height — ALL logos same size, no distortion */
-      width: auto;  /* Width scales automatically */
-      max-width: 180px; /* Prevent extra-wide logos breaking layout */
-      object-fit: contain; /* Never stretch, never crop */
-      display: block;
-    }
-
-    @keyframes scrollLoop {
-      0% { transform: translateX(-33.3333%); }
-      100% { transform: translateX(-66.6666%); }
-    }
-
-    /* --------------------------
-    FOOTER
-    -------------------------- */
-    footer {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted, #a0a0a8);
-      padding: 1.5rem 0 2.5rem;
-      margin: 0;
-      background: transparent;
-    }
-    footer a {
-      color: #008A5C !important;
-      text-decoration: none;
-      margin: 0 0.8rem;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    /* --------------------------
-    CARD STYLES
-    -------------------------- */
-    .card h4 {
-      color: #008A5C;
-      margin-top: 0;
-    }
-  </style>
 </head>
 <body>
 
@@ -220,14 +75,14 @@
   </section>
 </main>
 
-<!-- CLIENT CAROUSEL — EXACTLY YOUR 24 LOGOS -->
-<div class="logo-banner">
-  <div class="logo-scroll auto" id="clientScroll">
+<!-- ✅ CLIENT CAROUSEL — TRANSPARENT, NO BOXES, YOUR 24 LOGOS -->
+<div class="logo-banner" style="background: transparent !important; border: none !important;">
+  <div class="logo-scroll auto" id="clientScroll" style="transform: translateX(-33.3333%);">
     <!-- JS fills this from JSON -->
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ✅ FOOTER -->
 <footer>
   <div class="container">
     <p>© 2026 Micheal | Gouldbourne
@@ -308,7 +163,7 @@ function initCarousel() {
   });
   banner.addEventListener('mouseleave', () => {
     isDown = false;
- banner.classList.remove('dragging');
+    banner.classList.remove('dragging');
   });
   banner.addEventListener('mousemove', (e) => {
     if (!isDown) return;
