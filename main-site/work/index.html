@@ -87,12 +87,13 @@
     }
     .logo-banner.dragging .logo-scroll { animation: none; }
 
-    /* --- ITEM STYLE --- */
+    /* --- ITEM BASE STYLE --- */
     .client-item {
       flex: 0 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 36px; /* Matches logo height so text lines up */
     }
     .client-item a {
       display: block;
@@ -101,17 +102,21 @@
       transition: color 0.2s ease;
       font-size: 1.1rem;
       font-weight: 500;
+      line-height: 1;
     }
     .client-item a:hover {
-      color: var(--gold-bright, #d4af37); /* gold on hover */
+      color: var(--gold-bright, #d4af37); /* Gold hover */
     }
-    /* --- LOGO IMAGE --- */
+
+    /* --- LOGO STYLE — WORKS FOR PNG, SVG, JPEG, ANY SIZE --- */
     .client-logo {
-      height: 32px; /* adjust as needed */
-      width: auto;
+      height: 32px; /* Fixed height — ALL logos same size, no distortion */
+      width: auto;  /* Width scales automatically */
+      max-width: 180px; /* Prevent extra-wide logos breaking layout */
+      object-fit: contain; /* Never stretch, never crop */
       display: block;
-      object-fit: contain;
     }
+
     @keyframes scrollLoop {
       0% { transform: translateX(-33.3333%); }
       100% { transform: translateX(-66.6666%); }
@@ -209,13 +214,13 @@
   <section>
     <h2>Selected Clients</h2>
     <div class="card">
-      <p>EMI, Defected Records, Sony, UEFA, NFL, Match of the Day, X-Factor, and multiple UK local councils.</p>
+      <p>Local councils, major brands, sports organisations and telecoms partners delivered for over 30 years.</p>
       <a href="clients.html" class="btn btn-gold">Full List</a>
     </div>
   </section>
 </main>
 
-<!-- CLIENT CAROUSEL — 100% FLOATING OVER BACKGROUND -->
+<!-- CLIENT CAROUSEL — EXACTLY YOUR 24 LOGOS -->
 <div class="logo-banner">
   <div class="logo-scroll auto" id="clientScroll">
     <!-- JS fills this from JSON -->
@@ -258,7 +263,7 @@ async function loadClients() {
     // Repeat 3x for perfect infinite scroll
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
-        // IF logo exists → show image, ELSE → show text
+        // Show image if exists, else plain text
         const content = client.logo
           ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
           : `${client.name}`;
@@ -303,7 +308,7 @@ function initCarousel() {
   });
   banner.addEventListener('mouseleave', () => {
     isDown = false;
-    banner.classList.remove('dragging');
+ banner.classList.remove('dragging');
   });
   banner.addEventListener('mousemove', (e) => {
     if (!isDown) return;
