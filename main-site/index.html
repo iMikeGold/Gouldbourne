@@ -84,17 +84,14 @@
   <section style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:1.5rem;">
     <div class="card">
       <h3>My Story</h3>
-      <p>From broadcast engineer to business management to neuroscience student — a path that never swerved, only preserved.</p>
       <a href="about/index.html" class="btn btn-emerald">Read More</a>
     </div>
     <div class="card">
       <h3>Credentials & CV</h3>
-      <p>Full history, qualifications, projects and downloadable CV.</p>
       <a href="credentials/index.html" class="btn btn-gold">View Details</a>
     </div>
     <div class="card">
       <h3>Free Access</h3>
-      <p>Live call / advice — technical, business, or perspective using neuroscience & behavioural insight to guide you.</p>
       <a href="connect/index.html" class="btn btn-emerald">Go Live</a>
     </div>
   </section>
@@ -107,8 +104,8 @@
 <footer>
   <div class="container">
     <p>© 2026 Micheal | Gouldbourne
-      <a href="../legal/privacy.html">Privacy Policy</a> |
-      <a href="../legal/terms.html">Terms of Use</a>
+      <a href="legal/privacy.html">Privacy Policy</a> |
+      <a href="legal/terms.html">Terms of Use</a>
     </p>
   </div>
 </footer>
@@ -127,16 +124,17 @@ window.addEventListener('scroll', () => {
 
 async function loadClients() {
   try {
-    const res = await fetch('../registry/clients.json');
+    const res = await fetch('registry/clients.json');
     const data = await res.json();
     const clients = data.clients;
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    for (let loop = 0; loop < 2; loop++) {
+    // ✅ Loop = 3 (correct for alignment)
+    for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
-          ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
+          ? `<img src="assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
           : `${client.name}`;
         html += `<div class="client-item"><a href="${client.url}" target="_blank" rel="noopener noreferrer">${content}</a></div>`;
       });
@@ -156,29 +154,59 @@ function initCarousel() {
 
   let isDown = false, startX, scrollLeft;
 
+  // ✅ FIX: Start animation RUNNING on page load
+  scroll.style.animationPlayState = 'running';
+
+  // --- MOUSE EVENTS ---
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
+    // ✅ Pause animation when dragging starts
+    scroll.style.animationPlayState = 'paused';
     e.preventDefault();
   });
-  banner.addEventListener('mouseup', () => { isDown = false; banner.classList.remove('dragging'); });
-  banner.addEventListener('mouseleave', () => { isDown = false; banner.classList.remove('dragging'); });
+
+  banner.addEventListener('mouseup', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+    // ✅ RESUME animation when you let go
+    scroll.style.animationPlayState = 'running';
+  });
+
+  banner.addEventListener('mouseleave', () => {
+    if (isDown) {
+      isDown = false;
+      banner.classList.remove('dragging');
+      // ✅ RESUME if you drag outside the banner
+      scroll.style.animationPlayState = 'running';
+    }
+  });
+
   banner.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
+    // ✅ Scrub speed matches your working pages (1.5x)
     scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
   });
 
+  // --- TOUCH EVENTS ---
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
+    scroll.style.animationPlayState = 'paused';
   }, { passive: true });
-  banner.addEventListener('touchend', () => { isDown = false; banner.classList.remove('dragging'); });
+
+  banner.addEventListener('touchend', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+    scroll.style.animationPlayState = 'running';
+  });
+
   banner.addEventListener('touchmove', e => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
