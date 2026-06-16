@@ -125,43 +125,71 @@ async function loadClients() {
   }
 }
 
-// EXACT WORKING DRAG/SCRUB CODE — RESTORED FROM BEST VERSION
+// ✅ FIXED: NO JUMP, NO RESET, MOBILE RESTARTS
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  let isDown = false, startX, scrollLeft;
+  let isDown = false, startX, currentX;
 
-  // MOUSE EVENTS — PERFECT SCRUB
+  // MOUSE EVENTS — NO JUMP
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
-    scrollLeft = scroll.offsetLeft;
+    // ✅ CAPTURE CURRENT POSITION FROM ACTUAL STYLE
+    const transform = getComputedStyle(scroll).transform;
+    const matrix = new DOMMatrixReadOnly(transform);
+    currentX = matrix.m41;
     e.preventDefault();
   });
-  banner.addEventListener('mouseup', () => { isDown = false; banner.classList.remove('dragging'); });
-  banner.addEventListener('mouseleave', () => { isDown = false; banner.classList.remove('dragging'); });
+
+  banner.addEventListener('mouseup', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+  });
+
+  banner.addEventListener('mouseleave', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+  });
+
   banner.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - banner.offsetLeft;
-    scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
+    const move = (x - startX) * 1.5;
+    // ✅ MOVE FROM CURRENT POSITION — NO RESET
+    scroll.style.transform = `translateX(${currentX + move}px)`;
   });
 
-  // TOUCH EVENTS — SAME BEHAVIOUR
+  // TOUCH EVENTS — RESTARTS SCROLL ON RELEASE
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
-    scrollLeft = scroll.offsetLeft;
+    // ✅ CAPTURE CURRENT POSITION
+    const transform = getComputedStyle(scroll).transform;
+    const matrix = new DOMMatrixReadOnly(transform);
+    currentX = matrix.m41;
   }, { passive: true });
-  banner.addEventListener('touchend', () => { isDown = false; banner.classList.remove('dragging'); });
+
+  banner.addEventListener('touchend', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+    // ✅ FORCE RESTART ANIMATION — NO STUCK SCROLL
+    scroll.style.animation = 'none';
+    void scroll.offsetWidth; // trigger reflow
+    scroll.style.animation = 'scrollLoop 30s linear infinite';
+  });
+
   banner.addEventListener('touchmove', e => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
-    scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
+    const move = (x - startX) * 1.5;
+    // ✅ MOVE FROM CURRENT POSITION — NO RESET
+    scroll.style.transform = `translateX(${currentX + move}px)`;
   }, { passive: true });
 }
 
