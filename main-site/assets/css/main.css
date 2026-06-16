@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.8 — FIXED CAROUSEL + BAND
+GOULDBOURNE.CO.UK | VERSION 1.9 — FINAL FIX: AUTO‑START, SCRUB, ELEGANT RIBBON
 Colour Palette & Design System
 ============================================== */
 
@@ -251,7 +251,7 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — FIXED: AUTO‑START, NO JUMP, SEMI‑WHITE BAND
+CAROUSEL STYLES — VERSION 1.9: AUTO‑START, NO JUMP, ELEGANT RIBBON BAND
 ============================================== */
 .logo-banner {
   /* FULL WIDTH EDGE‑TO‑EDGE */
@@ -259,12 +259,16 @@ CAROUSEL STYLES — FIXED: AUTO‑START, NO JUMP, SEMI‑WHITE BAND
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 
-  /* ✅ SEMI‑TRANSPARENT WHITE BAND — exactly what you asked */
-  background: rgba(255, 255, 255, 0.08);
+  /* ELEGANT RIBBON — soft white, clear but subtle, perfect contrast */
+  background: rgba(255, 255, 255, 0.11);
 
-  border-top: 1px solid var(--border-gold);
-  border-bottom: 1px solid var(--border-gold);
-  padding: 1rem 0;
+  /* BRIGHTER GOLD EDGES — premium, defined ribbon borders */
+  border-top: 1px solid var(--gold-main);
+  border-bottom: 1px solid var(--gold-main);
+
+  /* SLIM, ELEGANT HEIGHT — like a fine wrapped ribbon */
+  padding: 0.9rem 0;
+
   overflow: hidden;
   position: relative;
   cursor: grab;
@@ -275,7 +279,7 @@ CAROUSEL STYLES — FIXED: AUTO‑START, NO JUMP, SEMI‑WHITE BAND
 }
 .logo-banner:active { cursor: grabbing; }
 
-/* Fade edges — now works on full width */
+/* Fade edges — now works on full width, logos fade out into shadow */
 .logo-banner::before,
 .logo-banner::after {
   content: "";
@@ -295,11 +299,11 @@ CAROUSEL STYLES — FIXED: AUTO‑START, NO JUMP, SEMI‑WHITE BAND
   width: max-content;
   will-change: transform;
 
-  /* ✅ ENSURE ANIMATION STARTS RUNNING IMMEDIATELY */
+  /* FORCE ANIMATION TO RUN FROM PAGE LOAD — NO DELAY */
   animation-play-state: running !important;
 }
 
-/* ✅ FIXED KEYFRAMES — matches loop=3, NO JUMP on hover */
+/* FIXED KEYFRAMES — matches loop=3, NO JUMP on hover or drag */
 @keyframes scrollLoop {
   0% { transform: translateX(0); }
   100% { transform: translateX(-33.333%); }
@@ -308,7 +312,7 @@ CAROUSEL STYLES — FIXED: AUTO‑START, NO JUMP, SEMI‑WHITE BAND
   animation: scrollLoop 80s linear infinite;
 }
 
-/* ✅ ONLY PAUSE on hover/drag — never paused by default */
+/* ONLY PAUSE on hover/drag — never paused by default */
 .logo-banner:hover .logo-scroll.auto,
 .logo-banner.dragging .logo-scroll.auto {
   animation-play-state: paused !important;
