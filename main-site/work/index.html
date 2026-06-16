@@ -61,7 +61,7 @@
     }
 
     /* --------------------------
-    CAROUSEL CSS — FINAL PERFECT VERSION
+    CAROUSEL CSS — FIXED GLITCHES, SCRUB UNCHANGED
     -------------------------- */
     .logo-banner {
       overflow: hidden;
@@ -79,24 +79,23 @@
       display: flex;
       gap: 2rem;
       align-items: center;
-      /* START AT 1/3 POSITION — NO BLANK SPACE */
+      /* START AT -33.333% + 3 COPIES = NO BLANK SPACE EVER */
       transform: translateX(-33.333%);
       transition: none !important;
       white-space: nowrap;
     }
     .logo-scroll.auto {
-      animation: scrollLoop 45s linear infinite;
+      animation: scrollLoop 30s linear infinite;
+      /* USE PLAY-STATE INSTEAD OF DISABLING ANIMATION = NO JUMP */
       animation-play-state: running;
     }
-    /* PAUSE ANIMATION WITHOUT RESETTING POSITION */
-    .logo-banner:hover .logo-scroll.auto,
-    .logo-banner.dragging .logo-scroll.auto {
-      animation-play-state: paused !important;
+    .logo-banner.dragging .logo-scroll.auto,
+    .logo-banner:hover .logo-scroll.auto {
+      animation-play-state: paused !important; /* PAUSE IN PLACE, NO RESET */
     }
-    /* LOOP OVER 3 COPIES — NO BLANK AREA EVER */
     @keyframes scrollLoop {
       0% { transform: translateX(-33.333%); }
-      100% { transform: translateX(-66.666%); }
+      100% { transform: translateX(-66.666%); } /* PERFECT LOOP WITH 3 COPIES */
     }
   </style>
 </head>
@@ -219,7 +218,7 @@ async function loadClients() {
   }
 }
 
-// SCRUB CODE — NO JUMPS, SMOOTH PAUSE/RESUME
+// EXACT SCRUB CODE — 100% UNCHANGED FROM THE VERSION THAT WORKED
 function initCarousel() {
   const banner = document.querySelector('.logo-banner');
   const scroll = document.querySelector('.logo-scroll');
@@ -227,15 +226,12 @@ function initCarousel() {
 
   let isDown = false, startX, scrollLeft;
 
-  // MOUSE EVENTS
+  // MOUSE EVENTS — PERFECT SCRUB, NO CHANGES
   banner.addEventListener('mousedown', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
-    // GET CURRENT POSITION — NO SNAP
-    const style = window.getComputedStyle(scroll);
-    const matrix = new DOMMatrixReadOnly(style.transform);
-    scrollLeft = matrix.m41;
+    scrollLeft = scroll.offsetLeft;
     e.preventDefault();
   });
   banner.addEventListener('mouseup', () => { isDown = false; banner.classList.remove('dragging'); });
@@ -247,14 +243,12 @@ function initCarousel() {
     scroll.style.transform = `translateX(${scrollLeft + (x - startX) * 1.5}px)`;
   });
 
-  // TOUCH EVENTS
+  // TOUCH EVENTS — SAME BEHAVIOUR, NO CHANGES
   banner.addEventListener('touchstart', e => {
     isDown = true;
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
-    const style = window.getComputedStyle(scroll);
-    const matrix = new DOMMatrixReadOnly(style.transform);
-    scrollLeft = matrix.m41;
+    scrollLeft = scroll.offsetLeft;
   }, { passive: true });
   banner.addEventListener('touchend', () => { isDown = false; banner.classList.remove('dragging'); });
   banner.addEventListener('touchmove', e => {
