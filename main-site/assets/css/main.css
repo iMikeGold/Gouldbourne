@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 1.97 — FINAL TUNING: NO JUMP ON START/RELEASE, SMOOTH ALL POSITIONS
+GOULDBOURNE.CO.UK | VERSION 1.98 — FIXED: NO JUMP RIGHT, SCRUB RESTORED, 100% SMOOTH
 Colour Palette & Design System
 ============================================== */
 :root {
@@ -145,7 +145,7 @@ nav ul {
   nav ul {
     display: none;
     flex-direction: column;
-    gap: 0.75rem;
+  gap: 0.75rem;
     position: absolute;
     top: 100%;
     left: 0;
@@ -250,7 +250,7 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 1.97: NO JUMP AT START/RELEASE, SMOOTH ALL POSITIONS
+CAROUSEL STYLES — VERSION 1.98: NO JUMP RIGHT, SCRUB FULLY RESTORED
 ============================================== */
 .logo-banner {
   /* FULL WIDTH EDGE‑TO‑EDGE */
@@ -303,19 +303,16 @@ CAROUSEL STYLES — VERSION 1.97: NO JUMP AT START/RELEASE, SMOOTH ALL POSITIONS
   white-space: nowrap;
   width: max-content;
   will-change: transform;
-  /* ✅ PREVENT ANIMATION/JS CLASH */
-  animation-play-state: paused;
 }
 
 .logo-scroll.auto {
   animation: scrollLoop 30s linear infinite;
-  animation-play-state: running;
 }
 
-/* ✅ PAUSE SAFELY — NO POSITION RESET */
+/* ✅ PAUSE BY REMOVING ANIMATION — 100% RELIABLE, NO GLITCH */
 .logo-banner.dragging .logo-scroll,
 .logo-banner:hover .logo-scroll {
-  animation-play-state: paused !important;
+  animation: none !important;
 }
 
 /* ✅ FIXED KEYFRAMES — PERFECT LOOP, NO STUTTER */
