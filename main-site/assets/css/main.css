@@ -110,7 +110,7 @@ nav {
   position: relative;
 }
 
-/* ✅ NEW MENU BUTTON — NO BLACK BOX, GOLD RING ONLY */
+/* NEW MENU BUTTON — NO BLACK BOX, GOLD RING ONLY */
 .menu-toggle {
   display: none;
   background: transparent !important;
@@ -130,7 +130,7 @@ nav {
   color: var(--gold-bright);
 }
 
-/* ✅ NEW DROPDOWN — WIDTH MATCHES LONGEST LINK ("Credentials") */
+/* NEW DROPDOWN — WIDTH MATCHES LONGEST LINK ("Credentials") */
 nav ul {
   list-style: none;
   display: flex;
@@ -150,14 +150,15 @@ nav ul {
     position: absolute;
     top: 100%;
     left: 0;
-    /* 👇 FIXED WIDTH: matches longest text = "Credentials" */
-    width: 140px;
+    /* FIXED WIDTH: matches longest text = "Credentials" */
+    width: 123px;
     background: var(--bg-surface);
     border: 1px solid var(--border-gold);
     border-radius: 4px;
     padding: 0.8rem;
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    opacity: 0.65;
   }
 
   nav ul.active {
