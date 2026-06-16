@@ -8,7 +8,7 @@
   <style>
     .back-link {
       font-size: 0.85rem !important;
-      color: var(--gold-bright, #d4af37) !important;
+      color: var(--gold-bright) !important;
       text-decoration: none !important;
       transition: color 0.2s ease;
       display: inline-flex;
@@ -21,49 +21,54 @@
     }
     .back-link:hover,
     .back-link:active {
-      color: #008A5C !important;
+      color: var(--emerald-bright) !important;
     }
     .logo-banner {
       background: transparent !important;
       border: none !important;
-      padding: 2rem 0 !important;
+      padding: 1rem 0 !important;
       margin: 2rem 0 !important;
       overflow: hidden !important;
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
+      width: 100vw !important;
+      margin-left: calc(50% - 50vw) !important;
+      margin-right: calc(50% - 50vw) !important;
+      position: relative !important;
+      cursor: grab !important;
+      user-select: none !important;
     }
     .logo-scroll {
       display: flex !important;
-      gap: 4rem !important;
+      gap: 2.5rem !important;
       align-items: center !important;
       width: max-content !important;
-      transform: translateX(-33.3333%) !important;
-      animation: scrollLoop 40s linear infinite !important;
-      visibility: visible !important;
-      opacity: 1 !important;
+      transform: translateX(0) !important;
+      animation: scrollLoop 80s linear infinite !important;
+      will-change: transform !important;
     }
     @keyframes scrollLoop {
-      0% { transform: translateX(-33.3333%); }
-      100% { transform: translateX(-66.6666%); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .logo-banner:hover .logo-scroll.auto,
+    .logo-banner.dragging .logo-scroll.auto {
+      animation-play-state: paused !important;
     }
     .client-item {
       flex: 0 0 auto !important;
       display: flex !important;
       align-items: center !important;
       height: 36px !important;
-      visibility: visible !important;
-      opacity: 1 !important;
     }
     .client-item a {
       text-decoration: none !important;
-      color: var(--text-muted, #b0b0b8) !important;
+      color: var(--text-muted) !important;
       transition: color 0.2s ease !important;
       font-size: 1.1rem !important;
       font-weight: 500 !important;
+      line-height: 1 !important;
     }
     .client-item a:hover {
-      color: var(--gold-bright, #d4af37) !important;
+      color: var(--gold-bright) !important;
     }
     .client-logo {
       height: 32px !important;
@@ -71,7 +76,10 @@
       max-width: 180px !important;
       object-fit: contain !important;
       display: block !important;
-      visibility: visible !important;
+      opacity: 0.9 !important;
+      transition: opacity 0.2s ease !important;
+    }
+    .client-item a:hover .client-logo {
       opacity: 1 !important;
     }
   </style>
@@ -80,7 +88,7 @@
 
 <header>
   <div class="container">
-    <h2 style="margin:0; display:inline-block; color:var(--gold-bright, #d4af37);">GO(U)LDBO(U)RNE</h2>
+    <h2 style="margin:0; display:inline-block; color:var(--gold-bright);">GO(U)LDBO(U)RNE</h2>
     <nav style="display:inline-block; margin-left:2rem; width: calc(100% - 150px);">
       <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
       <ul id="mainMenu">
