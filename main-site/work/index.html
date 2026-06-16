@@ -184,10 +184,21 @@ function initCarousel() {
     banner.classList.add('dragging');
     startX = e.pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
+    scroll.style.animationPlayState = 'paused';
     e.preventDefault();
   });
-  banner.addEventListener('mouseup', () => { isDown = false; banner.classList.remove('dragging'); });
-  banner.addEventListener('mouseleave', () => { isDown = false; banner.classList.remove('dragging'); });
+  banner.addEventListener('mouseup', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+    scroll.style.animationPlayState = 'running';
+  });
+  banner.addEventListener('mouseleave', () => {
+    if (isDown) {
+      isDown = false;
+      banner.classList.remove('dragging');
+      scroll.style.animationPlayState = 'running';
+    }
+  });
   banner.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
@@ -200,8 +211,13 @@ function initCarousel() {
     banner.classList.add('dragging');
     startX = e.touches[0].pageX - banner.offsetLeft;
     scrollLeft = scroll.offsetLeft;
+    scroll.style.animationPlayState = 'paused';
   }, { passive: true });
-  banner.addEventListener('touchend', () => { isDown = false; banner.classList.remove('dragging'); });
+  banner.addEventListener('touchend', () => {
+    isDown = false;
+    banner.classList.remove('dragging');
+    scroll.style.animationPlayState = 'running';
+  });
   banner.addEventListener('touchmove', e => {
     if (!isDown) return;
     const x = e.touches[0].pageX - banner.offsetLeft;
