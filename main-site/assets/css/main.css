@@ -185,7 +185,7 @@ section { margin-bottom: 3rem; }
 
 .card {
   /* ✅ Less opaque — lets background hues show through */
-  background: linear-gradient(145deg, rgba(26, 29, 33, 0.75), rgba(36, 40, 45, 0.75));
+  background: linear-gradient(145deg, rgba(225, 225, 225, 0.75), rgba(36, 40, 45, 0.75));
   border: 1px solid var(--border-light);
   border-radius: 6px;
   padding: 1.5rem;
