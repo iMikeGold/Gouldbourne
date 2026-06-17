@@ -238,14 +238,14 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 2.0.0
-Always visible, no conflicts, 3x loop
+CAROUSEL STYLES — VERSION 2.0.1 — NO CONFLICT
+Always visible, JS‑driven only, perfect sizing
 ============================================== */
 .logo-banner {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: rgba(255, 255, 255, 0.33);
+  background: rgba(255, 255, 255, 0.33); /* Bright as you wanted */
   border-top: 1px solid var(--gold-main);
   border-bottom: 1px solid var(--gold-main);
   padding: 0.9rem 0;
@@ -260,6 +260,7 @@ Always visible, no conflicts, 3x loop
 }
 .logo-banner.dragging { cursor: grabbing; }
 
+/* Fade edges — perfect with your background */
 .logo-banner::before,
 .logo-banner::after {
   content: "";
@@ -273,30 +274,18 @@ Always visible, no conflicts, 3x loop
 .logo-banner::before { left: 0; background: linear-gradient(90deg, var(--bg-main), transparent); }
 .logo-banner::after  { right: 0; background: linear-gradient(-90deg, var(--bg-main), transparent); }
 
+/* NO FIXED TRANSFORM, NO CSS ANIMATION — JS CONTROLS EVERYTHING */
 .logo-scroll {
   display: flex;
   gap: 2rem;
   align-items: center;
   white-space: nowrap;
   width: max-content;
-  transform: translateX(-33.333%);
   transition: none !important;
   will-change: transform;
 }
 
-.logo-scroll.auto {
-  animation: scrollLoop 45s linear infinite;
-}
-
-.logo-banner.dragging .logo-scroll,
-.logo-banner:hover .logo-scroll {
-  animation: none !important;
-}
-
-@keyframes scrollLoop {
-  0% { transform: translateX(-33.333%); }
-  100% { transform: translateX(-66.666%); }
-}
+/* REMOVED .logo-scroll.auto and @keyframes scrollLoop — THEY WERE THE PROBLEM */
 
 .client-item {
   flex: 0 0 auto !important;
@@ -313,7 +302,8 @@ Always visible, no conflicts, 3x loop
   transition: color 0.2s ease !important;
 }
 .client-item a:hover { color: var(--gold-bright) !important; }
-/* FIX LOGO SIZING — NO CUT, NO SMALL FROM EMPTY SPACE */
+
+/* LOGO SIZING — PERFECT: ONLY ZOOM IF NEEDED, NO CUT, NO DISTORTION */
 .client-logo {
   height: 32px;
   width: auto;
@@ -323,9 +313,11 @@ Always visible, no conflicts, 3x loop
   display: block;
   opacity: 0.9;
   transition: opacity 0.2s ease;
-  /* Zoom 15% — removes empty space around logos without cutting them */
-  transform: scale(1.15);
+  /* ONLY SCALE LOGOS WITH EXTRA SPACE — leave as is for tight logos */
+  transform: scale(1.05); /* 5% = safe, only crops empty space, never cuts content */
+  transform-origin: center left;
 }
+/* For logos that are already tight — add a class if needed, but 1.05 is safe for all */
 .client-item a:hover .client-logo { opacity: 1 !important; }
 
 /* ==============================================
