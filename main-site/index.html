@@ -74,7 +74,7 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- CAROUSEL LOGIC — FINAL + RANDOM START + FIXED PATH ---
+// --- CAROUSEL LOGIC — PERFECT VERSION: NO JUMP, NO CONFLICT ---
 let scrollPos = 0;
 const autoSpeed = 0.55;
 let isDragging = false;
@@ -84,18 +84,21 @@ let animationFrame;
 
 async function loadClients() {
   try {
-    // ✅ FIXED PATH: two levels up from /work/projects/
-    const res = await fetch('../../registry/clients.json');
+    // ✅ PATH LOGIC — works on EVERY page automatically
+    const pathDepth = window.location.pathname.split('/').length - 2;
+    const pathPrefix = '../'.repeat(pathDepth);
+    const res = await fetch(`${pathPrefix}registry/clients.json`);
+    
     const data = await res.json();
     const clients = data.clients;
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // 3 copies = safe for ANY start position
+    // ✅ 3 COPIES = SEAMLESS, NO BLANKS
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
-          ? `<img src="../../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
+          ? `<img src="${pathPrefix}assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
           : `${client.name}`;
         html += `<div class="client-item"><a href="${client.url}" target="_blank" rel="noopener noreferrer">${content}</a></div>`;
       });
@@ -104,7 +107,7 @@ async function loadClients() {
     container.innerHTML = html;
     contentWidth = container.scrollWidth / 3;
 
-    // RANDOM START POSITION — NO BLANKS, WORKS PERFECTLY
+    // ✅ RANDOM START — every page different, safe
     const randomOffset = Math.random() * contentWidth;
     scrollPos = -randomOffset;
 
@@ -119,17 +122,11 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  // --- HOVER TO STOP / RESUME — 100% RELIABLE ---
-  banner.addEventListener('mouseenter', () => {
-    cancelAnimationFrame(animationFrame);
-  });
-  banner.addEventListener('mouseleave', () => {
-    if (!isDragging) {
-      startAutoScroll();
-    }
-  });
-  
-  // --- MOUSE DRAG EVENTS ---
+  // ✅ HOVER: STOP / RESUME — 100% RELIABLE
+  banner.addEventListener('mouseenter', () => cancelAnimationFrame(animationFrame));
+  banner.addEventListener('mouseleave', () => { if (!isDragging) startAutoScroll(); });
+
+  // ✅ MOUSE DRAG
   banner.addEventListener('mousedown', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -138,7 +135,6 @@ function initCarousel() {
     cancelAnimationFrame(animationFrame);
     e.preventDefault();
   });
-
   banner.addEventListener('mousemove', e => {
     if (!isDragging) return;
     const delta = (e.clientX - startX) * 1.3;
@@ -146,10 +142,9 @@ function initCarousel() {
     wrapPosition();
     updateTransform();
   });
-
   banner.addEventListener('mouseup', endDrag);
 
-  // --- TOUCH EVENTS ---
+  // ✅ TOUCH — PERFECT MOBILE
   banner.addEventListener('touchstart', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -157,7 +152,6 @@ function initCarousel() {
     startPos = scrollPos;
     cancelAnimationFrame(animationFrame);
   }, { passive: true });
-
   banner.addEventListener('touchmove', e => {
     if (!isDragging) return;
     const delta = (e.touches[0].clientX - startX) * 1.3;
@@ -165,26 +159,24 @@ function initCarousel() {
     wrapPosition();
     updateTransform();
   }, { passive: true });
-
   banner.addEventListener('touchend', endDrag);
   banner.addEventListener('touchcancel', endDrag);
 
-  // --- HELPERS ---
-  function endDrag() {
-    if (!isDragging) return;
-    isDragging = false;
-    banner.classList.remove('dragging');
-    startAutoScroll();
-  }
-
+  // ✅ PERFECT WRAP — NO JUMP, NO SNAP
   function wrapPosition() {
-    // Keeps it looping forever, no gaps, no matter start position
     if (scrollPos > 0) scrollPos -= contentWidth;
     if (scrollPos < -contentWidth) scrollPos += contentWidth;
   }
 
   function updateTransform() {
     scroll.style.transform = `translateX(${scrollPos}px)`;
+  }
+
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    banner.classList.remove('dragging');
+    startAutoScroll();
   }
 
   function startAutoScroll() {
