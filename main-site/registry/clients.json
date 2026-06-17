@@ -1,11 +1,6 @@
 {
   "clients": [
     {
-      "name": "Halifax",
-      "logo": "halifax.png",
-      "url": "https://youtu.be/aX_XaLmCIS0?si=qObgNgS37w4L9Nk0K"
-    },
-    {
       "name": "Mars",
       "logo": "mars.png",
       "url": "https://youtu.be/0WSuxDHcnf4?si=PWlksDupJ0xq4z-3"
@@ -130,20 +125,20 @@
       "logo": "croydon-council.png",
       "url": "https://youtu.be/bmTGe9oDr4c?si=FXC7dOKvIPdgWMtS"
     },
+     {
+      "name": "Jamiroquai",
+      "logo": "jamiroquai-logo.png",
+      "url": "https://youtu.be/4JkIs37a2JE?si=tXEwLgj239BaiZyO"
+    },
     {
       "name": "Monster",
       "logo": "monster-energy.png",
       "url": "#"
     },
-    {
+     {
       "name": "Chemical Brothers",
       "logo": "chemical-brothers.png",
       "url": "https://youtu.be/cHtoBqmRYfA?si=MCw6p5jaqkSLtDqW"
-    },
-    {
-      "name": "Jamiroquai",
-      "logo": "jamiroquai-logo.png",
-      "url": "https://youtu.be/4JkIs37a2JE?si=tXEwLgj239BaiZyO"
     },
     {
       "name": "Sony Ericsson",
@@ -156,19 +151,24 @@
       "url": "https://youtu.be/n2usGeet2Gk?si=2bSM79XuduJqGvTe"
     },
     {
-      "name": "VW",
-      "logo": "vw-logo.png",
-      "url": "https://youtu.be/M1yI4TFooJk?si=4AN_rzv4m2lWZ9Oh"
-    },
-        {
       "name": "Three Mobile",
       "logo": "3-mobile.png",
       "url": "#"
     },
     {
+      "name": "VW",
+      "logo": "vw-logo.png",
+      "url": "https://youtu.be/M1yI4TFooJk?si=4AN_rzv4m2lWZ9Oh"
+    },
+    {
       "name": "UEFA Euros",
       "logo": "uefa-euro.png",
       "url": "https://youtu.be/PZN_ybRyY9A?si=QqPxnhJFur0ZHh0P"
+    },
+    {
+      "name": "Halifax",
+      "logo": "halifax.png",
+      "url": "https://youtu.be/aX_XaLmCIS0?si=qObgNgS37w4L9Nk0K"
     },
     {
       "name": "MTV",
