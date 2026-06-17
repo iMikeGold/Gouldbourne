@@ -116,14 +116,14 @@
       "url": "#"
     },
     {
-      "name": "Defected",
-      "logo": "defected.png",
-      "url": "https://youtu.be/wYLqa7NwOt8?si=LRe7dEtw67BR0Nm9"
-    },
-    {
       "name": "Orb",
       "logo": "orb.png",
       "url": "https://youtu.be/3GlBmy-Vxak?si=NHD8rGi-in71NOhc"
+    },
+    {
+      "name": "Defected",
+      "logo": "defected.png",
+      "url": "https://youtu.be/wYLqa7NwOt8?si=LRe7dEtw67BR0Nm9"
     },
     {
       "name": "Orbital",
