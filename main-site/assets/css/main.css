@@ -7,10 +7,10 @@ All original standards kept, only colours & layout improved
   --bg-main:       #0F1013;   /* Darkest top */
   --bg-surface:    #1A1D21;   /* Cards, panels */
   --bg-elevated:   #24282D;
-  --bg-highlight:  #2E3238;
+  --bg-highlight:   #1F1D1A; 
 
   /* ✅ NEW: Warm gold tint for gradient */
-  --bg-warm:       #1F1D1A;   /* Soft golden‑brown tone at bottom */
+  --bg-warm:      #FAF9F6;   /* Soft golden‑brown tone at bottom */
 
   /* Primary Brand — Gold tones (unchanged) */
   --gold-main:     #D4AF37;
