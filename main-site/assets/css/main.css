@@ -245,7 +245,7 @@ Always visible, JS‑driven only, perfect sizing
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: rgba(255, 255, 255, 0.55); /* Bright as you wanted */
+  background: rgba(255, 255, 255, 0.77); /* Bright as you wanted */
   border-top: 1px solid var(--gold-main);
   border-bottom: 1px solid var(--gold-main);
   padding: 0.9rem 0;
