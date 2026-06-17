@@ -1,14 +1,20 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 2.6.0 — OFF‑WHITE BASE + DUAL CARDS
-Matches your screenshot direction, dual hover behaviour
+GOULDBOURNE.CO.UK | VERSION 2.6.0 — TWO‑TONE CARDS
+All original standards kept, colours & layout adjusted per request
 ============================================== */
 :root {
-  /* ✅ BASE: OFF‑WHITE → LIGHT GREY GRADIENT (matches your screenshot) */
-  --bg-main:       #E8E6E1;   /* Top: soft warm off‑white */
-  --bg-warm:       #D0CDCA;   /* Bottom: light grey */
-  --bg-surface:    #1A1D21;   /* Dark card base */
-  --bg-elevated:   #F0EFED;   /* Light card base */
-  --bg-highlight:  #2E3238;
+  /* Base Backgrounds — UPDATED: soft off‑white / warm grey base */
+  --bg-main:       #FAF9F6;   /* Off‑white — matches your banner */
+  --bg-surface:    #E8E6E1;   /* Light grey cards/panels */
+  --bg-elevated:   #D9D6CF;
+  --bg-highlight:  #1F1D1A; 
+
+  /* Dark mode for alternate cards */
+  --bg-dark:       #1A1D21;
+  --bg-dark-elevated: #24282D;
+
+  /* ✅ Banner: softened dark — not pure black */
+  --bg-banner:     rgba(30, 30, 30, 0.85);
 
   /* Primary Brand — Gold tones (unchanged) */
   --gold-main:     #D4AF37;
@@ -20,16 +26,16 @@ Matches your screenshot direction, dual hover behaviour
   --emerald-bright:#2EA875;
   --emerald-muted: #185C40;
 
-  /* ✅ TEXT COLOURS — perfect contrast */
-  --text-primary:  #121417;   /* Dark text on light backgrounds */
-  --text-secondary:#3A362F;   /* Soft black / warm grey */
-  --text-inverse:  #F8F9FA;   /* Light text on dark backgrounds */
-  --text-muted:    #66686C;
+  /* ✅ UPDATED TEXT COLOURS — soft, readable */
+  --text-primary:  #121417;   /* Soft black / warm grey — light backgrounds */
+  --text-secondary:#F8F9FA;   /* Off‑white — dark backgrounds */
+  --text-muted:    #66696E;
   --text-on-gold:  #121417;
   --text-on-emerald:#FFFFFF;
 
   /* Borders */
-  --border-light:  #D0CDCA;
+  --border-light:  #D1CFC9;
+  --border-dark:   #2E3238;
   --border-gold:   #423A20;
   --border-emerald:#203A30;
 }
@@ -45,17 +51,19 @@ Global Reset & Base Styles
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  /* ✅ OFF‑WHITE → LIGHT GREY GRADIENT — exactly your direction */
-  background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-warm) 100%);
+  /* ✅ Soft off‑white to light grey gradient — matches banner */
+  background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-surface) 100%);
   color: var(--text-primary);
   line-height: 1.7;
   font-size: 16px;
   transition: background-color 0.6s ease;
 }
 
-/* Scroll effect — subtle */
+/* Scroll‑brightening effect — keeps light tone */
 body.scrolled {
-  background: linear-gradient(180deg, #E0DED8 0%, #C8C4C0 100%);
+  --bg-main:       #F2EFEA;
+  --bg-surface:    #E0DDD6;
+  background: linear-gradient(180deg, var(--bg-main) 0%, #E5E2DC 100%);
 }
 
 /* Typography */
@@ -65,14 +73,14 @@ h1, h2, h3, h4 {
   margin-bottom: 1rem;
 }
 
-h1 { color: var(--gold-bright); font-size: 2.5rem; }
+h1 { color: var(--gold-main); font-size: 2.5rem; }
 h2 { color: var(--gold-main); font-size: 2rem; }
 h3 { color: var(--gold-main); font-size: 1.5rem; }
 h4 { color: var(--emerald-bright); font-size: 1.2rem; }
 
 p { 
   margin-bottom: 1.2rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 a {
@@ -85,19 +93,16 @@ a:hover {
   color: var(--gold-bright);
 }
 
-/* Layout Container */
+/* Layout Container — ORIGINAL */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-/* ==============================================
-HEADER & NAV — ✅ FIXED: lighter background, readable text
-============================================== */
+/* Header & Navigation — ✅ Banner softened, menu text fixed */
 header {
-  /* ✅ LIGHTER, SOFTER HEADER — text now readable */
-  background: linear-gradient(180deg, #2A2C30, #1E2023);
+  background: var(--bg-banner);
   border-bottom: 1px solid var(--border-gold);
   padding: 1.2rem 0;
   margin-bottom: 2rem;
@@ -115,12 +120,12 @@ nav {
   position: relative;
 }
 
-/* MENU BUTTON */
+/* MENU BUTTON — ✅ Softened text, readable on dark banner */
 .menu-toggle {
   display: none;
   background: transparent !important;
   border: 1px solid transparent;
-  color: var(--gold-bright);
+  color: #E0DDD6; /* Soft light grey — easy to read */
   padding: 0.5rem 0.8rem;
   font-size: 1rem;
   font-weight: 600;
@@ -132,26 +137,15 @@ nav {
 .menu-toggle.active {
   border-color: var(--gold-main);
   box-shadow: 0 0 0 1px var(--gold-main);
-  color: var(--gold-bright);
+  color: var(--gold-bright); /* Gold highlight on hover/click */
 }
 
-/* NAV LINKS — ✅ LIGHTER TEXT, readable on dark header */
+/* DROPDOWN — ORIGINAL */
 nav ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
   gap: 1.8rem;
-}
-
-nav a {
-  color: #D0CDCA; /* Soft light grey — easy to read */
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-nav a:hover { color: var(--gold-bright); }
-nav a.active {
-  color: var(--gold-main);
-  border-bottom: 2px solid var(--gold-main);
 }
 
 @media (max-width: 768px) {
@@ -165,55 +159,42 @@ nav a.active {
     top: 100%;
     left: 0;
     width: 123px;
-    background: #2A2C30;
+    background: var(--bg-surface);
     border: 1px solid var(--border-gold);
     border-radius: 4px;
     padding: 0.8rem;
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    opacity: 1;
   }
 
   nav ul.active { display: flex; }
   nav ul li { width: 100%; }
 }
 
+/* ✅ Navigation links — soft light on banner, gold highlight */
+nav a {
+  color: #E0DDD6;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+nav a:hover,
+nav a.active {
+  color: var(--gold-bright);
+  border-bottom: 2px solid var(--gold-main);
+}
+
 /* ==============================================
-DUAL CARD STYLES — ✅ EXACTLY WHAT YOU ASKED
+✅ TWO CARD STYLES — AS REQUESTED
 ============================================== */
 section { margin-bottom: 3rem; }
 
-/* --- CARD LIGHT: Home / Blog / Connect ---
-Starts DARK → turns LIGHT on hover */
+/* --- CARD TYPE 1: Home / Blog / Connect ---
+Default: Light → Hover: Dark */
 .card-light {
-  background: linear-gradient(145deg, rgba(26, 29, 33, 0.85), rgba(36, 40, 45, 0.85));
-  border: 1px solid #33373C;
-  border-radius: 6px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: all 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  color: var(--text-inverse);
-}
-.card-light p, .card-light h3 { color: var(--text-inverse); }
-
-.card-light:hover {
-  background: linear-gradient(145deg, rgba(240, 239, 237, 0.9), rgba(225, 223, 220, 0.9));
-  border-color: var(--gold-main);
-  color: var(--text-primary);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
-  transform: translateY(-2px);
-}
-.card-light:hover p, .card-light:hover h3 { color: var(--text-primary); }
-
-/* --- CARD DARK: About / Credentials / Work ---
-Starts LIGHT → turns DARK on hover */
-.card-dark {
-  background: linear-gradient(145deg, rgba(240, 239, 237, 0.9), rgba(225, 223, 220, 0.9));
-  border: 1px solid #C0BCB8;
+  background: linear-gradient(145deg, rgba(248, 247, 242, 0.8), rgba(232, 230, 225, 0.8));
+  border: 1px solid var(--border-light);
   border-radius: 6px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -223,20 +204,49 @@ Starts LIGHT → turns DARK on hover */
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  color: var(--text-primary);
 }
-.card-dark p, .card-dark h3 { color: var(--text-primary); }
 
-.card-dark:hover {
-  background: linear-gradient(145deg, rgba(26, 29, 33, 0.85), rgba(36, 40, 45, 0.85));
-  border-color: var(--gold-main);
-  color: var(--text-inverse);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+.card-light:hover {
+  border-color: var(--gold-muted);
+  background: linear-gradient(145deg, rgba(26, 29, 33, 0.9), rgba(36, 40, 45, 0.9));
+  box-shadow: 0 4px 12px rgba(184, 151, 47, 0.15);
   transform: translateY(-2px);
 }
-.card-dark:hover p, .card-dark:hover h3 { color: var(--text-inverse); }
 
-/* Buttons — unchanged */
+/* Text colors for light card */
+.card-light p, .card-light li { color: var(--text-primary); }
+.card-light:hover p, .card-light:hover li { color: var(--text-secondary); }
+
+/* --- CARD TYPE 2: About / Credentials / Work ---
+Default: Dark → Hover/Active: Light */
+.card-dark {
+  background: linear-gradient(145deg, rgba(26, 29, 33, 0.9), rgba(36, 40, 45, 0.9));
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-dark:hover,
+.card-dark.active {
+  border-color: var(--gold-muted);
+  background: linear-gradient(145deg, rgba(248, 247, 242, 0.8), rgba(232, 230, 225, 0.8));
+  box-shadow: 0 4px 12px rgba(184, 151, 47, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Text colors for dark card */
+.card-dark p, .card-dark li { color: var(--text-secondary); }
+.card-dark:hover p, .card-dark:hover li,
+.card-dark.active p, .card-dark.active li { color: var(--text-primary); }
+
+/* Buttons — ORIGINAL */
 .btn {
   display: inline-block;
   padding: 0.7rem 1.4rem;
@@ -254,8 +264,10 @@ Starts LIGHT → turns DARK on hover */
   background-color: var(--gold-main);
   color: var(--text-on-gold);
 }
+
 .btn-gold:hover {
   background-color: var(--gold-bright);
+  color: var(--text-on-gold);
   box-shadow: 0 0 12px rgba(242, 208, 107, 0.3);
 }
 
@@ -263,31 +275,32 @@ Starts LIGHT → turns DARK on hover */
   background-color: var(--emerald-main);
   color: var(--text-on-emerald);
 }
+
 .btn-emerald:hover {
   background-color: var(--emerald-bright);
   box-shadow: 0 0 12px rgba(46, 168, 117, 0.3);
 }
 
-/* Footer — matches palette */
+/* Footer — ✅ Soft dark, matches palette */
 footer {
-  background: linear-gradient(180deg, #222428, #1A1C1F);
+  background: linear-gradient(180deg, #222326, #1A1B1D);
   border-top: 1px solid var(--border-gold);
   padding: 1.5rem 0;
   margin-top: 3rem;
   text-align: center;
   font-size: 0.9rem;
-  color: #A0A2A6;
+  color: #B0B2B5;
 }
 
 /* ==============================================
-CAROUSEL — ✅ BRIGHT OFF‑WHITE (logos pop perfectly)
+CAROUSEL STYLES — ✅ SOFTENED BANNER
 ============================================== */
 .logo-banner {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  /* ✅ BRIGHT OFF‑WHITE — exactly what you wanted */
-  background: rgba(250, 249, 246, 0.92);
+  /* ✅ Soft off‑white banner — matches background */
+  background: rgba(248, 247, 242, 0.85);
   border-top: 1px solid var(--gold-main);
   border-bottom: 1px solid var(--gold-main);
   padding: 0.9rem 0;
@@ -302,7 +315,7 @@ CAROUSEL — ✅ BRIGHT OFF‑WHITE (logos pop perfectly)
 }
 .logo-banner.dragging { cursor: grabbing; }
 
-/* Fade edges — matches new background */
+/* Fade edges — adjusted for light background */
 .logo-banner::before,
 .logo-banner::after {
   content: "";
@@ -316,6 +329,7 @@ CAROUSEL — ✅ BRIGHT OFF‑WHITE (logos pop perfectly)
 .logo-banner::before { left: 0; background: linear-gradient(90deg, var(--bg-main), transparent); }
 .logo-banner::after  { right: 0; background: linear-gradient(-90deg, var(--bg-main), transparent); }
 
+/* NO FIXED TRANSFORM — ORIGINAL */
 .logo-scroll {
   display: flex;
   gap: 2rem;
@@ -342,6 +356,7 @@ CAROUSEL — ✅ BRIGHT OFF‑WHITE (logos pop perfectly)
 }
 .client-item a:hover { color: var(--gold-bright) !important; }
 
+/* LOGO SIZING — ORIGINAL */
 .client-logo {
   height: 32px;
   width: auto;
@@ -357,7 +372,7 @@ CAROUSEL — ✅ BRIGHT OFF‑WHITE (logos pop perfectly)
 .client-item a:hover .client-logo { opacity: 1 !important; }
 
 /* ==============================================
-BACK BUTTON
+BACK BUTTON STYLE — ORIGINAL
 ============================================== */
 .back-link {
   font-size: 0.85rem !important;
@@ -378,7 +393,7 @@ BACK BUTTON
 }
 
 /* ==============================================
-Responsive
+Responsive — ORIGINAL
 ============================================== */
 @media (max-width: 768px) {
   nav {
