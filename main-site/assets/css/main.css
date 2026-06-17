@@ -182,7 +182,7 @@ section { margin-bottom: 3rem; }
   border-radius: 6px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.77);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   transition: all 0.25s ease;
 }
 
@@ -314,7 +314,7 @@ Always visible, JS‑driven only, perfect sizing
   opacity: 0.9;
   transition: opacity 0.2s ease;
   /* ONLY SCALE LOGOS WITH EXTRA SPACE — leave as is for tight logos */
-  transform: scale(1.05); /* 5% = safe, only crops empty space, never cuts content */
+  transform: scale(1.50); /* 5% = safe, only crops empty space, never cuts content */
   transform-origin: center left;
 }
 /* For logos that are already tight — add a class if needed, but 1.05 is safe for all */
