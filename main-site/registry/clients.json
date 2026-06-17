@@ -1,16 +1,6 @@
 {
   "clients": [
     {
-      "name": "Lewisham Council",
-      "logo": "lewisham-council.png",
-      "url": "#"
-    },
-    {
-      "name": "Bromley Council",
-      "logo": "bromley-council.png",
-      "url": "#"
-    },
-    {
       "name": "Halifax",
       "logo": "halifax.png",
       "url": "https://youtu.be/aX_XaLmCIS0?si=qObgNgS37w4L9Nk0K"
@@ -39,6 +29,16 @@
       "name": "Relentless Energy",
       "logo": "relentless-energy.jpeg",
       "url": "https://youtu.be/SIj0kv8YV5Y?si=uIlVCNhfGm8iFr5d"
+    },
+    {
+      "name": "Lewisham Council",
+      "logo": "lewisham-council.png",
+      "url": "#"
+    },
+    {
+      "name": "Bromley Council",
+      "logo": "bromley-council.png",
+      "url": "#"
     },
     {
       "name": "Kingston Council",
