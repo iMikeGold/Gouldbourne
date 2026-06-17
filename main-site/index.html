@@ -74,35 +74,44 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- CAROUSEL LOGIC — FINAL FIX: NO CLICK NEEDED TO RESTART ---
+// --- CAROUSEL LOGIC — FINAL FINAL: NO JUMP, PERFECT LOOP ---
 let scrollPos = 0;
-const autoSpeed = 0.55; // Perfect speed
+const autoSpeed = 0.55;
 let isDragging = false;
 let startX, startPos;
 let contentWidth = 0;
+let singleSetWidth = 0; // NEW: exact width of ONE set of logos
 let animationFrame;
 
 async function loadClients() {
   try {
-    const res = await fetch('../registry/clients.json');
+    const res = await fetch('../../registry/clients.json');
     const data = await res.json();
     const clients = data.clients;
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // 3 copies = seamless infinite loop
+    // 3 copies = seamless
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
-          ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
+          ? `<img src="../../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
           : `${client.name}`;
         html += `<div class="client-item"><a href="${client.url}" target="_blank" rel="noopener noreferrer">${content}</a></div>`;
       });
     }
 
     container.innerHTML = html;
-    contentWidth = container.scrollWidth / 3;
-    scrollPos = -contentWidth / 2; // start centered
+
+    // NEW: calculate EXACT width of one set
+    const firstSet = Array.from(container.children).slice(0, clients.length);
+    singleSetWidth = firstSet.reduce((w, el) => w + el.offsetWidth + parseInt(getComputedStyle(el).marginRight || 0), 0);
+    contentWidth = singleSetWidth;
+
+    // Random start — perfect
+    const randomOffset = Math.random() * singleSetWidth;
+    scrollPos = -randomOffset;
+
     initCarousel();
   } catch (err) {
     console.error('Error loading clients:', err);
@@ -114,17 +123,11 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  // --- HOVER TO STOP / RESUME — NOW 100% RELIABLE ---
-  banner.addEventListener('mouseenter', () => {
-    cancelAnimationFrame(animationFrame); // Hard stop
-  });
-  banner.addEventListener('mouseleave', () => {
-    if (!isDragging) { // Only restart if NOT dragging
-      startAutoScroll(); // Forces fresh start every time
-    }
-  });
-  
-  // --- MOUSE DRAG EVENTS ---
+  // Hover stop/start — perfect
+  banner.addEventListener('mouseenter', () => cancelAnimationFrame(animationFrame));
+  banner.addEventListener('mouseleave', () => { if (!isDragging) startAutoScroll(); });
+
+  // Mouse drag
   banner.addEventListener('mousedown', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -133,7 +136,6 @@ function initCarousel() {
     cancelAnimationFrame(animationFrame);
     e.preventDefault();
   });
-
   banner.addEventListener('mousemove', e => {
     if (!isDragging) return;
     const delta = (e.clientX - startX) * 1.3;
@@ -141,10 +143,9 @@ function initCarousel() {
     wrapPosition();
     updateTransform();
   });
-
   banner.addEventListener('mouseup', endDrag);
 
-  // --- TOUCH EVENTS — PERFECT AS IS ---
+  // Touch
   banner.addEventListener('touchstart', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -152,7 +153,6 @@ function initCarousel() {
     startPos = scrollPos;
     cancelAnimationFrame(animationFrame);
   }, { passive: true });
-
   banner.addEventListener('touchmove', e => {
     if (!isDragging) return;
     const delta = (e.touches[0].clientX - startX) * 1.3;
@@ -160,29 +160,27 @@ function initCarousel() {
     wrapPosition();
     updateTransform();
   }, { passive: true });
-
   banner.addEventListener('touchend', endDrag);
   banner.addEventListener('touchcancel', endDrag);
 
-  // --- HELPERS ---
+  // ✅ FIXED WRAP — EXACT, NO JUMP
+  function wrapPosition() {
+    while (scrollPos > 0) scrollPos -= singleSetWidth;
+    while (scrollPos < -singleSetWidth) scrollPos += singleSetWidth;
+  }
+
+  function updateTransform() {
+    scroll.style.transform = `translateX(${scrollPos.toFixed(2)}px)`;
+  }
+
   function endDrag() {
     if (!isDragging) return;
     isDragging = false;
     banner.classList.remove('dragging');
-    startAutoScroll(); // Restart after drag
-  }
-
-  function wrapPosition() {
-    if (scrollPos > 0) scrollPos -= contentWidth;
-    if (scrollPos < -contentWidth) scrollPos += contentWidth;
-  }
-
-  function updateTransform() {
-    scroll.style.transform = `translateX(${scrollPos}px)`;
+    startAutoScroll();
   }
 
   function startAutoScroll() {
-    // Always cancels first to prevent double-animation
     cancelAnimationFrame(animationFrame);
     function animate() {
       if (!isDragging) {
@@ -195,7 +193,6 @@ function initCarousel() {
     animate();
   }
 
-  // Start immediately on load
   startAutoScroll();
 }
 
