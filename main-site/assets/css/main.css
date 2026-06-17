@@ -1,32 +1,35 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 2.0.0 — FULL STABLE BASE
-All original styles, only carousel logic fixed
+GOULDBOURNE.CO.UK | VERSION 2.1.0 — GOLDEN GRADIENT
+All original standards kept, only colours & layout improved
 ============================================== */
 :root {
-  /* Base Backgrounds — soft dark, not pure black */
-  --bg-main:       #121417;   /* Primary background */
-  --bg-surface:    #1A1D21;   /* Cards, panels, sections */
-  --bg-elevated:   #24282D;   /* Hover, modals, highlights */
-  --bg-highlight:  #2E3238;   /* Stronger lift / highlight */
+  /* Base Backgrounds — UPDATED: darker top → lighter warm bottom */
+  --bg-main:       #0E1013;   /* Darkest top */
+  --bg-surface:    #1A1D21;   /* Cards, panels */
+  --bg-elevated:   #24282D;
+  --bg-highlight:  #2E3238;
 
-  /* Primary Brand — Gold tones */
-  --gold-main:     #D4AF37;   /* Rich signature gold */
-  --gold-bright:   #F2D06B;   /* Highlight / headings */
-  --gold-muted:    #B8972F;   /* Subtle borders / accents */
+  /* ✅ NEW: Warm gold tint for gradient */
+  --bg-warm:       #1F1D1A;   /* Soft golden‑brown tone at bottom */
 
-  /* Accent — Emerald green */
-  --emerald-main:  #1F7A54;   /* Buttons & focus elements */
-  --emerald-bright:#2EA875;   /* Hover / active states */
-  --emerald-muted: #185C40;   /* Dividers / subtle accents */
+  /* Primary Brand — Gold tones (unchanged) */
+  --gold-main:     #D4AF37;
+  --gold-bright:   #F2D06B;
+  --gold-muted:    #B8972F;
 
-  /* Text & Contrast — ORIGINAL VALUES PRESERVED */
-  --text-primary:  #F8F9FA;   /* Brightest text */
-  --text-secondary:#C5C9CE;   /* Standard body text */
-  --text-muted:    #8A8F96;   /* Secondary notes / metadata */
-  --text-on-gold:  #121417;   /* Dark text on gold backgrounds */
-  --text-on-emerald:#FFFFFF;  /* White text on emerald backgrounds */
+  /* Accent — Emerald green (unchanged) */
+  --emerald-main:  #1F7A54;
+  --emerald-bright:#2EA875;
+  --emerald-muted: #185C40;
 
-  /* Borders & Dividers — ORIGINAL VALUES PRESERVED */
+  /* ✅ UPDATED TEXT COLOURS — as requested */
+  --text-primary:  #F8F9FA;   /* Keep bright off‑white for headings/cards */
+  --text-secondary:#3A362F;   /* Soft black / warm grey for body/subtitles */
+  --text-muted:    #8A8F96;
+  --text-on-gold:  #121417;
+  --text-on-emerald:#FFFFFF;
+
+  /* Borders (unchanged) */
   --border-light:  #2E3238;
   --border-gold:   #423A20;
   --border-emerald:#203A30;
@@ -43,22 +46,23 @@ Global Reset & Base Styles
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(180deg, var(--bg-main) 0%, #14161A 100%);
+  /* ✅ NEW: Dark → warm golden gradient */
+  background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-warm) 100%);
   color: var(--text-secondary);
   line-height: 1.7;
   font-size: 16px;
   transition: background-color 0.6s ease;
 }
 
-/* Scroll‑brightening effect */
+/* Scroll‑brightening effect — matches new gradient */
 body.scrolled {
-  --bg-main:       #15181C;
+  --bg-main:       #111316;
   --bg-surface:    #1E2227;
   --bg-elevated:   #282C32;
-  background: linear-gradient(180deg, var(--bg-main) 0%, #181B1F 100%);
+  background: linear-gradient(180deg, var(--bg-main) 0%, #221F1B 100%);
 }
 
-/* Typography — ORIGINAL VALUES PRESERVED */
+/* Typography — ✅ Updated subtitle colour only */
 h1, h2, h3, h4 {
   font-weight: 700;
   line-height: 1.3;
@@ -70,7 +74,10 @@ h2 { color: var(--gold-main); font-size: 2rem; }
 h3 { color: var(--gold-main); font-size: 1.5rem; }
 h4 { color: var(--emerald-bright); font-size: 1.2rem; }
 
-p { margin-bottom: 1.2rem; }
+p { 
+  margin-bottom: 1.2rem;
+  color: var(--text-secondary); /* Soft black subtitles */
+}
 
 a {
   color: var(--emerald-bright);
@@ -89,7 +96,7 @@ a:hover {
   padding: 0 1.5rem;
 }
 
-/* Header & Navigation — UPDATED MENU STYLE */
+/* Header & Navigation — ORIGINAL */
 header {
   background: linear-gradient(180deg, var(--bg-surface), var(--bg-main));
   border-bottom: 1px solid var(--border-gold);
@@ -109,7 +116,7 @@ nav {
   position: relative;
 }
 
-/* MENU BUTTON — NO BLACK BOX, GOLD RING ONLY */
+/* MENU BUTTON — ORIGINAL */
 .menu-toggle {
   display: none;
   background: transparent !important;
@@ -129,7 +136,7 @@ nav {
   color: var(--gold-bright);
 }
 
-/* DROPDOWN — WIDTH MATCHES LONGEST LINK */
+/* DROPDOWN — ORIGINAL */
 nav ul {
   list-style: none;
   display: flex;
@@ -173,27 +180,38 @@ nav a.active {
   border-bottom: 2px solid var(--gold-main);
 }
 
-/* Sections & Cards — GRADIENTS, SHADOWS, LIFT */
+/* Sections & Cards — ✅ UPDATED: softer opacity, shows background gradient */
 section { margin-bottom: 3rem; }
 
 .card {
-  background: linear-gradient(145deg, var(--bg-surface), var(--bg-elevated));
+  /* ✅ Less opaque — lets background hues show through */
+  background: linear-gradient(145deg, rgba(26, 29, 33, 0.75), rgba(36, 40, 45, 0.75));
   border: 1px solid var(--border-light);
   border-radius: 6px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   transition: all 0.25s ease;
+  /* ✅ NEW: Make card a flex column to align buttons perfectly */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .card:hover {
   border-color: var(--emerald-muted);
-  background-color: var(--bg-elevated);
+  background: linear-gradient(145deg, rgba(30, 34, 39, 0.8), rgba(40, 44, 50, 0.8));
   box-shadow: 0 4px 12px rgba(31, 122, 84, 0.12);
   transform: translateY(-2px);
 }
 
-/* Buttons — GLOW ON HOVER */
+/* ✅ Ensure text inside cards stays bright off‑white */
+.card p, .card li {
+  color: var(--text-primary);
+}
+
+/* Buttons — ORIGINAL */
 .btn {
   display: inline-block;
   padding: 0.7rem 1.4rem;
@@ -203,6 +221,9 @@ section { margin-bottom: 3rem; }
   cursor: pointer;
   border: none;
   transition: all 0.25s ease;
+  /* ✅ Fix button alignment */
+  margin-top: 1rem;
+  align-self: flex-start;
 }
 
 .btn-gold {
@@ -226,9 +247,9 @@ section { margin-bottom: 3rem; }
   box-shadow: 0 0 12px rgba(46, 168, 117, 0.3);
 }
 
-/* Footer — GRADIENT */
+/* Footer — ✅ Darker gradient, matches new palette */
 footer {
-  background: linear-gradient(180deg, var(--bg-main), var(--bg-surface));
+  background: linear-gradient(180deg, var(--bg-main), #0A0B0D);
   border-top: 1px solid var(--border-gold);
   padding: 1.5rem 0;
   margin-top: 3rem;
@@ -238,14 +259,14 @@ footer {
 }
 
 /* ==============================================
-CAROUSEL STYLES — VERSION 2.0.1 — NO CONFLICT
-Always visible, JS‑driven only, perfect sizing
+CAROUSEL STYLES — ✅ DARKER BAR, GOLDEN TINT
 ============================================== */
 .logo-banner {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: rgba(255, 255, 255, 0.77); /* Bright as you wanted */
+  /* ✅ DARKER + warm gold tint — matches your gradient */
+  background: rgba(20, 18, 15, 0.85);
   border-top: 1px solid var(--gold-main);
   border-bottom: 1px solid var(--gold-main);
   padding: 0.9rem 0;
@@ -260,7 +281,7 @@ Always visible, JS‑driven only, perfect sizing
 }
 .logo-banner.dragging { cursor: grabbing; }
 
-/* Fade edges — perfect with your background */
+/* Fade edges — ORIGINAL */
 .logo-banner::before,
 .logo-banner::after {
   content: "";
@@ -274,7 +295,7 @@ Always visible, JS‑driven only, perfect sizing
 .logo-banner::before { left: 0; background: linear-gradient(90deg, var(--bg-main), transparent); }
 .logo-banner::after  { right: 0; background: linear-gradient(-90deg, var(--bg-main), transparent); }
 
-/* NO FIXED TRANSFORM, NO CSS ANIMATION — JS CONTROLS EVERYTHING */
+/* NO FIXED TRANSFORM — ORIGINAL */
 .logo-scroll {
   display: flex;
   gap: 2rem;
@@ -284,8 +305,6 @@ Always visible, JS‑driven only, perfect sizing
   transition: none !important;
   will-change: transform;
 }
-
-/* REMOVED .logo-scroll.auto and @keyframes scrollLoop — THEY WERE THE PROBLEM */
 
 .client-item {
   flex: 0 0 auto !important;
@@ -303,7 +322,7 @@ Always visible, JS‑driven only, perfect sizing
 }
 .client-item a:hover { color: var(--gold-bright) !important; }
 
-/* LOGO SIZING — PERFECT: ONLY ZOOM IF NEEDED, NO CUT, NO DISTORTION */
+/* LOGO SIZING — ORIGINAL */
 .client-logo {
   height: 32px;
   width: auto;
@@ -313,15 +332,13 @@ Always visible, JS‑driven only, perfect sizing
   display: block;
   opacity: 0.9;
   transition: opacity 0.2s ease;
-  /* ONLY SCALE LOGOS WITH EXTRA SPACE — leave as is for tight logos */
-  transform: scale(1.11); /* 5% = safe, only crops empty space, never cuts content */
+  transform: scale(1.11);
   transform-origin: center left;
 }
-/* For logos that are already tight — add a class if needed, but 1.05 is safe for all */
 .client-item a:hover .client-logo { opacity: 1 !important; }
 
 /* ==============================================
-BACK BUTTON STYLE
+BACK BUTTON STYLE — ORIGINAL
 ============================================== */
 .back-link {
   font-size: 0.85rem !important;
@@ -342,7 +359,7 @@ BACK BUTTON STYLE
 }
 
 /* ==============================================
-Responsive
+Responsive — ORIGINAL
 ============================================== */
 @media (max-width: 768px) {
   nav {
