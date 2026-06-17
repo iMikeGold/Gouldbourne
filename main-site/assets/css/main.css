@@ -313,14 +313,18 @@ Always visible, no conflicts, 3x loop
   transition: color 0.2s ease !important;
 }
 .client-item a:hover { color: var(--gold-bright) !important; }
+/* FIX LOGO SIZING — NO CUT, NO SMALL FROM EMPTY SPACE */
 .client-logo {
-  height: 32px !important;
-  width: auto !important;
-  max-width: 180px !important;
-  object-fit: contain !important;
-  display: block !important;
-  opacity: 0.9 !important;
-  transition: opacity 0.2s ease !important;
+  height: 32px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+  /* Zoom 15% — removes empty space around logos without cutting them */
+  transform: scale(1.15);
 }
 .client-item a:hover .client-logo { opacity: 1 !important; }
 
