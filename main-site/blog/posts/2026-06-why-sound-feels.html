@@ -44,20 +44,20 @@
   
 </main>
 
-  <!-- Legal Links -->
-<div class="container" style="padding: 1rem 0; text-align: center; font-size: 0.85rem; border-top: 1px solid var(--border-light);">
-  <a href="../legal/privacy.html" style="margin: 0 0.75rem;">Privacy Policy</a>
-  <a href="../legal/terms.html" style="margin: 0 0.75rem;">Terms of Use</a>
+<div class="logo-banner">
+  <div class="logo-scroll" id="clientScroll"></div>
 </div>
-  
+
 <footer>
   <div class="container">
-    <p>© 2026 Micheal | Gouldbourne</p>
+    <p>© 2026 Micheal | Gouldbourne
+      <a href="../legal/privacy.html">Privacy Policy</a> |
+      <a href="../legal/terms.html">Terms of Use</a>
+    </p>
   </div>
 </footer>
 
-  <script>
-// --- Mobile Menu Toggle ---
+<script>
 function toggleMenu() {
   const btn = document.querySelector('.menu-toggle');
   const menu = document.getElementById('mainMenu');
@@ -65,62 +65,137 @@ function toggleMenu() {
   menu.classList.toggle('active');
 }
 
-// --- Scroll‑brightening effect ---
 window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- FIXED CLIENT CAROUSEL: Auto + Drag/Swipe ---
-const banner = document.querySelector('.logo-banner');
-const scroll = document.querySelector('.logo-scroll');
-if (banner && scroll) {
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+// --- CAROUSEL LOGIC — FINAL FIX: NO CLICK NEEDED TO RESTART ---
+let scrollPos = 0;
+const autoSpeed = 0.55; // Perfect speed
+let isDragging = false;
+let startX, startPos;
+let contentWidth = 0;
+let animationFrame;
 
-  // Mouse events
-  banner.addEventListener('mousedown', (e) => {
-    isDown = true;
-    banner.classList.add('dragging');
-    startX = e.pageX - banner.offsetLeft;
-    scrollLeft = scroll.offsetLeft;
-    e.preventDefault(); // stop text selection
-  });
-  banner.addEventListener('mouseup', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
+async function loadClients() {
+  try {
+    const res = await fetch('../registry/clients.json');
+    const data = await res.json();
+    const clients = data.clients;
+    const container = document.getElementById('clientScroll');
+    let html = '';
+
+    // 3 copies = seamless infinite loop
+    for (let loop = 0; loop < 3; loop++) {
+      clients.forEach(client => {
+        const content = client.logo
+          ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
+          : `${client.name}`;
+        html += `<div class="client-item"><a href="${client.url}" target="_blank" rel="noopener noreferrer">${content}</a></div>`;
+      });
+    }
+
+    container.innerHTML = html;
+    contentWidth = container.scrollWidth / 3;
+    scrollPos = -contentWidth / 2; // start centered
+    initCarousel();
+  } catch (err) {
+    console.error('Error loading clients:', err);
+  }
+}
+
+function initCarousel() {
+  const banner = document.querySelector('.logo-banner');
+  const scroll = document.querySelector('.logo-scroll');
+  if (!banner || !scroll) return;
+
+  // --- HOVER TO STOP / RESUME — NOW 100% RELIABLE ---
+  banner.addEventListener('mouseenter', () => {
+    cancelAnimationFrame(animationFrame); // Hard stop
   });
   banner.addEventListener('mouseleave', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
+    if (!isDragging) { // Only restart if NOT dragging
+      startAutoScroll(); // Forces fresh start every time
+    }
   });
-  banner.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
+  
+  // --- MOUSE DRAG EVENTS ---
+  banner.addEventListener('mousedown', e => {
+    isDragging = true;
+    banner.classList.add('dragging');
+    startX = e.clientX;
+    startPos = scrollPos;
+    cancelAnimationFrame(animationFrame);
     e.preventDefault();
-    const x = e.pageX - banner.offsetLeft;
-    const walk = (x - startX) * 1.5; // sensitivity
-    scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
   });
 
-  // Touch events (mobile swipe)
-  banner.addEventListener('touchstart', (e) => {
-    isDown = true;
-    banner.classList.add('dragging');
-    startX = e.touches[0].pageX - banner.offsetLeft;
-    scrollLeft = scroll.offsetLeft;
-  }, { passive: true });
-  banner.addEventListener('touchend', () => {
-    isDown = false;
-    banner.classList.remove('dragging');
+  banner.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const delta = (e.clientX - startX) * 1.3;
+    scrollPos = startPos + delta;
+    wrapPosition();
+    updateTransform();
   });
-  banner.addEventListener('touchmove', (e) => {
-    if (!isDown) return;
-    const x = e.touches[0].pageX - banner.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    scroll.style.transform = `translateX(${scrollLeft + walk}px)`;
+
+  banner.addEventListener('mouseup', endDrag);
+
+  // --- TOUCH EVENTS — PERFECT AS IS ---
+  banner.addEventListener('touchstart', e => {
+    isDragging = true;
+    banner.classList.add('dragging');
+    startX = e.touches[0].clientX;
+    startPos = scrollPos;
+    cancelAnimationFrame(animationFrame);
   }, { passive: true });
+
+  banner.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const delta = (e.touches[0].clientX - startX) * 1.3;
+    scrollPos = startPos + delta;
+    wrapPosition();
+    updateTransform();
+  }, { passive: true });
+
+  banner.addEventListener('touchend', endDrag);
+  banner.addEventListener('touchcancel', endDrag);
+
+  // --- HELPERS ---
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    banner.classList.remove('dragging');
+    startAutoScroll(); // Restart after drag
+  }
+
+  function wrapPosition() {
+    if (scrollPos > 0) scrollPos -= contentWidth;
+    if (scrollPos < -contentWidth) scrollPos += contentWidth;
+  }
+
+  function updateTransform() {
+    scroll.style.transform = `translateX(${scrollPos}px)`;
+  }
+
+  function startAutoScroll() {
+    // Always cancels first to prevent double-animation
+    cancelAnimationFrame(animationFrame);
+    function animate() {
+      if (!isDragging) {
+        scrollPos -= autoSpeed;
+        wrapPosition();
+        updateTransform();
+      }
+      animationFrame = requestAnimationFrame(animate);
+    }
+    animate();
+  }
+
+  // Start immediately on load
+  startAutoScroll();
 }
+
+loadClients();
 </script>
-  
+
 </body>
 </html>
