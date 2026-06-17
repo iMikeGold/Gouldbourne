@@ -61,9 +61,9 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- CAROUSEL LOGIC — FINAL FIX: NO CLICK NEEDED TO RESTART ---
+// --- CAROUSEL LOGIC — FINAL + RANDOM START + FIXED PATH ---
 let scrollPos = 0;
-const autoSpeed = 0.55; // Perfect speed
+const autoSpeed = 0.55;
 let isDragging = false;
 let startX, startPos;
 let contentWidth = 0;
@@ -71,17 +71,18 @@ let animationFrame;
 
 async function loadClients() {
   try {
-    const res = await fetch('../registry/clients.json');
+    // ✅ FIXED PATH: two levels up from /work/projects/
+    const res = await fetch('../../registry/clients.json');
     const data = await res.json();
     const clients = data.clients;
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // 3 copies = seamless infinite loop
+    // 3 copies = safe for ANY start position
     for (let loop = 0; loop < 3; loop++) {
       clients.forEach(client => {
         const content = client.logo
-          ? `<img src="../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
+          ? `<img src="../../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
           : `${client.name}`;
         html += `<div class="client-item"><a href="${client.url}" target="_blank" rel="noopener noreferrer">${content}</a></div>`;
       });
@@ -89,7 +90,11 @@ async function loadClients() {
 
     container.innerHTML = html;
     contentWidth = container.scrollWidth / 3;
-    scrollPos = -contentWidth / 2; // start centered
+
+    // RANDOM START POSITION — NO BLANKS, WORKS PERFECTLY
+    const randomOffset = Math.random() * contentWidth;
+    scrollPos = -randomOffset;
+
     initCarousel();
   } catch (err) {
     console.error('Error loading clients:', err);
@@ -101,13 +106,13 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  // --- HOVER TO STOP / RESUME — NOW 100% RELIABLE ---
+  // --- HOVER TO STOP / RESUME — 100% RELIABLE ---
   banner.addEventListener('mouseenter', () => {
-    cancelAnimationFrame(animationFrame); // Hard stop
+    cancelAnimationFrame(animationFrame);
   });
   banner.addEventListener('mouseleave', () => {
-    if (!isDragging) { // Only restart if NOT dragging
-      startAutoScroll(); // Forces fresh start every time
+    if (!isDragging) {
+      startAutoScroll();
     }
   });
   
@@ -131,7 +136,7 @@ function initCarousel() {
 
   banner.addEventListener('mouseup', endDrag);
 
-  // --- TOUCH EVENTS — PERFECT AS IS ---
+  // --- TOUCH EVENTS ---
   banner.addEventListener('touchstart', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -156,10 +161,11 @@ function initCarousel() {
     if (!isDragging) return;
     isDragging = false;
     banner.classList.remove('dragging');
-    startAutoScroll(); // Restart after drag
+    startAutoScroll();
   }
 
   function wrapPosition() {
+    // Keeps it looping forever, no gaps, no matter start position
     if (scrollPos > 0) scrollPos -= contentWidth;
     if (scrollPos < -contentWidth) scrollPos += contentWidth;
   }
@@ -169,7 +175,6 @@ function initCarousel() {
   }
 
   function startAutoScroll() {
-    // Always cancels first to prevent double-animation
     cancelAnimationFrame(animationFrame);
     function animate() {
       if (!isDragging) {
@@ -182,7 +187,6 @@ function initCarousel() {
     animate();
   }
 
-  // Start immediately on load
   startAutoScroll();
 }
 
