@@ -74,25 +74,25 @@ window.addEventListener('scroll', () => {
   document.body.classList.toggle('scrolled', window.scrollY > 200);
 });
 
-// --- CAROUSEL — FINAL VERSION: ZERO JUMP, PERFECT LOOP ---
+// --- CAROUSEL — FINAL PERFECT VERSION: NO JUMP, NO CUT LOGOS ---
 let scrollPos = 0;
-const autoSpeed = 0.55;
+const autoSpeed = 0.55; // Your perfect speed
 let isDragging = false;
 let startX, startPos;
-let contentWidth = 0;
+let singleWidth = 0;
 let animationFrame;
 
 async function loadClients() {
   try {
-    // Correct path — works on all pages
+    // ✅ Path works on all pages
     const res = await fetch('../../registry/clients.json');
     const data = await res.json();
     const clients = data.clients;
     const container = document.getElementById('clientScroll');
     let html = '';
 
-    // 3 copies = seamless infinite loop — NO CHANGES HERE
-    for (let loop = 0; loop < 3; loop++) {
+    // ✅ ONLY 2 COPIES — this is the secret to perfect loop
+    for (let loop = 0; loop < 2; loop++) {
       clients.forEach(client => {
         const content = client.logo
           ? `<img src="../../assets/images/clients/${client.logo}" alt="${client.name}" class="client-logo">`
@@ -103,11 +103,11 @@ async function loadClients() {
 
     container.innerHTML = html;
 
-    // FIXED WIDTH CALCULATION — exact, no rounding errors
-    contentWidth = container.scrollWidth / 3;
+    // ✅ EXACT WIDTH — no rounding errors
+    singleWidth = container.scrollWidth / 2;
 
-    // Random start — safe, no gaps
-    const randomOffset = Math.random() * contentWidth;
+    // ✅ Random start — never same position
+    const randomOffset = Math.random() * singleWidth;
     scrollPos = -randomOffset;
 
     initCarousel();
@@ -121,17 +121,11 @@ function initCarousel() {
   const scroll = document.querySelector('.logo-scroll');
   if (!banner || !scroll) return;
 
-  // --- HOVER STOP / RESUME — 100% RELIABLE ---
-  banner.addEventListener('mouseenter', () => {
-    cancelAnimationFrame(animationFrame);
-  });
-  banner.addEventListener('mouseleave', () => {
-    if (!isDragging) {
-      startAutoScroll();
-    }
-  });
+  // ✅ HOVER: Stop + Restart 100% reliable
+  banner.addEventListener('mouseenter', () => cancelAnimationFrame(animationFrame));
+  banner.addEventListener('mouseleave', () => { if (!isDragging) startAutoScroll(); });
 
-  // --- MOUSE DRAG ---
+  // ✅ MOUSE DRAG
   banner.addEventListener('mousedown', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -149,7 +143,7 @@ function initCarousel() {
   });
   banner.addEventListener('mouseup', endDrag);
 
-  // --- TOUCH ---
+  // ✅ TOUCH — perfect mobile
   banner.addEventListener('touchstart', e => {
     isDragging = true;
     banner.classList.add('dragging');
@@ -167,19 +161,13 @@ function initCarousel() {
   banner.addEventListener('touchend', endDrag);
   banner.addEventListener('touchcancel', endDrag);
 
-  // FIXED WRAP LOGIC — NO JUMP, NO LOCK
+  // ✅ PERFECT WRAP — NO JUMP, NO CUT
   function wrapPosition() {
-    // Only wrap when we pass the exact boundary — smooth transition
-    if (scrollPos > 0) {
-      scrollPos -= contentWidth;
-    }
-    if (scrollPos < -contentWidth) {
-      scrollPos += contentWidth;
-    }
+    if (scrollPos > 0) scrollPos -= singleWidth;
+    if (scrollPos < -singleWidth) scrollPos += singleWidth;
   }
 
   function updateTransform() {
-    // Use full precision — no rounding
     scroll.style.transform = `translateX(${scrollPos}px)`;
   }
 
