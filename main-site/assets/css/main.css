@@ -1,5 +1,5 @@
 /* ==============================================
-GOULDBOURNE.CO.UK | VERSION 2.1.0 — GOLDEN GRADIENT
+GOULDBOURNE.CO.UK | VERSION 2.5.0 — GOLDEN GRADIENT
 All original standards kept, only colours & layout improved
 ============================================== */
 :root {
@@ -161,7 +161,7 @@ nav ul {
     padding: 0.8rem;
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    opacity: 0.87;
+    opacity: 0.33;
   }
 
   nav ul.active { display: flex; }
