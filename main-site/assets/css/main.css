@@ -245,7 +245,7 @@ Always visible, no conflicts, 3x loop
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.55);
   border-top: 1px solid var(--gold-main);
   border-bottom: 1px solid var(--gold-main);
   padding: 0.9rem 0;
