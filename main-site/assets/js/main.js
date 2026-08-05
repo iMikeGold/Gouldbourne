@@ -139,11 +139,17 @@ function applySharedFixes() {
   const style = document.createElement('style');
   style.textContent = `
     footer p { color: var(--gold-main) !important; }
-    footer a { color: var(--gold-bright) !important; font-weight: 600; }
+    footer a {
+      color: var(--emerald-bright) !important;
+      font-weight: 600;
+      text-decoration: none !important;
+      border-bottom: 0 !important;
+    }
     footer a:hover, footer a:focus, footer a:active {
-      color: #fff0a8 !important;
-      text-decoration: underline;
-      text-underline-offset: .22em;
+      color: var(--gold-bright) !important;
+      text-decoration: none !important;
+      border-bottom: 0 !important;
+      outline: none;
     }
     .video-link-card {
       display: block;
@@ -163,14 +169,30 @@ function applySharedFixes() {
     }
     @media (max-width: 768px) {
       header { overflow: visible; }
+      .menu-toggle { color: var(--emerald-bright) !important; }
+      .menu-toggle:hover, .menu-toggle:focus, .menu-toggle.active {
+        color: var(--gold-bright) !important;
+        border-color: var(--gold-main) !important;
+        box-shadow: 0 0 0 1px var(--gold-main) !important;
+      }
       nav ul {
         width: min(246px, calc(100vw - 3rem)) !important;
         background: rgba(35, 35, 33, .97) !important;
         border-color: var(--gold-main) !important;
         padding: .9rem 1rem !important;
       }
-      nav ul a { color: #ddd8c9 !important; display:block; padding:.35rem .15rem; }
-      nav ul a:hover, nav ul a:focus, nav ul a.active { color: var(--gold-bright) !important; }
+      nav ul a {
+        color: var(--emerald-bright) !important;
+        display:block;
+        padding:.35rem .15rem;
+        text-decoration:none !important;
+        border-bottom:0 !important;
+      }
+      nav ul a:hover, nav ul a:focus, nav ul a.active {
+        color: var(--gold-bright) !important;
+        text-decoration:none !important;
+        border-bottom:0 !important;
+      }
     }
   `;
   document.head.appendChild(style);
