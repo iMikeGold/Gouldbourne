@@ -2,179 +2,178 @@
   "clients": [
     {
       "name": "Mars",
-      "logo": "mars.png",
+      "logo": "mars.webp",
       "url": "https://youtu.be/0WSuxDHcnf4?si=PWlksDupJ0xq4z-3"
     },
     {
       "name": "Houston Texans",
-      "logo": "houston-texans.png",
+      "logo": "houston-texans.webp",
       "url": "https://youtu.be/H0jTge4APYs?si=KdkGSPb7f8tU_yC5"
     },
     {
       "name": "NFL",
-      "logo": "nfl.png",
+      "logo": "nfl.webp",
       "url": "https://youtu.be/RFw8Ypxp2zQ?si=P7GreL4oAVnK9cnK"
     },
     {
       "name": "Philadelphia Eagles",
-      "logo": "philadelphia-eagles.png",
+      "logo": "philadelphia-eagles.webp",
       "url": "https://youtu.be/3R-MfF6ysZs?si=kYu461AlczSgci5N"
     },
     {
       "name": "Relentless Energy",
-      "logo": "relentless-energy.jpeg",
+      "logo": "relentless-energy.webp",
       "url": "https://youtu.be/SIj0kv8YV5Y?si=uIlVCNhfGm8iFr5d"
     },
     {
       "name": "Lewisham Council",
-      "logo": "lewisham-council.png",
+      "logo": "lewisham-council.webp",
       "url": "#"
     },
     {
       "name": "Bromley Council",
-      "logo": "bromley-council.png",
+      "logo": "bromley-council.webp",
       "url": "#"
     },
     {
       "name": "Kingston Council",
-      "logo": "kingston-council.png",
+      "logo": "kingston-council.webp",
       "url": "#"
     },
     {
       "name": "Lambeth Council",
-      "logo": "lambeth-council.png",
+      "logo": "lambeth-council.webp",
       "url": "#"
     },
     {
       "name": "Merton Council",
-      "logo": "merton-council.png",
+      "logo": "merton-council.webp",
       "url": "#"
     },
     {
       "name": "Croydon Council",
-      "logo": "croydon-council.png",
+      "logo": "croydon-council.webp",
       "url": "https://youtu.be/bmTGe9oDr4c?si=FXC7dOKvIPdgWMtS"
     },
     {
       "name": "Richmond Council",
-      "logo": "richmond-council.png",
+      "logo": "richmond-council.webp",
       "url": "#"
     },
     {
       "name": "Southwark Council",
-      "logo": "southwark-council.png",
+      "logo": "southwark-council.webp",
       "url": "#"
     },
     {
       "name": "Sutton Council",
-      "logo": "suttion-council.png",
+      "logo": "suttion-council.webp",
       "url": "#"
     },
     {
       "name": "Wandsworth Council",
-      "logo": "wandsworth-council.png",
+      "logo": "wandsworth-council.webp",
       "url": "#"
     },
     {
       "name": "Bristow",
-      "logo": "bristow-logo.png",
+      "logo": "bristow-logo.webp",
       "url": "https://youtu.be/OanbAm_4KvM?si=kQ3pRDbrTbXmUFoZ"
     },
     {
       "name": "Jeremy Lazarus",
-      "logo": "jeremy-lazarus.png",
+      "logo": "jeremy-lazarus.webp",
       "url": "https://www.youtube.com/@JeremyLazarus"
     },
     {
       "name": "Audacy",
-      "logo": "audacy.png",
+      "logo": "audacy.webp",
       "url": "#"
     },
     {
       "name": "Thales",
-      "logo": "thales.png",
+      "logo": "thales.webp",
       "url": "https://youtu.be/OanbAm_4KvM?si=kQ3pRDbrTbXmUFoZ"
     },
     {
       "name": "Orb",
-      "logo": "orb.png",
+      "logo": "orb.webp",
       "url": "https://youtu.be/3GlBmy-Vxak?si=NHD8rGi-in71NOhc"
     },
     {
       "name": "Defected",
-      "logo": "defected.png",
+      "logo": "defected.webp",
       "url": "https://youtu.be/wYLqa7NwOt8?si=LRe7dEtw67BR0Nm9"
     },
     {
       "name": "Orbital",
-      "logo": "orbital-seeklogo.png",
+      "logo": "orbital-seeklogo.svg",
       "url": "https://youtu.be/hjZ_8f5CJLg?si=UlIFkylUpHE0fEOj"
     },
-     {
+    {
       "name": "2XU",
-      "logo": "2xu.png",
+      "logo": "2xu.webp",
       "url": "https://youtu.be/36WtEUKCctU?si=qPhzd8IHvtKNLykj"
     },
     {
       "name": "The Bill",
-      "logo": "the-bill.png",
+      "logo": "the-bill.webp",
       "url": "#"
     },
     {
       "name": "Croydon Council",
-      "logo": "croydon-council.png",
+      "logo": "croydon-council.webp",
       "url": "https://youtu.be/bmTGe9oDr4c?si=FXC7dOKvIPdgWMtS"
     },
-     {
+    {
       "name": "Jamiroquai",
-      "logo": "jamiroquai-logo.png",
+      "logo": "jamiroquai-logo.webp",
       "url": "https://youtu.be/4JkIs37a2JE?si=tXEwLgj239BaiZyO"
     },
-     {
+    {
       "name": "Chemical Brothers",
-      "logo": "chemical-brothers.png",
+      "logo": "chemical-brothers.webp",
       "url": "https://youtu.be/cHtoBqmRYfA?si=MCw6p5jaqkSLtDqW"
     },
     {
       "name": "Monster",
-      "logo": "monster-energy.png",
+      "logo": "monster-energy.webp",
       "url": "#"
     },
     {
       "name": "Sony Ericsson",
-      "logo": "sony-ericsson.png",
+      "logo": "sony-ericsson.webp",
       "url": "https://www.youtube.com/watch?v=fEp4RnV4TK0"
     },
     {
       "name": "Sony PlayStation",
-      "logo": "sony-playstation.png",
+      "logo": "sony-playstation.webp",
       "url": "https://youtu.be/n2usGeet2Gk?si=2bSM79XuduJqGvTe"
     },
     {
       "name": "VW",
-      "logo": "vw-logo.png",
+      "logo": "vw-logo.webp",
       "url": "https://youtu.be/M1yI4TFooJk?si=4AN_rzv4m2lWZ9Oh"
     },
     {
       "name": "UEFA Euros",
-      "logo": "uefa-euro.png",
+      "logo": "uefa-euro.webp",
       "url": "https://youtu.be/PZN_ybRyY9A?si=QqPxnhJFur0ZHh0P"
     },
     {
       "name": "Three Mobile",
-      "logo": "3-mobile.png",
+      "logo": "3-mobile.webp",
       "url": "#"
     },
     {
       "name": "Halifax",
-      "logo": "halifax.png",
+      "logo": "halifax.webp",
       "url": "https://youtu.be/aX_XaLmCIS0?si=qObgNgS37w4L9Nk0K"
     },
     {
       "name": "MTV",
-      "logo": "mtv-black.png",
+      "logo": "mtv-black.webp",
       "url": "https://youtu.be/SlNrHsmoWiQ?si=sjxiY3rwgPimtIV4"
     }
- 
   ]
 }
