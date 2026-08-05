@@ -107,7 +107,7 @@
     },
     {
       "name": "Orbital",
-      "logo": "orbital-seeklogo.svg",
+      "logo": "orbital.webp",
       "url": "https://youtu.be/hjZ_8f5CJLg?si=UlIFkylUpHE0fEOj"
     },
     {
@@ -163,6 +163,11 @@
     {
       "name": "Three Mobile",
       "logo": "3-mobile.webp",
+      "url": "#"
+    },
+    {
+      "name": "Orange Mobile",
+      "logo": "orange-mobile.svg",
       "url": "#"
     },
     {
