@@ -27,6 +27,20 @@ function assetPrefix() {
   return depth > 0 ? '../'.repeat(depth) : '';
 }
 
+function waitForCarouselImages(container) {
+  const images = Array.from(container.querySelectorAll('img'));
+  return Promise.all(images.map(image => {
+    if (image.complete && image.naturalWidth > 0) {
+      return image.decode ? image.decode().catch(() => {}) : Promise.resolve();
+    }
+
+    return new Promise(resolve => {
+      image.addEventListener('load', resolve, { once: true });
+      image.addEventListener('error', resolve, { once: true });
+    });
+  }));
+}
+
 async function loadClients() {
   try {
     const prefix = assetPrefix();
@@ -48,8 +62,11 @@ async function loadClients() {
     }
 
     container.innerHTML = html;
+    await waitForCarouselImages(container);
+
     contentWidth = container.scrollWidth / 3;
-    scrollPos = -(Math.random() * contentWidth);
+    scrollPos = 0;
+    container.style.transform = 'translateX(0)';
     initCarousel();
   } catch (err) {
     console.error('Error loading clients:', err);
@@ -111,12 +128,12 @@ function initCarousel() {
   }
 
   function wrapPosition() {
-    if (scrollPos > 0) scrollPos -= contentWidth;
-    if (scrollPos < -contentWidth) scrollPos += contentWidth;
+    while (scrollPos > 0) scrollPos -= contentWidth;
+    while (scrollPos <= -contentWidth) scrollPos += contentWidth;
   }
 
   function updateTransform() {
-    scroll.style.transform = `translateX(${scrollPos}px)`;
+    scroll.style.transform = `translate3d(${scrollPos}px, 0, 0)`;
   }
 
   function startAutoScroll() {
